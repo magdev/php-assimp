@@ -68,7 +68,7 @@ class CommandExecutor
 		$cmd = $this->getBinary().' '.$verb->getCommand();
 		$results = array();
 		$exitCode = null;
-		exec($cmd, &$results, &$exitCode);
+		exec($cmd, $results, $exitCode);
 		
 		$verb->setExitCode($exitCode)
 			->setResults($results);
