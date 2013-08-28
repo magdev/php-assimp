@@ -50,7 +50,8 @@ class VersionValidator
 	 */
 	public function validate($version)
 	{
-		$result = CommandExecutor::execute(new VersionVerb());
+		$exec = new CommandExecutor();
+		$result = $exec->execute(new VersionVerb());
 		return version_compare($result[0], $version, '>=');
 	}
 }

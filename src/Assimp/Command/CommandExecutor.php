@@ -41,7 +41,20 @@ use Assimp\Command\Verbs\VerbInterface;
 class CommandExecutor
 {
 	/** @var string */
-	private static $bin = null;
+	private $bin = null;
+	
+	
+	/**
+	 * Constructor
+	 *
+	 * @param string $bin
+	 */
+	public function __construct($bin = null)
+	{
+		if (is_string($bin)) {
+			$this->setBinary($bin);
+		}
+	}
 	
 	
 	/**
@@ -50,9 +63,9 @@ class CommandExecutor
 	 * @param VerbInterface $verb
 	 * @return boolean
 	 */
-	public static function execute(VerbInterface $verb)
+	public function execute(VerbInterface $verb)
 	{
-		$cmd = self::getBinary().' '.$verb->getCommand();
+		$cmd = $this->getBinary().' '.$verb->getCommand();
 		$results = array();
 		$exitCode = null;
 		exec($cmd, &$results, &$exitCode);
@@ -68,12 +81,12 @@ class CommandExecutor
 	 *
 	 * @return string
 	 */
-	public static function getBinary()
+	public function getBinary()
 	{
-		if (is_null(self::$bin)) {
-			self::setBinary('/usr/bin/assimp');
+		if (is_null($this->bin)) {
+			$this->setBinary('/usr/bin/assimp');
 		}
-		return self::$bin;
+		return $this->bin;
 	}
 	
 	
@@ -82,12 +95,14 @@ class CommandExecutor
 	 *
 	 * @param string $bin
 	 * @throws \InvalidArgumentException
+	 * @return \Assimp\Command\CommandExecutor
 	 */
-	public static function setBinary($bin)
+	public function setBinary($bin)
 	{
 		if (!is_file($bin) || is_executable($bin)) {
 			throw new \InvalidArgumentException('Binary file is not executable: '.$bin, ErrorCodes::FILE_NOT_EXECUTABLE);
 		}
-		self::$bin = $bin;
+		$this->bin = $bin;
+		return $this;
 	}
 }

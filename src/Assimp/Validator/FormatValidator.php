@@ -53,7 +53,8 @@ class FormatValidator
 		$verb = new KnowExtensionVerb();
 		$verb->setFormat($format);
 		
-		$result = CommandExecutor::execute($verb);
+		$exec = new CommandExecutor();
+		$result = $exec->execute($verb);
 		return $result[0];
 	}
 }
