@@ -83,9 +83,7 @@ class KnowExtensionVerb extends AbstractVerb
 	 */
 	protected function parseResults($results)
 	{
-		$line = trim($results[0]);
-		$matches = array();
-		return array(strstr($line, 'not known') == false ? true : false);
+		return array(strstr($results[0], 'not known') == false ? true : false);
 	}
 	
 }
