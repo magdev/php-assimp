@@ -13,5 +13,11 @@
     ],
     "autoload": {
         "psr-0": { "Assimp\\": "src/" }
-    }
+    },
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "git@bitbucket.org:magdev/php-assimp.git"
+        }
+    ]
 }
