@@ -49,10 +49,10 @@ class ListExtensionsVerb extends AbstractVerb
 	{
 		if (sizeof($results) === 1) {
 			$extensions = explode(';', $results[0]);
-			array_walk($extensions, function($ext, $index) {
-				$ext[$index] = trim(str_replace('*.', '', $ext[$index]));
-			});
-			return $extensions;
+			$cleanup = function($value) {
+				return str_replace('*.', '', $value);
+			};
+			return array_map($cleanup, $extensions);
 		}
 		return $results;
 	}
