@@ -18,9 +18,9 @@ Add it using [composer](http://getcomposer.org/) :
 
 ```php
 use Assimp\Command\CommandExecutor;
-use Assimp\Command\Verbs\ListExtensionsVerb;
+use Assimp\Command\Verbs\ListExtensionVerb;
 
-$verb = new ListExtensionsVerb();
+$verb = new ListExtensionVerb();
 $exec = new CommandExecutor('/path/to/assimp');
 $exec->execute($verb);
 print_r($verb);
