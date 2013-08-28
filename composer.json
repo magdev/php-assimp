@@ -12,7 +12,7 @@
         }
     ],
     "autoload": {
-        "psr-0": { "Assimp\\": "src/" }
+        "psr-0": { "Assimp": "src/" }
     },
     "repositories": [
         {
