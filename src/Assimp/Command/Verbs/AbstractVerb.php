@@ -125,7 +125,7 @@ abstract class AbstractVerb implements VerbInterface
 	 */
 	public function setResults(array $results)
 	{
-		$this->results = $results;
+		$this->results = $this->parseResults($results);
 		return $this;
 	}
 	
@@ -155,7 +155,7 @@ abstract class AbstractVerb implements VerbInterface
 	public function getResults()
 	{
 		if (sizeof($this->results)) {
-			return $this->parseResults($this->results);
+			return $this->results;
 		}
 		return null;
 	}
