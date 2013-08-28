@@ -32,7 +32,7 @@
 namespace Assimp\Command\Verbs;
 
 /**
- * Assimp Version Verb
+ * Assimp Know Extension Verb
  *
  * @author magdev
  */
@@ -76,6 +76,7 @@ class KnowExtensionVerb extends AbstractVerb
 	{
 		return rtrim($this->getName().' '.$this->getFormat());
 	}
+	
 	
 	/**
 	 * @see \Assimp\Command\Verbs\AbstractVerb::parseResults()
