@@ -47,7 +47,7 @@ class VersionVerb extends AbstractVerb
 	/**
 	 * @see \Assimp\Command\Verbs\AbstractVerb::parseResults()
 	 */
-	protected function parseResults($results)
+	protected function parseResults(array $results)
 	{
 		foreach ($results as $row) {
 			$matches = array();
@@ -57,7 +57,7 @@ class VersionVerb extends AbstractVerb
 				return array($matches[1]);
 			}
 		}
-		return $result;
+		return $results;
 	}
 	
 }
