@@ -85,7 +85,7 @@ class CommandExecutor
 	 */
 	public static function setBinary($bin)
 	{
-		if (!is_executable($bin)) {
+		if (!is_file($bin) || is_executable($bin)) {
 			throw new \InvalidArgumentException('Binary file is not executable: '.$bin, ErrorCodes::FILE_NOT_EXECUTABLE);
 		}
 		self::$bin = $bin;
