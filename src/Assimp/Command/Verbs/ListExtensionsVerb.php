@@ -48,7 +48,7 @@ class ListExtensionsVerb extends AbstractVerb
 	protected function parseResults(array $results)
 	{
 		if (sizeof($results) === 1) {
-			$extensions = explode(',', $results[0]);
+			$extensions = explode(';', $results[0]);
 			array_walk($extensions, function($ext, $index) {
 				$ext[$index] = trim(str_replace('*.', '', $ext[$index]));
 			});
