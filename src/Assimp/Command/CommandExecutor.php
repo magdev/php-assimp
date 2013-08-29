@@ -65,14 +65,20 @@ class CommandExecutor
 	 */
 	public function execute(VerbInterface $verb)
 	{
-		$cmd = $this->getBinary().' '.$verb->getCommand();
 		$results = array();
 		$exitCode = null;
-		exec($cmd, $results, $exitCode);
 		
-		$verb->setExitCode($exitCode)
-			->setResults($results);
-		return $exitCode == 0 ? true : false;
+		try {
+			$cmd = $this->getBinary().' '.$verb->getCommand();
+			exec($cmd, $results, $exitCode);
+			
+			return $verb->setExitCode($exitCode)
+				->setResults($results)
+				->isSuccess();
+		} catch (\Exception $e) {
+			return $verb->setException($e)
+				->isSuccess();
+		}
 	}
 	
 	

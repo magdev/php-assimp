@@ -173,6 +173,26 @@ abstract class AbstractVerb implements VerbInterface
 	
 	
 	/**
+	 * Set an Exception
+	 *
+	 * @param \Exception $e
+	 * @return \Assimp\Command\Verbs\AbstractVerb
+	 */
+	public function setException(\Exception $e)
+	{
+		$results = array(
+		    get_class($e).': '.$e->getMessage(),
+			'in '.$e->getFile().':'.$e->getLine(),
+		);
+		$results += $e->getTrace();
+		
+		$this->setExitCode($e->getCode())
+			->setResults($results);
+		return $this;
+	}
+	
+	
+	/**
 	 * Get the argument string
 	 *
 	 * @param boolean $asString
