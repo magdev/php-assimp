@@ -162,6 +162,17 @@ abstract class AbstractVerb implements VerbInterface
 	
 	
 	/**
+	 * Check if the process finished successful
+	 *
+	 * @return boolean
+	 */
+	public function isSuccess()
+	{
+		return !is_null($this->exitCode) && $this->exitCode == 0;
+	}
+	
+	
+	/**
 	 * Get the argument string
 	 *
 	 * @param boolean $asString
