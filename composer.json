@@ -2,7 +2,7 @@
     "minimum-stability": "dev",
     "name": "magdev/php-assimp",
     "description": "PHP Wrapper for Assimp - the Open Asset Import Library",
-    "keywords": ["3d", "wrapper", "assimp"],
+    "keywords": ["3d", "converter", "assimp", "cad"],
     "license": "MIT",
     "version": "0.0.1@dev",
     "authors": [
@@ -11,6 +11,9 @@
             "email": "magdev3.0@googlemail.com"
         }
     ],
+    "require": {
+        "php": ">=5.3.3"
+    }
     "autoload": {
         "psr-0": { "Assimp": "src/" }
     },
