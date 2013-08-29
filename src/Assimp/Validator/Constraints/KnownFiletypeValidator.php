@@ -28,30 +28,25 @@
  * @license   http://opensource.org/licenses/MIT MIT License
  */
 
+namespace Assimp\Validator\Constraints;
 
-namespace Assimp\Validator;
-
+use Symfony\Component\Validator\Constraint;
+use Symfony\Component\Validator\ConstraintValidator;
+use Assimp\Command\Verbs\KnowExtensionVerb;
 use Assimp\Command\CommandExecutor;
-use Assimp\Command\Verbs\VersionVerb;
 
-
-/**
- * Validate the assimp version
- *
- * @author magdev
- */
-class VersionValidator
+class KnownFiletypeValidator extends ConstraintValidator
 {
-	/**
-	 * Validate a version
-	 *
-	 * @param string $version
-	 * @return boolean
-	 */
-	public function validate($version)
-	{
-		$exec = new CommandExecutor();
-		$result = $exec->execute(new VersionVerb());
-		return version_compare($result[0], $version, '>=');
-	}
+	public function validate($value, Constraint $constraint)
+    {
+    	$verb = new KnowExtensionVerb();
+    	$verb->setFormat($value);
+    	
+    	$exec = new CommandExecutor();
+    	$exec->execute($verb);
+    	
+        if (!$verb->isSuccess()) {
+            $this->context->addViolation($constraint->message, array('%ext%' => $value));
+        }
+    }
 }

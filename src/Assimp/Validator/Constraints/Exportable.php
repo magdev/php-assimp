@@ -28,33 +28,11 @@
  * @license   http://opensource.org/licenses/MIT MIT License
  */
 
+namespace Assimp\Validator\Constraints;
 
-namespace Assimp\Validator;
+use Symfony\Component\Validator\Constraint;
 
-use Assimp\Command\Verbs\KnowExtensionVerb;
-use Assimp\Command\CommandExecutor;
-
-
-/**
- * Validate if a format is known by assimp
- *
- * @author magdev
- */
-class FormatValidator
+class Exportable extends Constraint
 {
-	/**
-	 * Validate a format string
-	 *
-	 * @param string $format
-	 * @return boolean
-	 */
-	public function validate($format)
-	{
-		$verb = new KnowExtensionVerb();
-		$verb->setFormat($format);
-		
-		$exec = new CommandExecutor();
-		$result = $exec->execute($verb);
-		return $result[0];
-	}
+	public $message = 'The filetype %ext% is not available for export';
 }

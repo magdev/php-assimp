@@ -13,7 +13,10 @@
     ],
     "require": {
         "php": ">=5.3.3"
-    }
+    },
+    "suggest": {
+        "symfony/validator": "Perform validations using Assimp"
+    },
     "autoload": {
         "psr-0": { "Assimp": "src/" }
     },
