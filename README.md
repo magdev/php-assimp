@@ -14,6 +14,19 @@ Add it using [composer](http://getcomposer.org/) :
 }
 ```
 
+and until this package is registered at Packagist add the repository
+
+```json
+{
+    "repositories" : [{
+            "type" : "vcs",
+            "url" : "git@bitbucket.org:magdev/php-assimp.git"
+        }
+    ]
+}
+```
+
+
 ##Usage
 
 ```php
