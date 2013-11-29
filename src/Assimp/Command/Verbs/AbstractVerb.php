@@ -135,7 +135,7 @@ abstract class AbstractVerb implements VerbInterface
 	 */
 	public function setExitCode($exitCode)
 	{
-		$this->exitCode = $exitCode;
+		$this->exitCode = (int) $exitCode;
 		return $this;
 	}
 	
@@ -168,7 +168,7 @@ abstract class AbstractVerb implements VerbInterface
 	 */
 	public function isSuccess()
 	{
-		return !is_null($this->exitCode) && $this->exitCode == 0;
+		return !is_null($this->exitCode) && $this->exitCode === 0;
 	}
 	
 	
