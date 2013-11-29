@@ -36,5 +36,5 @@ use Symfony\Component\Validator\Constraint;
 
 class Importable extends Constraint
 {
-	public $message = 'The filetype %ext% is not available for import';
+    public $message = 'The filetype %ext% is not available for import';
 }

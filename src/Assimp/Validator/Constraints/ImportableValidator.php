@@ -37,16 +37,16 @@ use Assimp\Command\Verbs\ListExtensionsVerb;
 
 class ImportableValidator extends ConstraintValidator
 {
-	public function validate($value, Constraint $constraint)
+    public function validate($value, Constraint $constraint)
     {
-    	$verb = new ListExtensionsVerb();
-    	$exec = new CommandExecutor();
-    	$exec->execute($verb);
-    	
+        $verb = new ListExtensionsVerb();
+        $exec = new CommandExecutor();
+        $exec->execute($verb);
+        
         if ($verb->isSuccess()) {
-        	if (!in_array($value, $verb->getResults())) {
-        		$this->context->addViolation($constraint->message, array('%ext%' => $value));
-        	}
+            if (!in_array($value, $verb->getResults())) {
+                $this->context->addViolation($constraint->message, array('%ext%' => $value));
+            }
         }
     }
 }

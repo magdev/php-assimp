@@ -38,145 +38,145 @@ namespace Assimp\Command\Verbs;
  */
 class ExportVerb extends AbstractVerb
 {
-	/** @var string */
-	protected $name = 'export';
-	
-	/** @var string */
-	protected $outputFile = null;
-	
-	/** @var array */
-	protected $parameters = array();
-	
-	
-	
-	/**
-	 * Set the output format
-	 *
-	 * @param string $format
-	 * @return \Assimp\Command\Verbs\ExportVerb
-	 */
-	public function setFormat($format)
-	{
-		$this->setArgument('format', $format);
-		return $this;
-	}
-	
-	
-	/**
-	 * Get the output format
-	 *
-	 * @return string
-	 */
-	public function getFormat()
-	{
-		return $this->getArgument('format');
-	}
-	
-	
-	/**
-	 * Set the output file
-	 *
-	 * @param string $file
-	 * @return \Assimp\Command\Verbs\ExportVerb
-	 */
-	public function setOutputFile($file)
-	{
-		$this->outputFile = $file;
-		return $this;
-	}
-	
-	
-	/**
-	 * Get the output file
-	 *
-	 * @return string
-	 */
-	public function getOutputFile()
-	{
-		return $this->outputFile;
-	}
-	
-	
-	/**
-	 * Set multiple parameters
-	 *
-	 * @param array $params
-	 * @return \Assimp\Command\Verbs\ExportVerb
-	 */
-	public function setParameters(array $params)
-	{
-		foreach ($params as $name => $value) {
-			$this->setParameter($name, $value);
-		}
-		return $this;
-	}
-	
-	
-	/**
-	 * Get all parameters
-	 *
-	 * @param boolean $asString
-	 * @return string|array
-	 */
-	public function getParameters($asString = false)
-	{
-		if ($asString) {
-			$params = '';
-			foreach ($this->parameters as $name => $value) {
-				$params .= '--'.$name.'='.$value;
-			}
-			return $params;
-		}
-		return $this->parameters;
-	}
-	
-	
-	/**
-	 * Set a specific parameter
-	 *
-	 * @param string $name
-	 * @param mixed $value
-	 * @return \Assimp\Command\Verbs\ExportVerb
-	 */
-	public function setParameter($name, $value)
-	{
-		$this->parameters[$name] = $value;
-		return $this;
-	}
-	
-	
-	/**
-	 * Get a specific parameter
-	 *
-	 * @param string $name
-	 * @return mixed
-	 */
-	public function getParameter($name)
-	{
-		if ($this->hasParameter($name)) {
-			return $this->parameters[$name];
-		}
-		return null;
-	}
-	
-	
-	/**
-	 * Check if a specific parameter is set
-	 *
-	 * @param string $name
-	 * @return boolean
-	 */
-	public function hasParameter($name)
-	{
-		return array_key_exists($name, $this->parameters);
-	}
-	
-	
-	/**
-	 * @see \Assimp\Command\Verbs\AbstractVerb::getCommand()
-	 */
-	public function getCommand()
-	{
-		return rtrim($this->getName().' '.$this->getFile().' '.$this->getOutputFile().' '.$this->getArguments(true).' '.$this->getParameters(true));
-	}
+    /** @var string */
+    protected $name = 'export';
+    
+    /** @var string */
+    protected $outputFile = null;
+    
+    /** @var array */
+    protected $parameters = array();
+    
+    
+    
+    /**
+     * Set the output format
+     *
+     * @param string $format
+     * @return \Assimp\Command\Verbs\ExportVerb
+     */
+    public function setFormat($format)
+    {
+        $this->setArgument('format', $format);
+        return $this;
+    }
+    
+    
+    /**
+     * Get the output format
+     *
+     * @return string
+     */
+    public function getFormat()
+    {
+        return $this->getArgument('format');
+    }
+    
+    
+    /**
+     * Set the output file
+     *
+     * @param string $file
+     * @return \Assimp\Command\Verbs\ExportVerb
+     */
+    public function setOutputFile($file)
+    {
+        $this->outputFile = $file;
+        return $this;
+    }
+    
+    
+    /**
+     * Get the output file
+     *
+     * @return string
+     */
+    public function getOutputFile()
+    {
+        return $this->outputFile;
+    }
+    
+    
+    /**
+     * Set multiple parameters
+     *
+     * @param array $params
+     * @return \Assimp\Command\Verbs\ExportVerb
+     */
+    public function setParameters(array $params)
+    {
+        foreach ($params as $name => $value) {
+            $this->setParameter($name, $value);
+        }
+        return $this;
+    }
+    
+    
+    /**
+     * Get all parameters
+     *
+     * @param boolean $asString
+     * @return string|array
+     */
+    public function getParameters($asString = false)
+    {
+        if ($asString) {
+            $params = '';
+            foreach ($this->parameters as $name => $value) {
+                $params .= '--'.$name.'='.$value;
+            }
+            return $params;
+        }
+        return $this->parameters;
+    }
+    
+    
+    /**
+     * Set a specific parameter
+     *
+     * @param string $name
+     * @param mixed $value
+     * @return \Assimp\Command\Verbs\ExportVerb
+     */
+    public function setParameter($name, $value)
+    {
+        $this->parameters[$name] = $value;
+        return $this;
+    }
+    
+    
+    /**
+     * Get a specific parameter
+     *
+     * @param string $name
+     * @return mixed
+     */
+    public function getParameter($name)
+    {
+        if ($this->hasParameter($name)) {
+            return $this->parameters[$name];
+        }
+        return null;
+    }
+    
+    
+    /**
+     * Check if a specific parameter is set
+     *
+     * @param string $name
+     * @return boolean
+     */
+    public function hasParameter($name)
+    {
+        return array_key_exists($name, $this->parameters);
+    }
+    
+    
+    /**
+     * @see \Assimp\Command\Verbs\AbstractVerb::getCommand()
+     */
+    public function getCommand()
+    {
+        return rtrim($this->getName().' '.$this->getFile().' '.$this->getOutputFile().' '.$this->getArguments(true).' '.$this->getParameters(true));
+    }
 }

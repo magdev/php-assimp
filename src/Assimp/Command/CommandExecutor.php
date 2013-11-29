@@ -40,78 +40,78 @@ use Assimp\Command\Verbs\VerbInterface;
  */
 class CommandExecutor
 {
-	/** @var string */
-	private $bin = null;
-	
-	
-	/**
-	 * Constructor
-	 *
-	 * @param string $bin
-	 */
-	public function __construct($bin = null)
-	{
-		if (is_string($bin)) {
-			$this->setBinary($bin);
-		}
-	}
-	
-	
-	/**
-	 * Execute a command
-	 *
-	 * @param VerbInterface $verb
-	 * @return boolean
-	 */
-	public function execute(VerbInterface $verb)
-	{
-		$results = array();
-		$exitCode = null;
-		
-		try {
-			$cmd = $this->getBinary().' '.$verb->getCommand();
-			exec($cmd, $results, $exitCode);
-			
-			return $verb->setExitCode($exitCode)
-				->setResults($results)
-				->isSuccess();
-		} catch (\Exception $e) {
-			return $verb->setException($e)
-				->isSuccess();
-		}
-	}
-	
-	
-	/**
-	 * Get the path to the assimp binary
-	 *
-	 * @return string
-	 */
-	public function getBinary()
-	{
-		if (is_null($this->bin)) {
-			$this->setBinary('/usr/bin/assimp');
-		}
-		return $this->bin;
-	}
-	
-	
-	/**
-	 * Set the path to the assimp binary
-	 *
-	 * @param string $bin
-	 * @throws \InvalidArgumentException
-	 * @return \Assimp\Command\CommandExecutor
-	 */
-	public function setBinary($bin)
-	{
-		if (!is_file($bin)) {
-			throw new \InvalidArgumentException('Binary file not exists: '.$bin, ErrorCodes::FILE_NOT_FOUND);
-		}
-		if (!is_executable($bin)) {
-			throw new \InvalidArgumentException('Binary file is not executable: '.$bin, ErrorCodes::FILE_NOT_EXECUTABLE);
-		}
-		$this->bin = $bin;
-		return $this;
-	}
+    /** @var string */
+    private $bin = null;
+    
+    
+    /**
+     * Constructor
+     *
+     * @param string $bin
+     */
+    public function __construct($bin = null)
+    {
+        if (is_string($bin)) {
+            $this->setBinary($bin);
+        }
+    }
+    
+    
+    /**
+     * Execute a command
+     *
+     * @param VerbInterface $verb
+     * @return boolean
+     */
+    public function execute(VerbInterface $verb)
+    {
+        $results = array();
+        $exitCode = null;
+        
+        try {
+            $cmd = $this->getBinary().' '.$verb->getCommand();
+            exec($cmd, $results, $exitCode);
+            
+            return $verb->setExitCode($exitCode)
+                ->setResults($results)
+                ->isSuccess();
+        } catch (\Exception $e) {
+            return $verb->setException($e)
+                ->isSuccess();
+        }
+    }
+    
+    
+    /**
+     * Get the path to the assimp binary
+     *
+     * @return string
+     */
+    public function getBinary()
+    {
+        if (is_null($this->bin)) {
+            $this->setBinary('/usr/bin/assimp');
+        }
+        return $this->bin;
+    }
+    
+    
+    /**
+     * Set the path to the assimp binary
+     *
+     * @param string $bin
+     * @throws \InvalidArgumentException
+     * @return \Assimp\Command\CommandExecutor
+     */
+    public function setBinary($bin)
+    {
+        if (!is_file($bin)) {
+            throw new \InvalidArgumentException('Binary file not exists: '.$bin, ErrorCodes::FILE_NOT_FOUND);
+        }
+        if (!is_executable($bin)) {
+            throw new \InvalidArgumentException('Binary file is not executable: '.$bin, ErrorCodes::FILE_NOT_EXECUTABLE);
+        }
+        $this->bin = $bin;
+        return $this;
+    }
 }

@@ -40,24 +40,24 @@ namespace Assimp\Command\Verbs;
  */
 class VersionVerb extends AbstractVerb
 {
-	/** @var string */
-	protected $name = 'version';
-	
-	
-	/**
-	 * @see \Assimp\Command\Verbs\AbstractVerb::parseResults()
-	 */
-	protected function parseResults(array $results)
-	{
-		foreach ($results as $row) {
-			$matches = array();
-			if (preg_match('/Version ([\d.]+).*\(SVNREV ([\d]+)\)/', $row, $matches)) {
-				return array($matches[1], $matches[2]);
-			} else if (preg_match('/Version ([\d.]+).*/', $row, $matches)) {
-				return array($matches[1]);
-			}
-		}
-		return $results;
-	}
-	
+    /** @var string */
+    protected $name = 'version';
+    
+    
+    /**
+     * @see \Assimp\Command\Verbs\AbstractVerb::parseResults()
+     */
+    protected function parseResults(array $results)
+    {
+        foreach ($results as $row) {
+            $matches = array();
+            if (preg_match('/Version ([\d.]+).*\(SVNREV ([\d]+)\)/', $row, $matches)) {
+                return array($matches[1], $matches[2]);
+            } else if (preg_match('/Version ([\d.]+).*/', $row, $matches)) {
+                return array($matches[1]);
+            }
+        }
+        return $results;
+    }
+    
 }

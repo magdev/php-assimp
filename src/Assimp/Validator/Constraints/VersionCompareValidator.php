@@ -37,21 +37,21 @@ use Assimp\Command\Verbs\VersionVerb;
 
 class VersionCompareValidator extends ConstraintValidator
 {
-	public function validate($value, Constraint $constraint)
+    public function validate($value, Constraint $constraint)
     {
-    	$verb = new VersionVerb();
-    	$exec = new CommandExecutor();
-    	$exec->execute($verb);
-    	
+        $verb = new VersionVerb();
+        $exec = new CommandExecutor();
+        $exec->execute($verb);
+        
         if ($verb->isSuccess()) {
-        	$results = $verb->getResults();
-        	$version = $results[0];
-        	if (!version_compare($value, $version, '>=')) {
-        		$this->context->addViolation($constraint->message, array(
-        			'%version%' => $value,
-        			'%available_version%' => $version,
-        		));
-        	}
+            $results = $verb->getResults();
+            $version = $results[0];
+            if (!version_compare($value, $version, '>=')) {
+                $this->context->addViolation($constraint->message, array(
+                    '%version%' => $value,
+                    '%available_version%' => $version,
+                ));
+            }
         }
     }
 }

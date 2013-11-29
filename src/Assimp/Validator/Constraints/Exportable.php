@@ -34,5 +34,5 @@ use Symfony\Component\Validator\Constraint;
 
 class Exportable extends Constraint
 {
-	public $message = 'The filetype %ext% is not available for export';
+    public $message = 'The filetype %ext% is not available for export';
 }

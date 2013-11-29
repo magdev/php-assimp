@@ -38,31 +38,31 @@ namespace Assimp\Command\Verbs;
  */
 class InfoVerb extends AbstractVerb
 {
-	/** @var string */
-	protected $name = 'info';
-	
-	
-	/**
-	 * Set the raw argument
-	 *
-	 * @param boolean $raw
-	 * @return \Assimp\Command\Verbs\InfoVerb
-	 */
-	public function setRaw($raw)
-	{
-		$raw = (boolean) $raw;
-		$this->setArgument('raw', $raw);
-		return $this;
-	}
-	
-	
-	/**
-	 * Get the raw argument
-	 *
-	 * @return boolean
-	 */
-	public function getRaw()
-	{
-		return $this->getArgument('raw');
-	}
+    /** @var string */
+    protected $name = 'info';
+    
+    
+    /**
+     * Set the raw argument
+     *
+     * @param boolean $raw
+     * @return \Assimp\Command\Verbs\InfoVerb
+     */
+    public function setRaw($raw)
+    {
+        $raw = (boolean) $raw;
+        $this->setArgument('raw', $raw);
+        return $this;
+    }
+    
+    
+    /**
+     * Get the raw argument
+     *
+     * @return boolean
+     */
+    public function getRaw()
+    {
+        return $this->getArgument('raw');
+    }
 }

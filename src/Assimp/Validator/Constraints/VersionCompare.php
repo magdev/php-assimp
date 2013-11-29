@@ -34,5 +34,5 @@ use Symfony\Component\Validator\Constraint;
 
 class VersionCompare extends Constraint
 {
-	public $message = 'The version %version% is not compatible to %available_version%';
+    public $message = 'The version %version% is not compatible to %available_version%';
 }

@@ -38,52 +38,52 @@ namespace Assimp\Command\Verbs;
  */
 class KnowExtensionVerb extends AbstractVerb
 {
-	/** @var string */
-	protected $name = 'knowext';
-	
-	/** @var string */
-	protected $format = null;
-	
-	
-	/**
-	 * Set the format
-	 *
-	 * @param string $format
-	 * @return \Assimp\Command\Verbs\KnowExtensionVerb
-	 */
-	public function setFormat($format)
-	{
-		$this->format = $format;
-		return $this;
-	}
-	
-	
-	/**
-	 * Get the format
-	 *
-	 * @return string
-	 */
-	public function getFormat()
-	{
-		return $this->format;
-	}
-	
-	
-	/**
-	 * @see \Assimp\Command\Verbs\AbstractVerb::getCommand()
-	 */
-	public function getCommand()
-	{
-		return rtrim($this->getName().' '.$this->getFormat());
-	}
-	
-	
-	/**
-	 * @see \Assimp\Command\Verbs\AbstractVerb::parseResults()
-	 */
-	protected function parseResults($results)
-	{
-		return array(strstr($results[0], 'not known') == false ? true : false);
-	}
-	
+    /** @var string */
+    protected $name = 'knowext';
+    
+    /** @var string */
+    protected $format = null;
+    
+    
+    /**
+     * Set the format
+     *
+     * @param string $format
+     * @return \Assimp\Command\Verbs\KnowExtensionVerb
+     */
+    public function setFormat($format)
+    {
+        $this->format = $format;
+        return $this;
+    }
+    
+    
+    /**
+     * Get the format
+     *
+     * @return string
+     */
+    public function getFormat()
+    {
+        return $this->format;
+    }
+    
+    
+    /**
+     * @see \Assimp\Command\Verbs\AbstractVerb::getCommand()
+     */
+    public function getCommand()
+    {
+        return rtrim($this->getName().' '.$this->getFormat());
+    }
+    
+    
+    /**
+     * @see \Assimp\Command\Verbs\AbstractVerb::parseResults()
+     */
+    protected function parseResults($results)
+    {
+        return array(strstr($results[0], 'not known') == false ? true : false);
+    }
+    
 }

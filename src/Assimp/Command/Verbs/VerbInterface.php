@@ -39,44 +39,44 @@ namespace Assimp\Command\Verbs;
  */
 interface VerbInterface
 {
-	/**
-	 * Get the entire argument string
-	 *
-	 * @return string
-	 */
-	public function getCommand();
-	
-	
-	/**
-	 * Set the exit-code
-	 *
-	 * @param int $exitCode
-	 * @return \Assimp\Command\Verbs\VerbInterface
-	 */
-	public function setExitCode($exitCode);
-	
-	
-	/**
-	 * Get the exit-code
-	 *
-	 * @return int
-	 */
-	public function getExitCode();
-	
-	
-	/**
-	 * Set the results of the command
-	 *
-	 * @param array $results
-	 * @return \Assimp\Command\Verbs\VerbInterface
-	 */
-	public function setResults(array $results);
-	
-	
-	/**
-	 * Get the results
-	 *
-	 * @return array
-	 */
-	public function getResults();
+    /**
+     * Get the entire argument string
+     *
+     * @return string
+     */
+    public function getCommand();
+    
+    
+    /**
+     * Set the exit-code
+     *
+     * @param int $exitCode
+     * @return \Assimp\Command\Verbs\VerbInterface
+     */
+    public function setExitCode($exitCode);
+    
+    
+    /**
+     * Get the exit-code
+     *
+     * @return int
+     */
+    public function getExitCode();
+    
+    
+    /**
+     * Set the results of the command
+     *
+     * @param array $results
+     * @return \Assimp\Command\Verbs\VerbInterface
+     */
+    public function setResults(array $results);
+    
+    
+    /**
+     * Get the results
+     *
+     * @return array
+     */
+    public function getResults();
 }

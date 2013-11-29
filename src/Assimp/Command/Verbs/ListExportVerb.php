@@ -38,8 +38,8 @@ namespace Assimp\Command\Verbs;
  */
 class ListExportVerb extends AbstractVerb
 {
-	/** @var string */
-	protected $name = 'listexport';
-	
-	
+    /** @var string */
+    protected $name = 'listexport';
+    
+    
 }

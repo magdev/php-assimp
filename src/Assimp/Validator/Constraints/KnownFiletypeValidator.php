@@ -37,14 +37,14 @@ use Assimp\Command\CommandExecutor;
 
 class KnownFiletypeValidator extends ConstraintValidator
 {
-	public function validate($value, Constraint $constraint)
+    public function validate($value, Constraint $constraint)
     {
-    	$verb = new KnowExtensionVerb();
-    	$verb->setFormat($value);
-    	
-    	$exec = new CommandExecutor();
-    	$exec->execute($verb);
-    	
+        $verb = new KnowExtensionVerb();
+        $verb->setFormat($value);
+        
+        $exec = new CommandExecutor();
+        $exec->execute($verb);
+        
         if (!$verb->isSuccess()) {
             $this->context->addViolation($constraint->message, array('%ext%' => $value));
         }

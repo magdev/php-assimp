@@ -38,7 +38,7 @@ namespace Assimp\Command;
  */
 final class ErrorCodes
 {
-	const FILE_NOT_FOUND 		= 10;
-	const FILE_NOT_EXECUTABLE 	= 11;
-	
+    const FILE_NOT_FOUND         = 10;
+    const FILE_NOT_EXECUTABLE     = 11;
+    
 }

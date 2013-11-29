@@ -34,5 +34,5 @@ use Symfony\Component\Validator\Constraint;
 
 class KnownFiletype extends Constraint
 {
-	public $message = 'The file extension %ext% seems to be unknown';
+    public $message = 'The file extension %ext% seems to be unknown';
 }

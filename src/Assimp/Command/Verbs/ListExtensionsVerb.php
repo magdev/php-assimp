@@ -38,22 +38,22 @@ namespace Assimp\Command\Verbs;
  */
 class ListExtensionsVerb extends AbstractVerb
 {
-	/** @var string */
-	protected $name = 'listext';
-	
-	
-	/**
-	 * @see \Assimp\Command\Verbs\AbstractVerb::parseResults()
-	 */
-	protected function parseResults(array $results)
-	{
-		if (sizeof($results) === 1) {
-			$extensions = explode(';', $results[0]);
-			$cleanup = function($value) {
-				return str_replace('*.', '', $value);
-			};
-			return array_map($cleanup, $extensions);
-		}
-		return $results;
-	}
+    /** @var string */
+    protected $name = 'listext';
+    
+    
+    /**
+     * @see \Assimp\Command\Verbs\AbstractVerb::parseResults()
+     */
+    protected function parseResults(array $results)
+    {
+        if (sizeof($results) === 1) {
+            $extensions = explode(';', $results[0]);
+            $cleanup = function($value) {
+                return str_replace('*.', '', $value);
+            };
+            return array_map($cleanup, $extensions);
+        }
+        return $results;
+    }
 }
