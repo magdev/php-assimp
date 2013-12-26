@@ -83,15 +83,15 @@ class ExportVerb extends AbstractVerb
      */
     public function setOutputFile($file)
     {
-    	$dir = dirname($file);
-    	if (is_file($file)) {
+    $dir = dirname($file);
+    if (is_file($file)) {
             throw new \InvalidArgumentException('File exists: '.$file, ErrorCodes::FILE_EXISTS);
         }
         if (!is_dir($dir)) {
-        	throw new \InvalidArgumentException('Directory not exists: '.$dir, ErrorCodes::DIR_NOT_FOUND);
+        throw new \InvalidArgumentException('Directory not exists: '.$dir, ErrorCodes::DIR_NOT_FOUND);
         }
         if (!is_writable($dir)) {
-        	throw new \InvalidArgumentException('Directory not writeable: '.$dir, ErrorCodes::DIR_NOT_WRITEABLE);
+        throw new \InvalidArgumentException('Directory not writeable: '.$dir, ErrorCodes::DIR_NOT_WRITEABLE);
         }
         $this->outputFile = $file;
         return $this;
@@ -189,12 +189,12 @@ class ExportVerb extends AbstractVerb
      */
     public function getCommand()
     {
-    	if (!$this->getFile()) {
-    		throw new \RuntimeException('Input-File is required', ErrorCodes::MISSING_VALUE);
-    	}
-    	if (!$this->getOutputFile()) {
-    		throw new \RuntimeException('Input-File is required', ErrorCodes::MISSING_VALUE);
-    	}
+    if (!$this->getFile()) {
+    throw new \RuntimeException('Input-File is required', ErrorCodes::MISSING_VALUE);
+    }
+    if (!$this->getOutputFile()) {
+    throw new \RuntimeException('Input-File is required', ErrorCodes::MISSING_VALUE);
+    }
         return rtrim($this->getName().' '.$this->getFile().' '.$this->getOutputFile().' '.$this->getArguments(true).' '.$this->getParameters(true));
     }
 }
