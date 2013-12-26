@@ -28,8 +28,9 @@
  * @license   http://opensource.org/licenses/MIT MIT License
  */
 
-
 namespace Assimp\Command\Verbs;
+
+use Assimp\Command\CommandException;
 
 
 /**
@@ -39,6 +40,32 @@ namespace Assimp\Command\Verbs;
  */
 interface VerbInterface
 {
+    /**
+     * Get the name of the verb
+     *
+     * @return string
+     */
+    public function getName();
+
+
+    /**
+     * Set the input file
+     *
+     * @param string $file
+     * @throws \InvalidArgumentException
+     * @return \Assimp\Command\Verbs\AbstractVerb
+     */
+    public function setFile($file);
+
+
+    /**
+     * Get the input file
+     *
+     * @return string
+     */
+    public function getFile();
+
+
     /**
      * Get the entire argument string
      *
@@ -105,4 +132,21 @@ interface VerbInterface
      * @return string
      */
     public function getExecutedCommand();
+
+
+    /**
+     * Set an Exception
+     *
+     * @param \Assimp\Command\CommandException $e
+     * @return \Assimp\Command\Verbs\AbstractVerb
+     */
+    public function setException(CommandException $e);
+
+
+    /**
+     * Get the exception on failure
+     *
+     * @return \Assimp\Command\CommandException
+     */
+    public function getException();
 }
