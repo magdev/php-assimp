@@ -24,7 +24,7 @@
  *
  * @author    magdev
  * @copyright 2013 Marco Graetsch <magdev3.0@googlemail.com>
- * @package	  php-assimp
+ * @package   php-assimp
  * @license   http://opensource.org/licenses/MIT MIT License
  */
 
@@ -32,6 +32,7 @@
 namespace Assimp\Command\Verbs;
 
 use Assimp\ErrorCodes;
+use Assimp\Command\Verbs\Container\ParameterContainer;
 
 /**
  * Assimp Export Verb
@@ -46,9 +47,21 @@ class ExportVerb extends AbstractVerb
     /** @var string */
     protected $outputFile = null;
 
-    /** @var array */
-    protected $parameters = array();
+    /** @var \Assimp\Command\Verbs\Container\ParameterContainer */
+    protected $parameters = null;
 
+
+    /**
+     * Constructor
+     *
+     * @param string $file
+     * @param array|null $arguments
+     */
+    public function __construct($file = null, array $arguments = null)
+    {
+        parent::__construct($file, $arguments);
+        $this->parameters = new ParameterContainer();
+    }
 
 
     /**
@@ -83,15 +96,15 @@ class ExportVerb extends AbstractVerb
      */
     public function setOutputFile($file)
     {
-    $dir = dirname($file);
-    if (is_file($file)) {
+        $dir = dirname($file);
+        if (is_file($file)) {
             throw new \InvalidArgumentException('File exists: '.$file, ErrorCodes::FILE_EXISTS);
         }
         if (!is_dir($dir)) {
-        throw new \InvalidArgumentException('Directory not exists: '.$dir, ErrorCodes::DIR_NOT_FOUND);
+            throw new \InvalidArgumentException('Directory not exists: '.$dir, ErrorCodes::DIR_NOT_FOUND);
         }
         if (!is_writable($dir)) {
-        throw new \InvalidArgumentException('Directory not writeable: '.$dir, ErrorCodes::DIR_NOT_WRITEABLE);
+            throw new \InvalidArgumentException('Directory not writeable: '.$dir, ErrorCodes::DIR_NOT_WRITEABLE);
         }
         $this->outputFile = $file;
         return $this;
@@ -118,7 +131,7 @@ class ExportVerb extends AbstractVerb
     public function setParameters(array $params)
     {
         foreach ($params as $name => $value) {
-            $this->setParameter($name, $value);
+            $this->parameters->add($name, $value);
         }
         return $this;
     }
@@ -133,11 +146,8 @@ class ExportVerb extends AbstractVerb
     public function getParameters($asString = false)
     {
         if ($asString) {
-            $params = '';
-            foreach ($this->parameters as $name => $value) {
-                $params .= '--'.$name.'='.$value;
-            }
-            return $params;
+            $str = (string) $this->parameters;
+            return $str;
         }
         return $this->parameters;
     }
@@ -152,7 +162,7 @@ class ExportVerb extends AbstractVerb
      */
     public function setParameter($name, $value)
     {
-        $this->parameters[$name] = $value;
+        $this->parameters->add($name, $value);
         return $this;
     }
 
@@ -165,10 +175,7 @@ class ExportVerb extends AbstractVerb
      */
     public function getParameter($name)
     {
-        if ($this->hasParameter($name)) {
-            return $this->parameters[$name];
-        }
-        return null;
+        return $this->parameters->get($name);
     }
 
 
@@ -180,7 +187,7 @@ class ExportVerb extends AbstractVerb
      */
     public function hasParameter($name)
     {
-        return array_key_exists($name, $this->parameters);
+        return $this->parameters->has($name);
     }
 
 
@@ -189,12 +196,12 @@ class ExportVerb extends AbstractVerb
      */
     public function getCommand()
     {
-    if (!$this->getFile()) {
-    throw new \RuntimeException('Input-File is required', ErrorCodes::MISSING_VALUE);
-    }
-    if (!$this->getOutputFile()) {
-    throw new \RuntimeException('Input-File is required', ErrorCodes::MISSING_VALUE);
-    }
+        if (!$this->getFile()) {
+            throw new \RuntimeException('Input-File is required', ErrorCodes::MISSING_VALUE);
+        }
+        if (!$this->getOutputFile()) {
+            throw new \RuntimeException('Input-File is required', ErrorCodes::MISSING_VALUE);
+        }
         return rtrim($this->getName().' '.$this->getFile().' '.$this->getOutputFile().' '.$this->getArguments(true).' '.$this->getParameters(true));
     }
 }

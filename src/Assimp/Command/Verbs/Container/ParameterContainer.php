@@ -24,7 +24,7 @@
  *
  * @author    magdev
  * @copyright 2013 Marco Graetsch <magdev3.0@googlemail.com>
- * @package
+ * @package   php-assimp
  * @license   http://opensource.org/licenses/MIT MIT License
  */
 
@@ -38,23 +38,25 @@ namespace Assimp\Command\Verbs\Container;
  */
 class ParameterContainer
 {
-	/** @var array */
-	protected $parameters = array();
-
-	/**
-	 * Constructor
-	 *
-	 * @param array|null $parameters
-	 */
-	public function __construct(array $parameters = null)
-	{
-		if (is_array($parameters)) {
-			$this->set($parameters);
-		}
-	}
+    /** @var array */
+    protected $parameters = array();
 
 
-	/**
+
+    /**
+     * Constructor
+     *
+     * @param array|null $parameters
+     */
+    public function __construct(array $parameters = null)
+    {
+        if (is_array($parameters)) {
+            $this->set($parameters);
+        }
+    }
+
+
+    /**
      * Get a parameter value
      *
      * @param string $parameter
@@ -63,8 +65,8 @@ class ParameterContainer
      */
     public function get($parameter, $default = null)
     {
-		return $this->has($parameter) ? $this->parameters[$parameter] : $default;
-	}
+        return $this->has($parameter) ? $this->parameters[$parameter] : $default;
+    }
 
 
     /**
@@ -75,10 +77,10 @@ class ParameterContainer
      */
     public function set(array $parameters)
     {
-		foreach ($parameters as $parameter => $value) {
-			$this->add($parameter, $value);
-		}
-		return $this;
+        foreach ($parameters as $parameter => $value) {
+            $this->add($parameter, $value);
+        }
+        return $this;
     }
 
 
@@ -91,8 +93,8 @@ class ParameterContainer
      */
     public function add($parameter, $value)
     {
-    	$this->parameters[$parameter] = $value;
-    	return $this;
+        $this->parameters[$parameter] = $value;
+        return $this;
     }
 
 
@@ -104,7 +106,7 @@ class ParameterContainer
      */
     public function has($parameter)
     {
-    	return array_key_exists($arg, $this->parameters);
+        return array_key_exists($arg, $this->parameters);
     }
 
 
@@ -115,7 +117,7 @@ class ParameterContainer
      */
     public function all()
     {
-    	return $this->parameters;
+        return $this->parameters;
     }
 
 
@@ -126,11 +128,11 @@ class ParameterContainer
      */
     public function __toString()
     {
-    	$str = '';
-    	foreach ($this->all() as $parameter => $value) {
-    		$str .= ' '. $this->format($parameter, $value);
-    	}
-    	return trim($str);
+        $str = '';
+        foreach ($this->all() as $parameter => $value) {
+            $str .= ' '. $this->format($parameter, $value);
+        }
+        return trim($str);
     }
 
 
@@ -143,12 +145,12 @@ class ParameterContainer
      */
     protected function format($parameter, $value)
     {
-    	if ($value) {
-    		if (is_bool($value)) {
-    			return strlen($parameter) === 1 ? '-'.$parameter : '--'.$parameter;
-    		}
-    		return strlen($parameter) === 1 ? '-'.$parameter.$value : '--'.$parameter.'='.$value;
-    	}
-    	return '';
+        if ($value) {
+            if (is_bool($value)) {
+                return strlen($parameter) === 1 ? '-'.$parameter : '--'.$parameter;
+            }
+            return strlen($parameter) === 1 ? '-'.$parameter.$value : '--'.$parameter.'='.$value;
+        }
+        return '';
     }
 }
