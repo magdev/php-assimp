@@ -32,6 +32,7 @@
 namespace Assimp\Command\Verbs;
 
 use Assimp\ErrorCodes;
+use Assimp\Command\CommandException;
 
 /**
  * Abstract Verb-Class
@@ -57,6 +58,9 @@ abstract class AbstractVerb implements VerbInterface
 
     /** @var string */
     protected $executedCommand = null;
+
+    /** @var \Assimp\Command\CommandException */
+    protected $exception = null;
 
 
     /**
@@ -185,11 +189,13 @@ abstract class AbstractVerb implements VerbInterface
     /**
      * Set an Exception
      *
-     * @param \Exception $e
+     * @param \Assimp\Command\CommandException $e
      * @return \Assimp\Command\Verbs\AbstractVerb
      */
-    public function setException(\Exception $e)
+    public function setException(CommandException $e)
     {
+    	$this->exception = $e;
+
         $results = array(
             get_class($e).': '.$e->getMessage(),
             'in '.$e->getFile().':'.$e->getLine(),
@@ -199,6 +205,17 @@ abstract class AbstractVerb implements VerbInterface
         $this->setExitCode($e->getCode())
             ->setResults($results);
         return $this;
+    }
+
+
+    /**
+     * Get the exception on failure
+     *
+     * @return \Assimp\Command\CommandException
+     */
+    public function getException()
+    {
+    	return $this->exception;
     }
 
 
