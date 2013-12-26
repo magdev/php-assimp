@@ -43,10 +43,11 @@ interface VerbInterface
      * Get the entire argument string
      *
      * @return string
+     * @throws \RuntimeException
      */
     public function getCommand();
-    
-    
+
+
     /**
      * Set the exit-code
      *
@@ -54,16 +55,16 @@ interface VerbInterface
      * @return \Assimp\Command\Verbs\VerbInterface
      */
     public function setExitCode($exitCode);
-    
-    
+
+
     /**
      * Get the exit-code
      *
      * @return int
      */
     public function getExitCode();
-    
-    
+
+
     /**
      * Set the results of the command
      *
@@ -71,8 +72,8 @@ interface VerbInterface
      * @return \Assimp\Command\Verbs\VerbInterface
      */
     public function setResults(array $results);
-    
-    
+
+
     /**
      * Get the results
      *
