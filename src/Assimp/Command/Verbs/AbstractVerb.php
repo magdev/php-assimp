@@ -81,9 +81,7 @@ abstract class AbstractVerb implements VerbInterface
 
 
     /**
-     * Get the name of the verb
-     *
-     * @return string
+     * @see \Assimp\Command\Verbs\VerbInterface::getName()
      */
     public function getName()
     {
@@ -92,11 +90,7 @@ abstract class AbstractVerb implements VerbInterface
 
 
     /**
-     * Set the input file
-     *
-     * @param string $file
-     * @throws \InvalidArgumentException
-     * @return \Assimp\Command\Verbs\AbstractVerb
+     * @see \Assimp\Command\Verbs\VerbInterface::setFile()
      */
     public function setFile($file)
     {
@@ -112,9 +106,7 @@ abstract class AbstractVerb implements VerbInterface
 
 
     /**
-     * Get the input file
-     *
-     * @return string
+     * @see \Assimp\Command\Verbs\VerbInterface::getFile()
      */
     public function getFile()
     {
@@ -187,10 +179,7 @@ abstract class AbstractVerb implements VerbInterface
 
 
     /**
-     * Set an Exception
-     *
-     * @param \Assimp\Command\CommandException $e
-     * @return \Assimp\Command\Verbs\AbstractVerb
+     * @see \Assimp\Command\Verbs\VerbInterface::setException()
      */
     public function setException(CommandException $e)
     {
@@ -209,9 +198,7 @@ abstract class AbstractVerb implements VerbInterface
 
 
     /**
-     * Get the exception on failure
-     *
-     * @return \Assimp\Command\CommandException
+     * @see \Assimp\Command\Verbs\VerbInterface::getException()
      */
     public function getException()
     {
@@ -225,7 +212,7 @@ abstract class AbstractVerb implements VerbInterface
      * @param boolean $asString
      * @return string|array
      */
-    protected function getArguments($asString = false)
+    public function getArguments($asString = false)
     {
         if ($asString) {
             $args = '';
@@ -252,7 +239,7 @@ abstract class AbstractVerb implements VerbInterface
      * @param array $arguments
      * @return \Assimp\Command\Verbs\AbstractVerb
      */
-    protected function setArguments(array $arguments)
+    public function setArguments(array $arguments)
     {
         foreach ($arguments as $arg => $value) {
             $this->setArgument($arg, $value);
@@ -268,7 +255,7 @@ abstract class AbstractVerb implements VerbInterface
      * @param mixed $value
      * @return \Assimp\Command\Verbs\AbstractVerb
      */
-    protected function setArgument($arg, $value)
+    public function setArgument($arg, $value)
     {
         $this->arguments[$arg] = $value;
         return $this;
@@ -281,7 +268,7 @@ abstract class AbstractVerb implements VerbInterface
      * @param string $arg
      * @return boolean
      */
-    protected function hasArgument($arg)
+    public function hasArgument($arg)
     {
         return array_key_exists($arg, $this->arguments);
     }
@@ -293,24 +280,12 @@ abstract class AbstractVerb implements VerbInterface
      * @param string $arg
      * @return mixed
      */
-    protected function getArgument($arg)
+    public function getArgument($arg)
     {
         if ($this->hasArgument($arg)) {
             return $this->arguments[$arg];
         }
         return null;
-    }
-
-
-    /**
-     * Parse results if needed
-     *
-     * @param array $results
-     * @return array
-     */
-    protected function parseResults(array $results)
-    {
-        return $results;
     }
 
 
@@ -330,5 +305,17 @@ abstract class AbstractVerb implements VerbInterface
     {
         $this->executedCommand = (string) $executedCommand;
         return $this;
+    }
+
+
+    /**
+     * Parse results if needed
+     *
+     * @param array $results
+     * @return array
+     */
+    protected function parseResults(array $results)
+    {
+        return $results;
     }
 }
