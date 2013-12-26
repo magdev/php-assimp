@@ -200,7 +200,7 @@ class ExportVerb extends AbstractVerb
             throw new \RuntimeException('Input-File is required', ErrorCodes::MISSING_VALUE);
         }
         if (!$this->getOutputFile()) {
-            throw new \RuntimeException('Input-File is required', ErrorCodes::MISSING_VALUE);
+            throw new \RuntimeException('Output-File is required', ErrorCodes::MISSING_VALUE);
         }
         return rtrim($this->getName().' '.$this->getFile().' '.$this->getOutputFile().' '.$this->getArguments(true).' '.$this->getParameters(true));
     }
