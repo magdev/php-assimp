@@ -4,7 +4,6 @@
     "description": "PHP Wrapper for Assimp - the Open Asset Import Library",
     "keywords": ["3d", "converter", "assimp", "cad"],
     "license": "MIT",
-    "version": "0.1.0@dev",
     "authors": [
         {
             "name": "Marco Graetsch",
