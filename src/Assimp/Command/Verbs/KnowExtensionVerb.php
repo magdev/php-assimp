@@ -31,6 +31,8 @@
 
 namespace Assimp\Command\Verbs;
 
+use Assimp\Command\ErrorCodes;
+
 /**
  * Assimp Know Extension Verb
  *
@@ -40,11 +42,11 @@ class KnowExtensionVerb extends AbstractVerb
 {
     /** @var string */
     protected $name = 'knowext';
-    
+
     /** @var string */
     protected $format = null;
-    
-    
+
+
     /**
      * Set the format
      *
@@ -56,8 +58,8 @@ class KnowExtensionVerb extends AbstractVerb
         $this->format = $format;
         return $this;
     }
-    
-    
+
+
     /**
      * Get the format
      *
@@ -67,17 +69,20 @@ class KnowExtensionVerb extends AbstractVerb
     {
         return $this->format;
     }
-    
-    
+
+
     /**
      * @see \Assimp\Command\Verbs\AbstractVerb::getCommand()
      */
     public function getCommand()
     {
+    	if (!$this->getFormat()) {
+    		throw new \RuntimeException('Format is required', ErrorCodes::MISSING_VALUE);
+    	}
         return rtrim($this->getName().' '.$this->getFormat());
     }
-    
-    
+
+
     /**
      * @see \Assimp\Command\Verbs\AbstractVerb::parseResults()
      */
@@ -85,5 +90,5 @@ class KnowExtensionVerb extends AbstractVerb
     {
         return array(strstr($results[0], 'not known') == false ? true : false);
     }
-    
+
 }
