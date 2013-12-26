@@ -4,7 +4,7 @@
     "description": "PHP Wrapper for Assimp - the Open Asset Import Library",
     "keywords": ["3d", "converter", "assimp", "cad"],
     "license": "MIT",
-    "version": "0.0.1@dev",
+    "version": "0.1.0@dev",
     "authors": [
         {
             "name": "Marco Graetsch",
@@ -15,7 +15,7 @@
         "php": ">=5.3.3"
     },
     "suggest": {
-        "symfony/validator": "Perform validations using Assimp"
+        "magdev/php-assimp-validator": "Extension for the Symfony2 validator component"
     },
     "autoload": {
         "psr-0": { "Assimp": "src/" }
@@ -23,7 +23,7 @@
     "repositories": [
         {
             "type": "vcs",
-            "url": "git@bitbucket.org:magdev/php-assimp.git"
+            "url": "git@bitbucket.org:magdev/php-assimp-validator.git"
         }
     ]
 }
