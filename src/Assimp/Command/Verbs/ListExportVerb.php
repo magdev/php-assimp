@@ -40,6 +40,4 @@ class ListExportVerb extends AbstractVerb
 {
     /** @var string */
     protected $name = 'listexport';
-
-
 }

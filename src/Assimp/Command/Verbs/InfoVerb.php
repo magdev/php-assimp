@@ -71,6 +71,6 @@ class InfoVerb extends AbstractVerb implements CacheableVerbInterface
      */
     public function getCacheKey()
     {
-    return $this->getName().(int) $this->getRaw();
+        return $this->getName().(int) $this->getRaw();
     }
 }

@@ -49,6 +49,7 @@ class ListExtensionsVerb extends AbstractVerb
     {
         if (sizeof($results) === 1) {
             $extensions = explode(';', $results[0]);
+
             $cleanup = function($value) {
                 return str_replace('*.', '', $value);
             };

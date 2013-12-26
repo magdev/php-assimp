@@ -76,9 +76,9 @@ class KnowExtensionVerb extends AbstractVerb
      */
     public function getCommand()
     {
-    if (!$this->getFormat()) {
-    throw new \RuntimeException('Format is required', ErrorCodes::MISSING_VALUE);
-    }
+        if (!$this->getFormat()) {
+            throw new \RuntimeException('Format is required', ErrorCodes::MISSING_VALUE);
+        }
         return rtrim($this->getName().' '.$this->getFormat());
     }
 
