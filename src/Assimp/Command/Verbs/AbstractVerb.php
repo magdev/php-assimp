@@ -55,6 +55,9 @@ abstract class AbstractVerb implements VerbInterface
     /** @var int */
     protected $exitCode = null;
 
+    /** @var string */
+    protected $executedCommand = null;
+
 
     /**
      * Constructor
@@ -291,5 +294,24 @@ abstract class AbstractVerb implements VerbInterface
     protected function parseResults(array $results)
     {
         return $results;
+    }
+
+
+    /**
+     * @see \Assimp\Command\Verbs\VerbInterface::getExecutedCommand()
+     */
+    public function getExecutedCommand()
+    {
+        return $this->executedCommand;
+    }
+
+
+    /**
+     * @see \Assimp\Command\Verbs\VerbInterface::setExecutedCommand()
+     */
+    public function setExecutedCommand($executedCommand)
+    {
+        $this->executedCommand = (string) $executedCommand;
+        return $this;
     }
 }

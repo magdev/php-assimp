@@ -88,4 +88,21 @@ interface VerbInterface
      * @return boolean
      */
     public function isSuccess();
+
+
+    /**
+     * Set the executed command
+     *
+     * @param string $executedCommand
+     * @return \Assimp\Command\Verbs\VerbInterface
+     */
+    public function setExecutedCommand($executedCommand);
+
+
+    /**
+     * Get the executed command
+     *
+     * @return string
+     */
+    public function getExecutedCommand();
 }
