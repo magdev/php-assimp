@@ -106,7 +106,7 @@ class ParameterContainer
      */
     public function has($parameter)
     {
-        return array_key_exists($arg, $this->parameters);
+        return array_key_exists($parameter, $this->all());
     }
 
 
