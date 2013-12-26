@@ -40,8 +40,8 @@ class InfoVerb extends AbstractVerb
 {
     /** @var string */
     protected $name = 'info';
-    
-    
+
+
     /**
      * Set the raw argument
      *
@@ -50,12 +50,11 @@ class InfoVerb extends AbstractVerb
      */
     public function setRaw($raw)
     {
-        $raw = (boolean) $raw;
-        $this->setArgument('raw', $raw);
+        $this->setArgument('raw', (boolean) $raw);
         return $this;
     }
-    
-    
+
+
     /**
      * Get the raw argument
      *
