@@ -38,10 +38,10 @@ namespace Assimp\Command\Verbs;
  */
 interface CacheableVerbInterface
 {
-	/**
-	 * Get the key for the cache-index
-	 *
-	 * @return string
-	 */
-	public function getCacheKey();
+/**
+ * Get the key for the cache-index
+ *
+ * @return string
+ */
+public function getCacheKey();
 }

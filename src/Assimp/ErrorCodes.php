@@ -40,15 +40,15 @@ final class ErrorCodes
 {
     const FILE_NOT_FOUND        = 10;
     const FILE_NOT_EXECUTABLE   = 11;
-    const FILE_NOT_READABLE   	= 12;
-    const FILE_NOT_WRITEABLE   	= 13;
-    const FILE_EXISTS   		= 14;
+    const FILE_NOT_READABLE   = 12;
+    const FILE_NOT_WRITEABLE   = 13;
+    const FILE_EXISTS   = 14;
 
-    const DIR_NOT_FOUND   		= 15;
-    const DIR_NOT_WRITEABLE   	= 16;
+    const DIR_NOT_FOUND   = 15;
+    const DIR_NOT_WRITEABLE   = 16;
 
-    const MISSING_VALUE			= 20;
-    const INVALID_VALUE			= 21;
+    const MISSING_VALUE= 20;
+    const INVALID_VALUE= 21;
 
-    const EXECUTION_FAILURE		= 50;
+    const EXECUTION_FAILURE= 50;
 }

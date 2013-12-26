@@ -73,31 +73,31 @@ final class Command
     public function execute(VerbInterface $verb, $noCache = false)
     {
         try {
-        	if ($verb instanceof CacheableVerbInterface && !$noCache) {
-        		$cachedVerb = self::getCached($verb);
-        		if ($cachedVerb) {
-        			return $cachedVerb;
-        		}
-        	}
+            if ($verb instanceof CacheableVerbInterface && !$noCache) {
+                $cachedVerb = self::getCached($verb);
+                if ($cachedVerb) {
+                    return $cachedVerb;
+                }
+            }
 
-        	$results = array();
-        	$exitCode = null;
+            $results = array();
+            $exitCode = null;
             $cmd = $this->getBinary().' '.$verb->getCommand();
 
             $verb->setExecutedCommand($cmd);
-	        exec($cmd, $results, $exitCode);
+            exec($cmd, $results, $exitCode);
 
             $verb->setExitCode($exitCode)
                 ->setResults($results);
 
             if ($verb instanceof CacheableVerbInterface && !$noCache) {
-            	self::addCached($verb);
+                self::addCached($verb);
             }
 
-        	return $verb->isSuccess();
+            return $verb->isSuccess();
 
         } catch (\Exception $e) {
-        	$ce = new CommandException('Execution failure', ErrorCodes::EXECUTION_FAILURE, $e);
+            $ce = new CommandException('Execution failure', ErrorCodes::EXECUTION_FAILURE, $e);
             $verb->setException($ce);
             throw $ce;
         }
@@ -113,20 +113,20 @@ final class Command
     public function getBinary()
     {
         if (is_null($this->bin)) {
-        	$paths = array('/usr/bin/assimp', '/usr/local/bin/assimp', '~/bin/assimp');
-        	foreach ($paths as $path) {
-        		try {
-        			$this->setBinary($path);
-        		} catch (\InvalidArgumentException $e) {}
-        	}
+            $paths = array('/usr/bin/assimp', '/usr/local/bin/assimp', '~/bin/assimp');
+            foreach ($paths as $path) {
+                try {
+                    $this->setBinary($path);
+                } catch (\InvalidArgumentException $e) {}
+            }
 
-        	if (!$this->bin) {
-        		throw new \RuntimeException('assimp-binary not found in '.explode(', ', $paths), ErrorCodes::FILE_NOT_FOUND);
-        	}
+            if (!$this->bin) {
+                throw new \RuntimeException('assimp-binary not found in '.explode(', ', $paths), ErrorCodes::FILE_NOT_FOUND);
+            }
 
-        	if (!is_executable($this->bin)) {
-        		throw new \RuntimeException('Found a binary file, but it is not executable: '.$this->bin, ErrorCodes::FILE_NOT_EXECUTABLE);
-        	}
+            if (!is_executable($this->bin)) {
+                throw new \RuntimeException('Found a binary file, but it is not executable: '.$this->bin, ErrorCodes::FILE_NOT_EXECUTABLE);
+            }
         }
         return $this->bin;
     }
@@ -160,11 +160,11 @@ final class Command
      */
     private static function getCached(CacheableVerbInterface $verb)
     {
-    	$key = $verb->getCacheKey();
-    	if (array_key_exists($key, self::$cache)) {
-    		return self::$cache[$key];
-    	}
-    	return null;
+        $key = $verb->getCacheKey();
+        if (array_key_exists($key, self::$cache)) {
+            return self::$cache[$key];
+        }
+        return null;
     }
 
 
@@ -176,6 +176,6 @@ final class Command
      */
     private static function addCached(CacheableVerbInterface $verb)
     {
-    	self::$cache[$verb->getCacheKey()] = $verb;
+        self::$cache[$verb->getCacheKey()] = $verb;
     }
 }
