@@ -33,7 +33,7 @@ namespace Assimp\Validator\Constraints;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 use Assimp\Command\Verbs\KnowExtensionVerb;
-use Assimp\Command\CommandExecutor;
+use Assimp\Command\Command;
 
 class KnownFiletypeValidator extends ConstraintValidator
 {
@@ -41,10 +41,10 @@ class KnownFiletypeValidator extends ConstraintValidator
     {
         $verb = new KnowExtensionVerb();
         $verb->setFormat($value);
-        
-        $exec = new CommandExecutor();
+
+        $exec = new Command();
         $exec->execute($verb);
-        
+
         if (!$verb->isSuccess()) {
             $this->context->addViolation($constraint->message, array('%ext%' => $value));
         }

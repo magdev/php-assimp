@@ -32,7 +32,7 @@ namespace Assimp\Validator\Constraints;
 
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
-use Assimp\Command\CommandExecutor;
+use Assimp\Command\Command;
 use Assimp\Command\Verbs\VersionVerb;
 
 class VersionCompareValidator extends ConstraintValidator
@@ -40,9 +40,9 @@ class VersionCompareValidator extends ConstraintValidator
     public function validate($value, Constraint $constraint)
     {
         $verb = new VersionVerb();
-        $exec = new CommandExecutor();
+        $exec = new Command();
         $exec->execute($verb);
-        
+
         if ($verb->isSuccess()) {
             $results = $verb->getResults();
             $version = $results[0];

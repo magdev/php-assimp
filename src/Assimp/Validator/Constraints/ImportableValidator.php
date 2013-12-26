@@ -32,7 +32,7 @@ namespace Assimp\Validator\Constraints;
 
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
-use Assimp\Command\CommandExecutor;
+use Assimp\Command\Command;
 use Assimp\Command\Verbs\ListExtensionsVerb;
 
 class ImportableValidator extends ConstraintValidator
@@ -40,9 +40,9 @@ class ImportableValidator extends ConstraintValidator
     public function validate($value, Constraint $constraint)
     {
         $verb = new ListExtensionsVerb();
-        $exec = new CommandExecutor();
+        $exec = new Command();
         $exec->execute($verb);
-        
+
         if ($verb->isSuccess()) {
             if (!in_array($value, $verb->getResults())) {
                 $this->context->addViolation($constraint->message, array('%ext%' => $value));
