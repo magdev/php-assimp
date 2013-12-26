@@ -24,7 +24,7 @@
  *
  * @author    magdev
  * @copyright 2013 Marco Graetsch <magdev3.0@googlemail.com>
- * @package
+ * @package	  php-assimp
  * @license   http://opensource.org/licenses/MIT MIT License
  */
 
@@ -40,8 +40,8 @@ class ListExtensionsVerb extends AbstractVerb
 {
     /** @var string */
     protected $name = 'listext';
-    
-    
+
+
     /**
      * @see \Assimp\Command\Verbs\AbstractVerb::parseResults()
      */
