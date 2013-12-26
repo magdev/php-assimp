@@ -80,4 +80,12 @@ interface VerbInterface
      * @return array
      */
     public function getResults();
+
+
+    /**
+     * Check if the command is successful executed
+     *
+     * @return boolean
+     */
+    public function isSuccess();
 }
