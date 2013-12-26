@@ -32,7 +32,7 @@
 namespace Assimp;
 
 /**
- * Error-Codes for Assimp Commands
+ * Error-Codes for Assimp
  *
  * @author magdev
  */
@@ -47,6 +47,8 @@ final class ErrorCodes
     const DIR_NOT_FOUND   		= 15;
     const DIR_NOT_WRITEABLE   	= 16;
 
-
     const MISSING_VALUE			= 20;
+    const INVALID_VALUE			= 21;
+
+    const EXECUTION_FAILURE		= 50;
 }
