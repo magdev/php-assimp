@@ -38,12 +38,12 @@ namespace Assimp\Command\Verbs;
  *
  * @author magdev
  */
-class VersionVerb extends AbstractVerb
+class VersionVerb extends AbstractVerb implements CacheableVerbInterface
 {
     /** @var string */
     protected $name = 'version';
-    
-    
+
+
     /**
      * @see \Assimp\Command\Verbs\AbstractVerb::parseResults()
      */
@@ -59,5 +59,13 @@ class VersionVerb extends AbstractVerb
         }
         return $results;
     }
-    
+
+
+    /**
+     * @see \Assimp\Command\Verbs\CacheableVerbInterface::getCacheKey()
+     */
+    public function getCacheKey()
+    {
+    	return $this->getName();
+    }
 }

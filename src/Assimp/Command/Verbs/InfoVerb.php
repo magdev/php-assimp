@@ -36,7 +36,7 @@ namespace Assimp\Command\Verbs;
  *
  * @author magdev
  */
-class InfoVerb extends AbstractVerb
+class InfoVerb extends AbstractVerb implements CacheableVerbInterface
 {
     /** @var string */
     protected $name = 'info';
@@ -63,5 +63,14 @@ class InfoVerb extends AbstractVerb
     public function getRaw()
     {
         return $this->getArgument('raw');
+    }
+
+
+    /**
+     * @see \Assimp\Command\Verbs\CacheableVerbInterface::getCacheKey()
+     */
+    public function getCacheKey()
+    {
+    	return $this->getName().(int) $this->getRaw();
     }
 }
