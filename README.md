@@ -30,11 +30,11 @@ and until this package is registered at [Packagist](https://packagist.org/) add 
 ##Usage
 
 ```php
-use Assimp\Command\CommandExecutor;
+use Assimp\Command\Command;
 use Assimp\Command\Verbs\ListExtensionsVerb;
 
 $verb = new ListExtensionsVerb();
-$exec = new CommandExecutor('/path/to/assimp');
+$exec = new Command('/path/to/assimp');
 $exec->execute($verb);
 print_r($verb);
 ```
