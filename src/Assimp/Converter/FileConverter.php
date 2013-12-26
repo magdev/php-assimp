@@ -32,8 +32,8 @@ namespace Assimp\Converter;
 
 
 use Assimp\ErrorCodes;
-use Assimp\Command\Verbs\ExportVerb;
 use Assimp\Command\Command;
+use Assimp\Command\Verbs\ExportVerb;
 use Assimp\Command\Verbs\VerbInterface;
 
 
