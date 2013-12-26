@@ -24,7 +24,7 @@
  *
  * @author    magdev
  * @copyright 2013 Marco Graetsch <magdev3.0@googlemail.com>
- * @package
+ * @package   php-assimp
  * @license   http://opensource.org/licenses/MIT MIT License
  */
 
@@ -32,8 +32,8 @@ namespace Assimp\Converter;
 
 
 use Assimp\ErrorCodes;
-use Assimp\Command\Verbs\ExportVerb;
 use Assimp\Command\Command;
+use Assimp\Command\Verbs\ExportVerb;
 use Assimp\Command\Verbs\VerbInterface;
 
 
@@ -44,106 +44,106 @@ use Assimp\Command\Verbs\VerbInterface;
  */
 final class FileConverter
 {
-	/** \Assimp\Command\Verbs\VerbInterface */
-	private $verb = null;
+    /** \Assimp\Command\Verbs\VerbInterface */
+    private $verb = null;
 
-	/** \Assimp\Command\Command */
-	private static $exec = null;
-
-
-	/**
-	 * Constructor
-	 *
-	 * @param string $inputFile
-	 */
-	public function __construct($inputFile = null, array $arguments = null)
-	{
-		if (!is_null($inputFile)) {
-			$this->getVerb()->setFile($inputFile);
-		}
-		if (is_array($arguments)) {
-			$this->getVerb()->setArguments($arguments);
-		}
-	}
+    /** \Assimp\Command\Command */
+    private static $exec = null;
 
 
-	/**
-	 * Convert a file
-	 *
-	 * @param string $outputFile
-	 * @param string $format
-	 * @param array $params
-	 * @return \Assimp\Converter\FileConverter
-	 * @throws \Assimp\Converter\ConverterException
-	 */
-	public function convert($outputFile, $format, array $params = array())
-	{
-		try {
-			$this->getVerb()->setOutputFile($outputFile)
-				->setFormat($format)
-				->setParameters($params);
-
-			if (!self::getCommand()->execute($this->getVerb())) {
-				if ($this->getVerb()->getException()) {
-					throw $this->getVerb()->getException();
-				}
-				throw new \RuntimeException('Unknown error: ', $this->getVerb()->getExitCode());
-			}
-		} catch (\Exception $e) {
-			throw new ConverterException('Conversion failed', ErrorCodes::EXECUTION_FAILURE, $e);
-		}
-		return $this;
-	}
+    /**
+     * Constructor
+     *
+     * @param string $inputFile
+     */
+    public function __construct($inputFile = null, array $arguments = null)
+    {
+        if (!is_null($inputFile)) {
+            $this->getVerb()->setFile($inputFile);
+        }
+        if (is_array($arguments)) {
+            $this->getVerb()->setArguments($arguments);
+        }
+    }
 
 
-	/**
-	 * Get the verb object
-	 *
-	 * @return \Assimp\Command\Verbs\ExportVerb
-	 */
-	public function getVerb()
-	{
-		if (!$this->verb) {
-			$this->verb = new ExportVerb();
-		}
-		return $this->verb;
-	}
+    /**
+     * Convert a file
+     *
+     * @param string $outputFile
+     * @param string $format
+     * @param array $params
+     * @return \Assimp\Converter\FileConverter
+     * @throws \Assimp\Converter\ConverterException
+     */
+    public function convert($outputFile, $format, array $params = array())
+    {
+        try {
+            $this->getVerb()->setOutputFile($outputFile)
+                ->setFormat($format)
+                ->setParameters($params);
+
+            if (!self::getCommand()->execute($this->getVerb())) {
+                if ($this->getVerb()->getException()) {
+                    throw $this->getVerb()->getException();
+                }
+                throw new \RuntimeException('Unknown error: ', $this->getVerb()->getExitCode());
+            }
+        } catch (\Exception $e) {
+            throw new ConverterException('Conversion failed', ErrorCodes::EXECUTION_FAILURE, $e);
+        }
+        return $this;
+    }
 
 
-	/**
-	 * Set the verb
-	 *
-	 * @param \Assimp\Command\Verbs\ExportVerb $verb
-	 * @return \Assimp\Converter\FileConverter
-	 */
-	public function setVerb(ExportVerb $verb)
-	{
-		$this->verb = $verb;
-		return $this;
-	}
+    /**
+     * Get the verb object
+     *
+     * @return \Assimp\Command\Verbs\ExportVerb
+     */
+    public function getVerb()
+    {
+        if (!$this->verb) {
+            $this->verb = new ExportVerb();
+        }
+        return $this->verb;
+    }
 
 
-	/**
-	 * Get the command singleton
-	 *
-	 * @return \Assimp\Command\Command
-	 */
-	public static function getCommand()
-	{
-		if (!is_null(self::$exec)) {
-			self::$exec = new Command();
-		}
-		return self::$exec;
-	}
+    /**
+     * Set the verb
+     *
+     * @param \Assimp\Command\Verbs\ExportVerb $verb
+     * @return \Assimp\Converter\FileConverter
+     */
+    public function setVerb(ExportVerb $verb)
+    {
+        $this->verb = $verb;
+        return $this;
+    }
 
 
-	/**
-	 * Set the path to the assimp executable
-	 *
-	 * @param string $bin
-	 */
-	public static function setBinary($bin)
-	{
-		self::getCommand()->setBinary($bin);
-	}
+    /**
+     * Get the command singleton
+     *
+     * @return \Assimp\Command\Command
+     */
+    public static function getCommand()
+    {
+        if (!is_null(self::$exec)) {
+            self::$exec = new Command();
+        }
+        return self::$exec;
+    }
+
+
+    /**
+     * Set the path to the assimp executable
+     *
+     * @param string $bin
+     */
+    public static function setBinary($bin)
+    {
+        self::getCommand()->setBinary($bin);
+    }
 }
