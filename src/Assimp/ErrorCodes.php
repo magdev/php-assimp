@@ -29,7 +29,7 @@
  */
 
 
-namespace Assimp\Command;
+namespace Assimp;
 
 /**
  * Error-Codes for Assimp Commands

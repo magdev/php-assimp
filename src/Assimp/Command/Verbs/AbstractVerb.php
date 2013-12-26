@@ -31,7 +31,7 @@
 
 namespace Assimp\Command\Verbs;
 
-use Assimp\Command\ErrorCodes;
+use Assimp\ErrorCodes;
 
 /**
  * Abstract Verb-Class
