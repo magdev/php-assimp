@@ -31,6 +31,8 @@
 
 namespace Assimp\Command\Verbs;
 
+use Assimp\Command\ErrorCodes;
+
 /**
  * Assimp Export Verb
  *
@@ -40,15 +42,15 @@ class ExportVerb extends AbstractVerb
 {
     /** @var string */
     protected $name = 'export';
-    
+
     /** @var string */
     protected $outputFile = null;
-    
+
     /** @var array */
     protected $parameters = array();
-    
-    
-    
+
+
+
     /**
      * Set the output format
      *
@@ -60,8 +62,8 @@ class ExportVerb extends AbstractVerb
         $this->setArgument('format', $format);
         return $this;
     }
-    
-    
+
+
     /**
      * Get the output format
      *
@@ -71,8 +73,8 @@ class ExportVerb extends AbstractVerb
     {
         return $this->getArgument('format');
     }
-    
-    
+
+
     /**
      * Set the output file
      *
@@ -81,11 +83,21 @@ class ExportVerb extends AbstractVerb
      */
     public function setOutputFile($file)
     {
+    	$dir = dirname($file);
+    	if (is_file($file)) {
+            throw new \InvalidArgumentException('File exists: '.$file, ErrorCodes::FILE_EXISTS);
+        }
+        if (!is_dir($dir)) {
+        	throw new \InvalidArgumentException('Directory not exists: '.$dir, ErrorCodes::DIR_NOT_FOUND);
+        }
+        if (!is_writable($dir)) {
+        	throw new \InvalidArgumentException('Directory not writeable: '.$dir, ErrorCodes::DIR_NOT_WRITEABLE);
+        }
         $this->outputFile = $file;
         return $this;
     }
-    
-    
+
+
     /**
      * Get the output file
      *
@@ -95,8 +107,8 @@ class ExportVerb extends AbstractVerb
     {
         return $this->outputFile;
     }
-    
-    
+
+
     /**
      * Set multiple parameters
      *
@@ -110,8 +122,8 @@ class ExportVerb extends AbstractVerb
         }
         return $this;
     }
-    
-    
+
+
     /**
      * Get all parameters
      *
@@ -129,8 +141,8 @@ class ExportVerb extends AbstractVerb
         }
         return $this->parameters;
     }
-    
-    
+
+
     /**
      * Set a specific parameter
      *
@@ -143,8 +155,8 @@ class ExportVerb extends AbstractVerb
         $this->parameters[$name] = $value;
         return $this;
     }
-    
-    
+
+
     /**
      * Get a specific parameter
      *
@@ -158,8 +170,8 @@ class ExportVerb extends AbstractVerb
         }
         return null;
     }
-    
-    
+
+
     /**
      * Check if a specific parameter is set
      *
@@ -170,13 +182,19 @@ class ExportVerb extends AbstractVerb
     {
         return array_key_exists($name, $this->parameters);
     }
-    
-    
+
+
     /**
      * @see \Assimp\Command\Verbs\AbstractVerb::getCommand()
      */
     public function getCommand()
     {
+    	if (!$this->getFile()) {
+    		throw new \RuntimeException('Input-File is required', ErrorCodes::MISSING_VALUE);
+    	}
+    	if (!$this->getOutputFile()) {
+    		throw new \RuntimeException('Input-File is required', ErrorCodes::MISSING_VALUE);
+    	}
         return rtrim($this->getName().' '.$this->getFile().' '.$this->getOutputFile().' '.$this->getArguments(true).' '.$this->getParameters(true));
     }
 }

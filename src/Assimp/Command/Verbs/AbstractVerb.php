@@ -31,8 +31,8 @@
 
 namespace Assimp\Command\Verbs;
 
-
 use Assimp\Command\ErrorCodes;
+
 /**
  * Abstract Verb-Class
  *
@@ -42,20 +42,20 @@ abstract class AbstractVerb implements VerbInterface
 {
     /** @var string */
     protected $name = null;
-    
+
     /** @var string */
     protected $file = null;
-    
+
     /** @var array */
     protected $arguments = array();
-    
+
     /** @var array */
     protected $results = array();
-    
+
     /** @var int */
     protected $exitCode = null;
-    
-    
+
+
     /**
      * Constructor
      *
@@ -71,7 +71,8 @@ abstract class AbstractVerb implements VerbInterface
             $this->setArguments($arguments);
         }
     }
-    
+
+
     /**
      * Get the name of the verb
      *
@@ -81,8 +82,8 @@ abstract class AbstractVerb implements VerbInterface
     {
         return $this->name;
     }
-    
-    
+
+
     /**
      * Set the input file
      *
@@ -92,14 +93,17 @@ abstract class AbstractVerb implements VerbInterface
      */
     public function setFile($file)
     {
-        if (!is_file($file) || !is_readable($file)) {
-            throw new \InvalidArgumentException('File not exists or is not readable: '.$file, ErrorCodes::FILE_NOT_FOUND);
+        if (!is_file($file)) {
+            throw new \InvalidArgumentException('File not found: '.$file, ErrorCodes::FILE_NOT_FOUND);
+        }
+        if (!is_readable($file)) {
+        	throw new \InvalidArgumentException('File is not readable: '.$file, ErrorCodes::FILE_NOT_READABLE);
         }
         $this->file = $file;
         return $this;
     }
-    
-    
+
+
     /**
      * Get the input file
      *
@@ -109,17 +113,20 @@ abstract class AbstractVerb implements VerbInterface
     {
         return $this->file;
     }
-    
-    
+
+
     /**
      * @see \Assimp\Command\Verbs\VerbInterface::getCommand()
      */
     public function getCommand()
     {
+    	if (!$this->getFile()) {
+    		throw new \RuntimeException('Input-File is required', ErrorCodes::MISSING_VALUE);
+    	}
         return rtrim($this->getName().' '.$this->getArguments(true).' '.$this->getFile());
     }
-    
-    
+
+
     /**
      * @see \Assimp\Command\Verbs\VerbInterface::setResults()
      */
@@ -128,8 +135,8 @@ abstract class AbstractVerb implements VerbInterface
         $this->results = $this->parseResults($results);
         return $this;
     }
-    
-    
+
+
     /**
      * @see \Assimp\Command\Verbs\VerbInterface::setExitCode()
      */
@@ -138,8 +145,8 @@ abstract class AbstractVerb implements VerbInterface
         $this->exitCode = (int) $exitCode;
         return $this;
     }
-    
-    
+
+
     /**
      * @see \Assimp\Command\Verbs\VerbInterface::getExitCode()
      */
@@ -147,8 +154,8 @@ abstract class AbstractVerb implements VerbInterface
     {
         return $this->exitCode;
     }
-    
-    
+
+
     /**
      * @see \Assimp\Command\Verbs\VerbInterface::getResults()
      */
@@ -159,8 +166,8 @@ abstract class AbstractVerb implements VerbInterface
         }
         return null;
     }
-    
-    
+
+
     /**
      * Check if the process finished successful
      *
@@ -170,8 +177,8 @@ abstract class AbstractVerb implements VerbInterface
     {
         return !is_null($this->exitCode) && $this->exitCode === 0;
     }
-    
-    
+
+
     /**
      * Set an Exception
      *
@@ -185,13 +192,13 @@ abstract class AbstractVerb implements VerbInterface
             'in '.$e->getFile().':'.$e->getLine(),
         );
         $results += $e->getTrace();
-        
+
         $this->setExitCode($e->getCode())
             ->setResults($results);
         return $this;
     }
-    
-    
+
+
     /**
      * Get the argument string
      *
@@ -217,8 +224,8 @@ abstract class AbstractVerb implements VerbInterface
         }
         return $this->arguments;
     }
-    
-    
+
+
     /**
      * Set all arguments at once
      *
@@ -232,8 +239,8 @@ abstract class AbstractVerb implements VerbInterface
         }
         return $this;
     }
-    
-    
+
+
     /**
      * Set an argument
      *
@@ -246,8 +253,8 @@ abstract class AbstractVerb implements VerbInterface
         $this->arguments[$arg] = $value;
         return $this;
     }
-    
-    
+
+
     /**
      * Check if an argument is set
      *
@@ -258,8 +265,8 @@ abstract class AbstractVerb implements VerbInterface
     {
         return array_key_exists($arg, $this->arguments);
     }
-    
-    
+
+
     /**
      * Get an argument value
      *
@@ -273,8 +280,8 @@ abstract class AbstractVerb implements VerbInterface
         }
         return null;
     }
-    
-    
+
+
     /**
      * Parse results if needed
      *
