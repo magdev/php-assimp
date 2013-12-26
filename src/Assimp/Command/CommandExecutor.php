@@ -42,8 +42,8 @@ class CommandExecutor
 {
     /** @var string */
     private $bin = null;
-    
-    
+
+
     /**
      * Constructor
      *
@@ -55,8 +55,8 @@ class CommandExecutor
             $this->setBinary($bin);
         }
     }
-    
-    
+
+
     /**
      * Execute a command
      *
@@ -67,11 +67,11 @@ class CommandExecutor
     {
         $results = array();
         $exitCode = null;
-        
+
         try {
             $cmd = $this->getBinary().' '.$verb->getCommand();
             exec($cmd, $results, $exitCode);
-            
+
             return $verb->setExitCode($exitCode)
                 ->setResults($results)
                 ->isSuccess();
@@ -80,22 +80,32 @@ class CommandExecutor
                 ->isSuccess();
         }
     }
-    
-    
+
+
     /**
      * Get the path to the assimp binary
      *
      * @return string
+     * @throws \RuntimeException
      */
     public function getBinary()
     {
         if (is_null($this->bin)) {
-            $this->setBinary('/usr/bin/assimp');
+        	$paths = array('/usr/bin/assimp', '/usr/local/bin/assimp', '~/bin/assimp');
+        	foreach ($paths as $path) {
+        		try {
+        			$this->setBinary($path);
+        		} catch (\InvalidArgumentException $e) {}
+        	}
+
+        	if (!$this->bin) {
+        		throw new \RuntimeException('assimp-binary not found', ErrorCodes::FILE_NOT_FOUND);
+        	}
         }
         return $this->bin;
     }
-    
-    
+
+
     /**
      * Set the path to the assimp binary
      *
