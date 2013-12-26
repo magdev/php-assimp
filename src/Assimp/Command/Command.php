@@ -40,7 +40,7 @@ use Assimp\Command\Verbs\CacheableVerbInterface;
  *
  * @author magdev
  */
-class Command
+final class Command
 {
     /** @var string */
     private $bin = null;
