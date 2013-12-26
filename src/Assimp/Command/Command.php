@@ -36,11 +36,11 @@ use Assimp\Command\Verbs\VerbInterface;
 use Assimp\Command\Verbs\CacheableVerbInterface;
 
 /**
- * Assimp Command Executor
+ * Assimp Command
  *
  * @author magdev
  */
-class CommandExecutor
+class Command
 {
     /** @var string */
     private $bin = null;
@@ -52,7 +52,7 @@ class CommandExecutor
     /**
      * Constructor
      *
-     * @param string $bin
+     * @param string|null $bin Path to the assimp executable
      */
     public function __construct($bin = null)
     {
@@ -65,13 +65,15 @@ class CommandExecutor
     /**
      * Execute a command
      *
-     * @param VerbInterface $verb
+     * @param \Assimp\Command\Verbs\VerbInterface $verb
+     * @param boolean $noCache Set to true to skip caching
      * @return boolean
+     * @throws \Assimp\Command\CommandException
      */
-    public function execute(VerbInterface $verb)
+    public function execute(VerbInterface $verb, $noCache = false)
     {
         try {
-        	if ($verb instanceof CacheableVerbInterface) {
+        	if ($verb instanceof CacheableVerbInterface && !$noCache) {
         		$cachedVerb = self::getCached($verb);
         		if ($cachedVerb) {
         			return $cachedVerb;
@@ -81,21 +83,24 @@ class CommandExecutor
         	$results = array();
         	$exitCode = null;
             $cmd = $this->getBinary().' '.$verb->getCommand();
+
             $verb->setExecutedCommand($cmd);
 	        exec($cmd, $results, $exitCode);
 
             $verb->setExitCode($exitCode)
                 ->setResults($results);
 
-            if ($verb instanceof CacheableVerbInterface) {
+            if ($verb instanceof CacheableVerbInterface && !$noCache) {
             	self::addCached($verb);
             }
 
-        } catch (\Exception $e) {
-            $verb->setException($e);
-        }
+        	return $verb->isSuccess();
 
-        return $verb->isSuccess();
+        } catch (\Exception $e) {
+        	$ce = new CommandException('Execution failure', ErrorCodes::EXECUTION_FAILURE, $e);
+            $verb->setException($ce);
+            throw $ce;
+        }
     }
 
 
@@ -116,7 +121,11 @@ class CommandExecutor
         	}
 
         	if (!$this->bin) {
-        		throw new \RuntimeException('assimp-binary not found', ErrorCodes::FILE_NOT_FOUND);
+        		throw new \RuntimeException('assimp-binary not found in '.explode(', ', $paths), ErrorCodes::FILE_NOT_FOUND);
+        	}
+
+        	if (!is_executable($this->bin)) {
+        		throw new \RuntimeException('Found a binary file, but it is not executable: '.$this->bin, ErrorCodes::FILE_NOT_EXECUTABLE);
         	}
         }
         return $this->bin;
@@ -126,9 +135,9 @@ class CommandExecutor
     /**
      * Set the path to the assimp binary
      *
-     * @param string $bin
+     * @param string $bin Path to the assimp executable
      * @throws \InvalidArgumentException
-     * @return \Assimp\Command\CommandExecutor
+     * @return \Assimp\Command\Command
      */
     public function setBinary($bin)
     {
