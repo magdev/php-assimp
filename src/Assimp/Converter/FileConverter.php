@@ -146,16 +146,4 @@ final class FileConverter
 	{
 		self::getCommand()->setBinary($bin);
 	}
-
-
-	protected function validateInputFormat($format)
-	{
-
-	}
-
-
-	protected function validateOutputFormat($format)
-	{
-
-	}
 }
