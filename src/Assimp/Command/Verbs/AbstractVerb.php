@@ -33,6 +33,7 @@ namespace Assimp\Command\Verbs;
 
 use Assimp\ErrorCodes;
 use Assimp\Command\CommandException;
+use Assimp\Command\Verbs\Container\ParameterContainer;
 
 /**
  * Abstract Verb-Class
@@ -47,7 +48,7 @@ abstract class AbstractVerb implements VerbInterface
     /** @var string */
     protected $file = null;
 
-    /** @var array */
+    /** @var \Assimp\Command\Verbs\Container\ParameterContainer */
     protected $arguments = array();
 
     /** @var array */
@@ -71,6 +72,8 @@ abstract class AbstractVerb implements VerbInterface
      */
     public function __construct($file = null, array $arguments = null)
     {
+    	$this->arguments = new ParameterContainer();
+
         if (is_string($file)) {
             $this->setFile($file);
         }
@@ -215,19 +218,8 @@ abstract class AbstractVerb implements VerbInterface
     public function getArguments($asString = false)
     {
         if ($asString) {
-            $args = '';
-            foreach ($this->arguments as $arg => $value) {
-                if (is_bool($value)) {
-                    if ($value) {
-                        $args .= strlen($arg) === 1 ? '-'.$arg : '--'.$arg;
-                    }
-                } else {
-                    if ($value) {
-                        $args .= strlen($arg) === 1 ? '-'.$arg.$value : '--'.$arg.'='.$value;
-                    }
-                }
-            }
-            return $args;
+            $str = (string) $this->arguments;
+            return $str;
         }
         return $this->arguments;
     }
@@ -241,9 +233,7 @@ abstract class AbstractVerb implements VerbInterface
      */
     public function setArguments(array $arguments)
     {
-        foreach ($arguments as $arg => $value) {
-            $this->setArgument($arg, $value);
-        }
+        $this->arguments->set($arguments);
         return $this;
     }
 
@@ -257,7 +247,7 @@ abstract class AbstractVerb implements VerbInterface
      */
     public function setArgument($arg, $value)
     {
-        $this->arguments[$arg] = $value;
+        $this->arguments->add($arg, $value);
         return $this;
     }
 
@@ -270,7 +260,7 @@ abstract class AbstractVerb implements VerbInterface
      */
     public function hasArgument($arg)
     {
-        return array_key_exists($arg, $this->arguments);
+        return $this->arguments->has($arg);
     }
 
 
@@ -282,10 +272,7 @@ abstract class AbstractVerb implements VerbInterface
      */
     public function getArgument($arg)
     {
-        if ($this->hasArgument($arg)) {
-            return $this->arguments[$arg];
-        }
-        return null;
+        return $this->arguments->get($arg);
     }
 
 
