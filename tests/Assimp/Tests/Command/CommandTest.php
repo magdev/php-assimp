@@ -60,7 +60,7 @@ class CommandTest extends \PHPUnit_Framework_TestCase
     {
         $verb = $this->getMock('\Assimp\Command\Verbs\VersionVerb', array('getCommand'));
 
-		$verb->expects($this->any())
+		$verb->expects($this->once())
 	        ->method('getCommand')
 	        ->will($this->returnValue('help'));
 
