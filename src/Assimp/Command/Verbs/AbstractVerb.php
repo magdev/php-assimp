@@ -322,6 +322,21 @@ abstract class AbstractVerb implements VerbInterface
 
 
     /**
+     * Get the command
+     *
+     * @return string
+     */
+    public function __toString()
+    {
+    	try {
+    		return $this->getCommand();
+    	} catch (\RuntimeException $e) {
+    		return get_class($e).': '.$e->getMessage().' in '.$e->getFile().':'.$e->getLine();
+    	}
+    }
+
+
+    /**
      * Parse results if needed
      *
      * @param array $results
