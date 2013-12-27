@@ -39,7 +39,7 @@ use Assimp\Command\Verbs\AbstractVerb;
  */
 class AbstractVerbProxy extends AbstractVerb
 {
-    protected $name = 'proxy';
+    protected $name = 'testproxy';
 }
 
 
@@ -62,21 +62,14 @@ class AbstractVerbTest extends \PHPUnit_Framework_TestCase
 		$this->object = new AbstractVerbProxy();
 	}
 
-	/**
-	 * Tears down the fixture, for example, closes a network connection.
-	 * This method is called after a test is executed.
-	 */
-	protected function tearDown()
-	{
-	}
-
 
 	/**
 	 * @covers Assimp\Command\Verbs\AbstractVerb::getName
 	 */
 	public function testGetName()
 	{
-		$this->assertEquals('proxy', $this->object->getName());
+		$this->assertEquals('testproxy', $this->object->getName());
 	}
+
 
 }
