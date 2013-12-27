@@ -36,10 +36,19 @@ namespace Assimp\Command\Verbs;
  *
  * @author magdev
  */
-class ListExtensionsVerb extends AbstractVerb
+class ListExtensionsVerb extends AbstractVerb implements CacheableVerbInterface
 {
     /** @var string */
     protected $name = 'listext';
+
+
+    /**
+     * @see \Assimp\Command\Verbs\CacheableVerbInterface::getCacheKey()
+     */
+    public function getCacheKey()
+    {
+    	return $this->getName();
+    }
 
 
     /**
