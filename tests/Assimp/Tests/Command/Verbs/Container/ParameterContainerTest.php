@@ -23,39 +23,43 @@ class ParameterContainerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Tears down the fixture, for example, closes a network connection.
-     * This method is called after a test is executed.
-     */
-    protected function tearDown()
-    {
-    }
-
-    /**
      * @covers Assimp\Command\Verbs\Container\ParameterContainer::get
      * @covers Assimp\Command\Verbs\Container\ParameterContainer::set
      * @covers Assimp\Command\Verbs\Container\ParameterContainer::add
      * @covers Assimp\Command\Verbs\Container\ParameterContainer::has
-     * @covers Assimp\Command\Verbs\Container\ParameterContainer::all
-     * @todo   Implement testGet().
+     * @covers Assimp\Command\Verbs\Container\ParameterContainer::remove
      */
-    public function testGetSetAddHas()
+    public function testGetSetAddHasValue()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-          'This test has not been implemented yet.'
-        );
+        $this->object->add('var1', 1);
+        $this->assertTrue($this->object->has('var1'));
+		$this->assertEquals(1, $this->object->get('var1'));
+
+		$this->object->remove('var1');
+        $this->assertFalse($this->object->has('var1'));
+
+		$this->object->set(array('var2' => 2));
+        $this->assertTrue($this->object->has('var2'));
+		$this->assertEquals(2, $this->object->get('var2'));
+
+		$this->object->remove('var2');
+        $this->assertFalse($this->object->has('var2'));
     }
 
 
     /**
      * @covers Assimp\Command\Verbs\Container\ParameterContainer::__toString
-     * @todo   Implement test__toString().
+     * @covers Assimp\Command\Verbs\Container\ParameterContainer::all
      */
     public function test__toString()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-          'This test has not been implemented yet.'
-        );
+        $this->object->set(array('var1' => 1));
+        $this->assertEquals('--var1=1', (string) $this->object);
+
+        $this->object->remove('var1')->add('v', 1);
+        $this->assertEquals('-v1', (string) $this->object);
+
+        $this->object->set(array('var1' => 2));
+        $this->assertEquals('-v1 --var1=2', (string) $this->object);
     }
 }
