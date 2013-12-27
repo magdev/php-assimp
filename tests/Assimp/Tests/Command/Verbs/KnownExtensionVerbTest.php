@@ -24,50 +24,80 @@
  *
  * @author    magdev
  * @copyright 2013 Marco Graetsch <magdev3.0@googlemail.com>
- * @package   php-assimp
+ * @package
  * @license   http://opensource.org/licenses/MIT MIT License
  */
 
+
 namespace Assimp\Tests\Command\Verbs;
 
-use Assimp\Command\Verbs\InfoVerb;
+use Assimp\Command\Verbs\KnowExtensionVerb;
 
 /**
- * Test for InfoVerb
+ * Test for KnownExtensionVerb
  *
  * @author magdev
  */
-class InfoVerbTest extends \PHPUnit_Framework_TestCase
+class KnowExtensionVerbTest extends \PHPUnit_Framework_TestCase
 {
 	/**
-	 * @var \Assimp\Command\Verbs\InfoVerb
+	 * @var \Assimp\Command\Verbs\KnownExtensionVerb
 	 */
 	protected $object;
 
+
 	/**
-	 * Sets up the fixture, for example, opens a network connection.
-	 * This method is called before a test is executed.
+	 * Setup
 	 */
 	protected function setUp()
 	{
-		$this->object = new InfoVerb();
+		$this->object = new KnowExtensionVerb();
+	}
+
+
+
+	/**
+	 * @covers Assimp\Command\Verbs\KnowExtensionVerb::getFormat
+	 * @covers Assimp\Command\Verbs\KnowExtensionVerb::setFormat
+	 */
+	public function testGetSetFormat()
+	{
+		$this->object->setFormat('stl');
+		$this->assertEquals('stl', $this->object->getFormat());
 	}
 
 
 	/**
-	 * @covers Assimp\Command\Verbs\InfoVerb::getRaw
-	 * @covers Assimp\Command\Verbs\InfoVerb::setRaw
-	 * @covers Assimp\Command\Verbs\InfoVerb::getCacheKey
+	 * @covers Assimp\Command\Verbs\KnowExtensionVerb::getCommand
 	 */
-	public function testGetSetRawCacheKey()
+	public function testGetCommandSuccess()
 	{
-		$this->object->setRaw(false);
-		$this->assertFalse($this->object->getRaw());
-		$this->assertEquals('info0', $this->object->getCacheKey());
-
-		$this->object->setRaw(true);
-		$this->assertTrue($this->object->getRaw());
-		$this->assertEquals('info1', $this->object->getCacheKey());
+		$this->object->setFormat('stl');
+		$this->assertEquals('knowext stl', $this->object->getCommand());
 	}
 
+
+	/**
+	 * @covers Assimp\Command\Verbs\KnowExtensionVerb::getCommand
+	 * @expectedException \RuntimeException
+	 */
+	public function testGetCommandFailure()
+	{
+		$this->object->getCommand();
+	}
+
+
+	/**
+	 * @covers Assimp\Command\Verbs\KnowExtensionVerb::parseResults
+	 */
+	public function testResultParser()
+	{
+		$this->object->setResults(array('known'));
+		$results = $this->object->getResults();
+		$this->assertTrue($results[0]);
+
+		$this->object->setResults(array('not known'));
+		$results = $this->object->getResults();
+		$this->assertFalse($results[0]);
+	}
 }
