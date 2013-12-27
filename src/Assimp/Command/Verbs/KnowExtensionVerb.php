@@ -86,7 +86,7 @@ class KnowExtensionVerb extends AbstractVerb
     /**
      * @see \Assimp\Command\Verbs\AbstractVerb::parseResults()
      */
-    protected function parseResults($results)
+    protected function parseResults(array $results)
     {
         return array(strstr($results[0], 'not known') == false ? true : false);
     }
