@@ -186,7 +186,7 @@ abstract class AbstractVerb implements VerbInterface
      */
     public function setException(CommandException $e)
     {
-    $this->exception = $e;
+        $this->exception = $e;
 
         $results = array(
             get_class($e).': '.$e->getMessage(),
@@ -205,7 +205,7 @@ abstract class AbstractVerb implements VerbInterface
      */
     public function getException()
     {
-    return $this->exception;
+        return $this->exception;
     }
 
 
@@ -273,6 +273,32 @@ abstract class AbstractVerb implements VerbInterface
     public function getArgument($arg)
     {
         return $this->arguments->get($arg);
+    }
+
+
+    /**
+     * Remove an argument
+     *
+     * @param string $arg
+     * @return \Assimp\Command\Verbs\AbstractVerb
+     */
+    public function removeArgument($arg)
+    {
+    	if ($this->hasArgument($arg)) {
+    		$this->arguments->remove($arg);
+    	}
+    	return $this;
+    }
+
+
+    /**
+     * Get the argument container
+     *
+     * @return \Assimp\Command\Verbs\Container\ParameterContainer
+     */
+    public function getArgumentContainer()
+    {
+    	return $this->arguments;
     }
 
 

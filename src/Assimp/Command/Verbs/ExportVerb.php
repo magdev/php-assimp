@@ -149,7 +149,7 @@ class ExportVerb extends AbstractVerb
             $str = (string) $this->parameters;
             return $str;
         }
-        return $this->parameters;
+        return $this->parameters->all();
     }
 
 
@@ -188,6 +188,32 @@ class ExportVerb extends AbstractVerb
     public function hasParameter($name)
     {
         return $this->parameters->has($name);
+    }
+
+
+    /**
+     * Remove a parameter
+     *
+     * @param string $name
+     * @return \Assimp\Command\Verbs\ExportVerb
+     */
+    public function removeParameter($name)
+    {
+    	if ($this->hasParameter($name)) {
+    		$this->parameters->remove($name);
+    	}
+    	return $this;
+    }
+
+
+    /**
+     * Get the parameter container
+     *
+     * @return \Assimp\Command\Verbs\Container\ParameterContainer
+     */
+    public function getParameterContainer()
+    {
+    	return $this->parameters;
     }
 
 

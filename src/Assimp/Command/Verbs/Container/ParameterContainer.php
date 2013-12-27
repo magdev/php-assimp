@@ -122,6 +122,21 @@ class ParameterContainer
 
 
     /**
+     * Remove a parameter
+     *
+     * @param string $parameter
+     * @return \Assimp\Command\Verbs\Container\ParameterContainer
+     */
+    public function remove($parameter)
+    {
+    	if ($this->has($parameter)) {
+    		unset($this->parameters[$parameter]);
+    	}
+    	return $this;
+    }
+
+
+    /**
      * Get the parameters as string
      *
      * @return string
