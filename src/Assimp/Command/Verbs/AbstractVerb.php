@@ -101,7 +101,7 @@ abstract class AbstractVerb implements VerbInterface
             throw new \InvalidArgumentException('File not found: '.$file, ErrorCodes::FILE_NOT_FOUND);
         }
         if (!is_readable($file)) {
-        throw new \InvalidArgumentException('File is not readable: '.$file, ErrorCodes::FILE_NOT_READABLE);
+            throw new \InvalidArgumentException('File is not readable: '.$file, ErrorCodes::FILE_NOT_READABLE);
         }
         $this->file = $file;
         return $this;
@@ -122,9 +122,9 @@ abstract class AbstractVerb implements VerbInterface
      */
     public function getCommand()
     {
-    if (!$this->getFile()) {
-    throw new \RuntimeException('Input-File is required', ErrorCodes::MISSING_VALUE);
-    }
+        if (!$this->getFile()) {
+             throw new \RuntimeException('Input-File is required', ErrorCodes::MISSING_VALUE);
+        }
         return rtrim($this->getName().' '.$this->getArguments(true).' '.$this->getFile());
     }
 
