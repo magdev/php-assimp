@@ -13,6 +13,9 @@
     "require": {
         "php": ">=5.3.3"
     },
+    "require-dev": {
+        "phpunit/phpunit": "3.8.*@dev"
+    },
     "suggest": {
         "magdev/php-assimp-validator": "Extension for the Symfony2 validator component"
     },
