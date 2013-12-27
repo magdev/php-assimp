@@ -32,8 +32,6 @@ namespace Assimp\Tests\Command\Verbs;
 
 use Assimp\Command\Verbs\VersionVerb;
 
-
-
 /**
  * Test for VersionVerb
  *
@@ -57,7 +55,7 @@ class VersionVerbTest extends \PHPUnit_Framework_TestCase
 
 
 	/**
-	 * @covers Assimp\Command\Verbs\InfoVerb::getCacheKey
+	 * @covers Assimp\Command\Verbs\VersionVerb::getCacheKey
 	 */
 	public function testGetCacheKey()
 	{
@@ -66,7 +64,7 @@ class VersionVerbTest extends \PHPUnit_Framework_TestCase
 
 
 	/**
-	 * @covers Assimp\Command\Verbs\InfoVerb::parseResults
+	 * @covers Assimp\Command\Verbs\VersionVerb::parseResults
 	 */
 	public function testResultParser()
 	{
