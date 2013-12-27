@@ -119,6 +119,7 @@ abstract class AbstractVerb implements VerbInterface
 
     /**
      * @see \Assimp\Command\Verbs\VerbInterface::getCommand()
+     * @refactor avoid multiple spaces if arguments empty
      */
     public function getCommand()
     {
@@ -221,7 +222,7 @@ abstract class AbstractVerb implements VerbInterface
             $str = (string) $this->arguments;
             return $str;
         }
-        return $this->arguments;
+        return $this->arguments->all();
     }
 
 
