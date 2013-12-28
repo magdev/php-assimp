@@ -1,6 +1,6 @@
 # PHP Wrapper for the assimp CLI-Tool
 
-This library is a wrapper for the [Open Asset Import Library](https://github.com/assimp/assimp) command-line tool.
+A wrapper for the [Open Asset Import Library](https://github.com/assimp/assimp) command-line tool.
 
 ##Installation
 
@@ -36,7 +36,10 @@ use Assimp\Command\Verbs\ListExtensionsVerb;
 $verb = new ListExtensionsVerb();
 $exec = new Command('/path/to/assimp');
 $exec->execute($verb);
-print_r($verb);
+
+if ($verb->isSuccess()) {
+    print_r($verb->gerResults());
+}
 ```
 
 ##License
