@@ -32,6 +32,7 @@
 namespace Assimp\Command\Verbs;
 
 use Assimp\ErrorCodes;
+use Assimp\Command\Result;
 
 /**
  * Assimp Know Extension Verb
@@ -84,11 +85,11 @@ class KnowExtensionVerb extends AbstractVerb
 
 
     /**
-     * @see \Assimp\Command\Verbs\AbstractVerb::parseResults()
+     * @see \Assimp\Command\Verbs\AbstractVerb::parseResult()
      */
-    protected function parseResults(array $results)
+    protected function parseResult(Result $result)
     {
-        return array(strstr($results[0], 'not known') == false ? true : false);
+        return $result->setOutput(array(strstr($result->getOutputLine(0), 'not known') == false ? true : false));
     }
 
 }

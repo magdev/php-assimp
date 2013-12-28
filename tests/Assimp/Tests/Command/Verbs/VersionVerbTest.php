@@ -68,12 +68,11 @@ class VersionVerbTest extends \PHPUnit_Framework_TestCase
      */
     public function testResultParser()
     {
-        $this->object->setResults(array('Version 3.0--shared -st  (SVNREV 1270)'));
+        $this->object->getResult()->setOutput(array('Version 3.0--shared -st  (SVNREV 1270)'));
 
-        $results = $this->object->getResults();
-        $this->assertCount(2, $results);
-        $this->assertEquals('3.0', $results[0]);
-        $this->assertEquals('1270', $results[1]);
+        $this->assertCount(2, $this->object->getResult()->getOutput());
+        $this->assertEquals('3.0', $this->object->getResult()->getOutputLine(0));
+        $this->assertEquals('1270', $this->object->getResult()->getOutputLine(1));
     }
 
 }

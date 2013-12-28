@@ -68,11 +68,10 @@ class ListExtensionsVerbTest extends \PHPUnit_Framework_TestCase
      */
     public function testResultParser()
     {
-        $this->object->setResults(array('*.stl;*.obj'));
+        $this->object->getResult()->setOutput(array('*.stl;*.obj'));
 
-        $results = $this->object->getResults();
-        $this->assertCount(2, $results);
-        $this->assertContains('stl', $results);
-        $this->assertContains('obj', $results);
+        $this->assertCount(2, $this->object->getResult()->getOutput());
+        $this->assertContains('stl', $this->object->getResult()->getOutput());
+        $this->assertContains('obj', $this->object->getResult()->getOutput());
     }
 }

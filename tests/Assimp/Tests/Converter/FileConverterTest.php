@@ -40,98 +40,98 @@ use Assimp\Converter\FileConverter;
  */
 class FileConverterTest extends \PHPUnit_Framework_TestCase
 {
-	/**
-	 * @var \Assimp\Converter\FileConverter
-	 */
-	protected $object;
+    /**
+     * @var \Assimp\Converter\FileConverter
+     */
+    protected $object;
 
 
-	/**
-	 * @see PHPUnit_Framework_TestCase::setUp()
-	 */
-	protected function setUp()
-	{
-		$this->object = new FileConverter();
-	}
+    /**
+     * @see PHPUnit_Framework_TestCase::setUp()
+     */
+    protected function setUp()
+    {
+        $this->object = new FileConverter();
+    }
 
 
-	/**
-	 * @see PHPUnit_Framework_TestCase::tearDown()
-	 */
-	protected function tearDown()
-	{
-		system('rm -f '.ASSIMP_TEST_FILES.'/output/* 2>&1 >> /dev/null');
-	}
+    /**
+     * @see PHPUnit_Framework_TestCase::tearDown()
+     */
+    protected function tearDown()
+    {
+        system('rm -f '.ASSIMP_TEST_FILES.'/output/* 2>&1 >> /dev/null');
+    }
 
 
-	/**
-	 * Test conversion ASCII-STL -> ASCII-STL (normalization)
-	 *
-	 * @covers Assimp\Converter\FileConverter::convert
-	 * @covers Assimp\Converter\FileConverter::getVerb
-	 */
+    /**
+     * Test conversion ASCII-STL -> ASCII-STL (normalization)
+     *
+     * @covers Assimp\Converter\FileConverter::convert
+     * @covers Assimp\Converter\FileConverter::getVerb
+     */
     public function testConvertSTLASCII()
     {
         $inputFile = ASSIMP_TEST_FILES.'/ascii.stl';
         $outputFile = ASSIMP_TEST_FILES.'/output/ascii-converted.stl';
 
-		$this->object->getVerb()->setFile($inputFile);
-		$verb = $this->object->convert($outputFile, 'stl')->getVerb();
-		$this->assertTrue($verb->isSuccess());
-		$this->assertTrue(file_exists($outputFile));
+        $this->object->getVerb()->setFile($inputFile);
+        $result = $this->object->convert($outputFile, 'stl');
+        $this->assertTrue($result->isSuccess());
+        $this->assertTrue(file_exists($result->getVerb()->getOutputFile()));
     }
 
 
-	/**
-	 * Test conversion ASCII-STL -> OBJ
-	 *
-	 * @covers Assimp\Converter\FileConverter::convert
-	 * @covers Assimp\Converter\FileConverter::getVerb
-	 */
+    /**
+     * Test conversion ASCII-STL -> OBJ
+     *
+     * @covers Assimp\Converter\FileConverter::convert
+     * @covers Assimp\Converter\FileConverter::getVerb
+     */
     public function testConvertSTLASCII2Obj()
     {
         $inputFile = ASSIMP_TEST_FILES.'/ascii.stl';
         $outputFile = ASSIMP_TEST_FILES.'/output/ascii.obj';
 
-		$this->object->getVerb()->setFile($inputFile);
-		$verb = $this->object->convert($outputFile, 'obj')->getVerb();
-		$this->assertTrue($verb->isSuccess());
-		$this->assertTrue(file_exists($outputFile));
+        $this->object->getVerb()->setFile($inputFile);
+        $result = $this->object->convert($outputFile, 'obj');
+        $this->assertTrue($result->isSuccess());
+        $this->assertTrue(file_exists($result->getVerb()->getOutputFile()));
     }
 
 
-	/**
-	 * Test conversion Binary-STL -> Binary-STL (normalization)
-	 *
-	 * @covers Assimp\Converter\FileConverter::convert
-	 * @covers Assimp\Converter\FileConverter::getVerb
-	 */
+    /**
+     * Test conversion Binary-STL -> Binary-STL (normalization)
+     *
+     * @covers Assimp\Converter\FileConverter::convert
+     * @covers Assimp\Converter\FileConverter::getVerb
+     */
     public function testConvertSTLBinary()
     {
         $inputFile = ASSIMP_TEST_FILES.'/binary.stl';
         $outputFile = ASSIMP_TEST_FILES.'/output/binary-converted.stl';
 
-		$this->object->getVerb()->setFile($inputFile);
-		$verb = $this->object->convert($outputFile, 'stl')->getVerb();
-		$this->assertTrue($verb->isSuccess());
-		$this->assertTrue(file_exists($outputFile));
+        $this->object->getVerb()->setFile($inputFile);
+        $result = $this->object->convert($outputFile, 'stl');
+        $this->assertTrue($result->isSuccess());
+        $this->assertTrue(file_exists($result->getVerb()->getOutputFile()));
     }
 
 
-	/**
-	 * Test conversion Binary-STL -> OBJ
-	 *
-	 * @covers Assimp\Converter\FileConverter::convert
-	 * @covers Assimp\Converter\FileConverter::getVerb
-	 */
+    /**
+     * Test conversion Binary-STL -> OBJ
+     *
+     * @covers Assimp\Converter\FileConverter::convert
+     * @covers Assimp\Converter\FileConverter::getVerb
+     */
     public function testConvertSTLBinary2Obj()
     {
         $inputFile = ASSIMP_TEST_FILES.'/binary.stl';
         $outputFile = ASSIMP_TEST_FILES.'/output/binary.obj';
 
-		$this->object->getVerb()->setFile($inputFile);
-		$verb = $this->object->convert($outputFile, 'obj')->getVerb();
-		$this->assertTrue($verb->isSuccess());
-		$this->assertTrue(file_exists($outputFile));
+        $this->object->getVerb()->setFile($inputFile);
+        $result = $this->object->convert($outputFile, 'obj');
+        $this->assertTrue($result->isSuccess());
+        $this->assertTrue(file_exists($result->getVerb()->getOutputFile()));
     }
 }

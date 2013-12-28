@@ -67,39 +67,36 @@ final class Command
      *
      * @param \Assimp\Command\Verbs\VerbInterface $verb
      * @param boolean $noCache Set to true to skip caching
-     * @return boolean
+     * @return \Assimp\Command\Result
      * @throws \Assimp\Command\CommandException
      */
     public function execute(VerbInterface $verb, $noCache = false)
     {
         try {
             if ($verb instanceof CacheableVerbInterface && !$noCache) {
-                $cachedVerb = self::getCached($verb);
-                if ($cachedVerb) {
-                    return $cachedVerb;
+                if ($result = self::getCached($verb)) {
+                    return $result;
                 }
             }
 
-            $results = array();
+            $result = $verb->getResult();
+
+            $command = $this->getBinary().' '.$verb->getCommand();
+            $result->setCommand($command);
+
+            $output = array();
             $exitCode = null;
-            $cmd = $this->getBinary().' '.$verb->getCommand();
+            exec($command, $output, $exitCode);
 
-            $verb->setExecutedCommand($cmd);
-            exec($cmd, $results, $exitCode);
-
-            $verb->setExitCode($exitCode)
-                ->setResults($results);
+            $result->setExitCode($exitCode)
+                ->setOutput($output);
 
             if ($verb instanceof CacheableVerbInterface && !$noCache) {
-                self::addCached($verb);
+                self::addCached($verb, $result);
             }
-
-            return $verb->isSuccess();
-
+            return $result;
         } catch (\Exception $e) {
-            $ce = new CommandException('Execution failure', ErrorCodes::EXECUTION_FAILURE, $e);
-            $verb->setException($ce);
-            throw $ce;
+            throw new CommandException('Execution failure', ErrorCodes::EXECUTION_FAILURE, $e);
         }
     }
 
@@ -156,7 +153,7 @@ final class Command
      * Get a cached version of the verb
      *
      * @param \Assimp\Command\Verbs\CacheableVerbInterface $verb
-     * @return \Assimp\Command\Verbs\CacheableVerbInterface|NULL
+     * @return \Assimp\Command\Result|NULL
      */
     private static function getCached(CacheableVerbInterface $verb)
     {
@@ -172,10 +169,11 @@ final class Command
      * Add a verb to the cache
      *
      * @param \Assimp\Command\Verbs\CacheableVerbInterface $verb
+     * @param \Assimp\Command\Result $result
      * @return void
      */
-    private static function addCached(CacheableVerbInterface $verb)
+    private static function addCached(CacheableVerbInterface $verb, Result $result)
     {
-        self::$cache[$verb->getCacheKey()] = $verb;
+        self::$cache[$verb->getCacheKey()] = $result;
     }
 }

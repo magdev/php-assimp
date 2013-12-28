@@ -90,12 +90,10 @@ class KnowExtensionVerbTest extends \PHPUnit_Framework_TestCase
      */
     public function testResultParser()
     {
-        $this->object->setResults(array('known'));
-        $results = $this->object->getResults();
-        $this->assertTrue($results[0]);
+        $this->object->getResult()->setOutput(array('known'));
+        $this->assertTrue($this->object->getResult()->getOutputLine(0));
 
-        $this->object->setResults(array('not known'));
-        $results = $this->object->getResults();
-        $this->assertFalse($results[0]);
+        $this->object->getResult()->setOutput(array('not known'));
+        $this->assertFalse($this->object->getResult()->getOutputLine(0));
     }
 }

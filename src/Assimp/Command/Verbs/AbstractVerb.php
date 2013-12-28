@@ -32,6 +32,7 @@
 namespace Assimp\Command\Verbs;
 
 use Assimp\ErrorCodes;
+use Assimp\Command\Result;
 use Assimp\Command\CommandException;
 use Assimp\Command\Verbs\Container\ParameterContainer;
 
@@ -51,17 +52,8 @@ abstract class AbstractVerb implements VerbInterface
     /** @var \Assimp\Command\Verbs\Container\ParameterContainer */
     protected $arguments = array();
 
-    /** @var array */
-    protected $results = array();
-
-    /** @var int */
-    protected $exitCode = null;
-
-    /** @var string */
-    protected $executedCommand = null;
-
-    /** @var \Assimp\Command\CommandException */
-    protected $exception = null;
+    /** @var \Assimp\Command\Result */
+    protected $result = array();
 
 
     /**
@@ -131,82 +123,24 @@ abstract class AbstractVerb implements VerbInterface
 
 
     /**
-     * @see \Assimp\Command\Verbs\VerbInterface::setResults()
+     * @see \Assimp\Command\Verbs\VerbInterface::setResult()
      */
-    public function setResults(array $results)
+    public function setResult(Result $result)
     {
-        $this->results = $this->parseResults($results);
+        $this->result = $result;
         return $this;
     }
 
 
     /**
-     * @see \Assimp\Command\Verbs\VerbInterface::setExitCode()
+     * @see \Assimp\Command\Verbs\VerbInterface::getResult()
      */
-    public function setExitCode($exitCode)
+    public function getResult()
     {
-        $this->exitCode = (int) $exitCode;
-        return $this;
-    }
-
-
-    /**
-     * @see \Assimp\Command\Verbs\VerbInterface::getExitCode()
-     */
-    public function getExitCode()
-    {
-        return $this->exitCode;
-    }
-
-
-    /**
-     * @see \Assimp\Command\Verbs\VerbInterface::getResults()
-     */
-    public function getResults()
-    {
-        if (sizeof($this->results)) {
-            return $this->results;
+        if (!$this->result) {
+            $this->result = new Result($this);
         }
-        return null;
-    }
-
-
-    /**
-     * Check if the process finished successful
-     *
-     * @return boolean
-     */
-    public function isSuccess()
-    {
-        return !is_null($this->exitCode) && $this->exitCode === 0;
-    }
-
-
-    /**
-     * @see \Assimp\Command\Verbs\VerbInterface::setException()
-     */
-    public function setException(CommandException $e)
-    {
-        $this->exception = $e;
-
-        $results = array(
-            get_class($e).': '.$e->getMessage(),
-            'in '.$e->getFile().':'.$e->getLine(),
-        );
-        $results += $e->getTrace();
-
-        $this->setExitCode($e->getCode())
-            ->setResults($results);
-        return $this;
-    }
-
-
-    /**
-     * @see \Assimp\Command\Verbs\VerbInterface::getException()
-     */
-    public function getException()
-    {
-        return $this->exception;
+        return $this->parseResult($this->result);
     }
 
 
@@ -304,25 +238,6 @@ abstract class AbstractVerb implements VerbInterface
 
 
     /**
-     * @see \Assimp\Command\Verbs\VerbInterface::getExecutedCommand()
-     */
-    public function getExecutedCommand()
-    {
-        return $this->executedCommand;
-    }
-
-
-    /**
-     * @see \Assimp\Command\Verbs\VerbInterface::setExecutedCommand()
-     */
-    public function setExecutedCommand($executedCommand)
-    {
-        $this->executedCommand = (string) $executedCommand;
-        return $this;
-    }
-
-
-    /**
      * Get the command
      *
      * @return string
@@ -338,13 +253,13 @@ abstract class AbstractVerb implements VerbInterface
 
 
     /**
-     * Parse results if needed
+     * Parse result if needed
      *
-     * @param array $results
-     * @return array
+     * @param \Assimp\Command\Result $results
+     * @return \Assimp\Command\Result
      */
-    protected function parseResults(array $results)
+    protected function parseResult(Result $result)
     {
-        return $results;
+        return $result;
     }
 }

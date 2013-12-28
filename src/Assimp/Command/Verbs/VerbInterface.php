@@ -31,6 +31,7 @@
 namespace Assimp\Command\Verbs;
 
 use Assimp\Command\CommandException;
+use Assimp\Command\Result;
 
 
 /**
@@ -76,77 +77,18 @@ interface VerbInterface
 
 
     /**
-     * Set the exit-code
-     *
-     * @param int $exitCode
-     * @return \Assimp\Command\Verbs\VerbInterface
-     */
-    public function setExitCode($exitCode);
-
-
-    /**
-     * Get the exit-code
-     *
-     * @return int
-     */
-    public function getExitCode();
-
-
-    /**
      * Set the results of the command
      *
-     * @param array $results
+     * @param \Assimp\Command\Result $results
      * @return \Assimp\Command\Verbs\VerbInterface
      */
-    public function setResults(array $results);
+    public function setResult(Result $result);
 
 
     /**
      * Get the results
      *
-     * @return array
+     * @return \Assimp\Command\Result
      */
-    public function getResults();
-
-
-    /**
-     * Check if the command is successful executed
-     *
-     * @return boolean
-     */
-    public function isSuccess();
-
-
-    /**
-     * Set the executed command
-     *
-     * @param string $executedCommand
-     * @return \Assimp\Command\Verbs\VerbInterface
-     */
-    public function setExecutedCommand($executedCommand);
-
-
-    /**
-     * Get the executed command
-     *
-     * @return string
-     */
-    public function getExecutedCommand();
-
-
-    /**
-     * Set an Exception
-     *
-     * @param \Assimp\Command\CommandException $e
-     * @return \Assimp\Command\Verbs\AbstractVerb
-     */
-    public function setException(CommandException $e);
-
-
-    /**
-     * Get the exception on failure
-     *
-     * @return \Assimp\Command\CommandException
-     */
-    public function getException();
+    public function getResult();
 }

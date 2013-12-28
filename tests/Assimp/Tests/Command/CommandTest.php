@@ -64,7 +64,8 @@ class CommandTest extends \PHPUnit_Framework_TestCase
             ->method('getCommand')
             ->will($this->returnValue('help'));
 
-        $this->assertTrue($this->object->execute($verb, true));
+        $result = $this->object->execute($verb, true);
+        $this->assertTrue($result->isSuccess());
     }
 
 

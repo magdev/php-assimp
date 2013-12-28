@@ -33,6 +33,7 @@
 
 namespace Assimp\Command\Verbs;
 
+use Assimp\Command\Result;
 /**
  * Assimp Version Verb
  *
@@ -45,19 +46,21 @@ class VersionVerb extends AbstractVerb implements CacheableVerbInterface
 
 
     /**
-     * @see \Assimp\Command\Verbs\AbstractVerb::parseResults()
+     * @see \Assimp\Command\Verbs\AbstractVerb::parseResult()
      */
-    protected function parseResults(array $results)
+    protected function parseResult(Result $result)
     {
-        foreach ($results as $row) {
+        foreach ($result->getOutput() as $row) {
             $matches = array();
             if (preg_match('/Version ([\d.]+).*\(SVNREV ([\d]+)\)/', $row, $matches)) {
-                return array($matches[1], $matches[2]);
+                $result->setOutput(array($matches[1], $matches[2]));
+                continue;
             } else if (preg_match('/Version ([\d.]+).*/', $row, $matches)) {
-                return array($matches[1]);
+                $result->setOutput(array($matches[1]));
+                continue;
             }
         }
-        return $results;
+        return $result;
     }
 
 

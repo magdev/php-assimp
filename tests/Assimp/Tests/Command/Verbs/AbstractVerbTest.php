@@ -32,6 +32,7 @@ namespace Assimp\Tests\Command\Verbs;
 
 use Assimp\Command\Verbs\AbstractVerb;
 use Assimp\Command\CommandException;
+use Assimp\Command\Result;
 
 
 /**
@@ -167,69 +168,21 @@ class AbstractVerbTest extends \PHPUnit_Framework_TestCase
         $this->object->getCommand();
     }
 
-
     /**
-     * @covers Assimp\Command\Verbs\AbstractVerb::setExitCode
-     * @covers Assimp\Command\Verbs\AbstractVerb::getExitCode
+     * @covers Assimp\Command\Verbs\AbstractVerb::setResult
+     * @covers Assimp\Command\Verbs\AbstractVerb::getResult
      */
-    public function testSetGetExitCode()
+    public function testSetGetResult()
     {
-        $this->assertInstanceOf('\Assimp\Tests\Command\Verbs\AbstractVerbProxy', $this->object->setExitCode(1));
-        $this->assertSame(1, $this->object->getExitCode());
-    }
+        $result1 = new Result();
+        $result2 = $this->object->getResult();
 
+        $this->assertInstanceOf('\Assimp\Command\Result', $result2);
 
-    /**
-     * @covers Assimp\Command\Verbs\AbstractVerb::setResults
-     * @covers Assimp\Command\Verbs\AbstractVerb::getResults
-     */
-    public function testSetGetResults()
-    {
-        $this->assertNull($this->object->getResults());
+        $this->assertInstanceOf('\Assimp\Tests\Command\Verbs\AbstractVerbProxy', $this->object->setResult($result1));
+        $this->assertNotSame($result2, $this->object->getResult());
 
-        $results = array('var1' => 'val1');
-        $this->assertInstanceOf('\Assimp\Tests\Command\Verbs\AbstractVerbProxy', $this->object->setResults($results));
-        $this->assertSame($results, $this->object->getResults());
-    }
-
-
-    /**
-     * @covers Assimp\Command\Verbs\AbstractVerb::isSuccess
-     */
-    public function testIsSuccess()
-    {
-        $this->assertFalse($this->object->isSuccess());
-
-        $this->object->setExitCode(1);
-        $this->assertFalse($this->object->isSuccess());
-
-        $this->object->setExitCode(0);
-        $this->assertTrue($this->object->isSuccess());
-    }
-
-
-    /**
-     * @covers Assimp\Command\Verbs\AbstractVerb::setException
-     * @covers Assimp\Command\Verbs\AbstractVerb::getException
-     */
-    public function testGetSetException()
-    {
-        $e = new CommandException('test', 1);
-
-        $this->assertInstanceOf('\Assimp\Tests\Command\Verbs\AbstractVerbProxy', $this->object->setException($e));
-        $this->assertInstanceOf('\Assimp\Command\CommandException', $this->object->getException());
-        $this->assertEquals(1, $this->object->getExitCode());
-    }
-
-
-    /**
-     * @covers Assimp\Command\Verbs\AbstractVerb::setExcecutedCommand
-     * @covers Assimp\Command\Verbs\AbstractVerb::getExcecutedCommand
-     */
-    public function testGetSetExcecutedCommand()
-    {
-        $command = '/test/command -p';
-        $this->assertInstanceOf('\Assimp\Tests\Command\Verbs\AbstractVerbProxy', $this->object->setExecutedCommand($command));
-        $this->assertEquals($command, $this->object->getExecutedCommand());
+        $this->assertInstanceOf('\Assimp\Tests\Command\Verbs\AbstractVerbProxy', $this->object->setResult($result2));
+        $this->assertSame($result2, $this->object->getResult());
     }
 }

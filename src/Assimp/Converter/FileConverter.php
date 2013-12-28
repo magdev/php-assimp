@@ -73,7 +73,7 @@ final class FileConverter
      * @param string $outputFile
      * @param string $format
      * @param array $params
-     * @return \Assimp\Converter\FileConverter
+     * @return \Assimp\Converter\Result
      * @throws \Assimp\Converter\ConverterException
      */
     public function convert($outputFile, $format, array $params = array())
@@ -83,13 +83,14 @@ final class FileConverter
                 ->setFormat($format)
                 ->setParameters($params);
 
-            if (!self::getCommand()->execute($this->getVerb())) {
-                if ($this->getVerb()->getException()) {
-                    throw $this->getVerb()->getException();
+            $result = self::getCommand()->execute($this->getVerb());
+            if (!$result->isSuccess()) {
+                if ($result->hasException()) {
+                    throw $result->getException();
                 }
-                throw new \RuntimeException('Unknown error: ', $this->getVerb()->getExitCode());
+                throw new \RuntimeException('Unknown error: ', $result->getExitCode());
             }
-            return $this;
+            return $result;
         } catch (\Exception $e) {
             throw new ConverterException('Conversion failed', ErrorCodes::EXECUTION_FAILURE, $e);
         }

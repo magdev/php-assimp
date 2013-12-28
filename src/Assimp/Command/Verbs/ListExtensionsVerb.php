@@ -31,6 +31,7 @@
 namespace Assimp\Command\Verbs;
 
 
+use Assimp\Command\Result;
 /**
  * Assimp List Extensions Verb
  *
@@ -52,18 +53,17 @@ class ListExtensionsVerb extends AbstractVerb implements CacheableVerbInterface
 
 
     /**
-     * @see \Assimp\Command\Verbs\AbstractVerb::parseResults()
+     * @see \Assimp\Command\Verbs\AbstractVerb::parseResult()
      */
-    protected function parseResults(array $results)
+    protected function parseResult(Result $result)
     {
-        if (sizeof($results) === 1) {
-            $extensions = explode(';', $results[0]);
-
+        if (sizeof($result->getOutput()) === 1) {
+            $extensions = explode(';', $result->getOutputLine(0));
             $cleanup = function($value) {
                 return str_replace('*.', '', $value);
             };
-            return array_map($cleanup, $extensions);
+            $result->setOutput(array_map($cleanup, $extensions));
         }
-        return $results;
+        return $result;
     }
 }
