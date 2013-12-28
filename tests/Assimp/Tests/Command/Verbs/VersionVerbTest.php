@@ -24,7 +24,7 @@
  *
  * @author    magdev
  * @copyright 2013 Marco Graetsch <magdev3.0@googlemail.com>
- * @package
+ * @package   php-assimp
  * @license   http://opensource.org/licenses/MIT MIT License
  */
 
@@ -39,41 +39,41 @@ use Assimp\Command\Verbs\VersionVerb;
  */
 class VersionVerbTest extends \PHPUnit_Framework_TestCase
 {
-	/**
-	 * @var \Assimp\Command\Verbs\VersionVerb
-	 */
-	protected $object;
+    /**
+     * @var \Assimp\Command\Verbs\VersionVerb
+     */
+    protected $object;
 
 
-	/**
-	 * Setup
-	 */
-	protected function setUp()
-	{
-		$this->object = new VersionVerb();
-	}
+    /**
+     * Setup
+     */
+    protected function setUp()
+    {
+        $this->object = new VersionVerb();
+    }
 
 
-	/**
-	 * @covers Assimp\Command\Verbs\VersionVerb::getCacheKey
-	 */
-	public function testGetCacheKey()
-	{
-		$this->assertEquals('version', $this->object->getCacheKey());
-	}
+    /**
+     * @covers Assimp\Command\Verbs\VersionVerb::getCacheKey
+     */
+    public function testGetCacheKey()
+    {
+        $this->assertEquals('version', $this->object->getCacheKey());
+    }
 
 
-	/**
-	 * @covers Assimp\Command\Verbs\VersionVerb::parseResults
-	 */
-	public function testResultParser()
-	{
-		$this->object->setResults(array('Version 3.0--shared -st  (SVNREV 1270)'));
+    /**
+     * @covers Assimp\Command\Verbs\VersionVerb::parseResults
+     */
+    public function testResultParser()
+    {
+        $this->object->setResults(array('Version 3.0--shared -st  (SVNREV 1270)'));
 
-		$results = $this->object->getResults();
-		$this->assertCount(2, $results);
-		$this->assertEquals('3.0', $results[0]);
-		$this->assertEquals('1270', $results[1]);
-	}
+        $results = $this->object->getResults();
+        $this->assertCount(2, $results);
+        $this->assertEquals('3.0', $results[0]);
+        $this->assertEquals('1270', $results[1]);
+    }
 
 }

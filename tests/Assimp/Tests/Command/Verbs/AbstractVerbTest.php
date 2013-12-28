@@ -52,184 +52,184 @@ class AbstractVerbProxy extends AbstractVerb
  */
 class AbstractVerbTest extends \PHPUnit_Framework_TestCase
 {
-	/**
-	 * @var \Assimp\Tests\Command\Verbs\AbstractVerbProxy
-	 */
-	protected $object;
+    /**
+     * @var \Assimp\Tests\Command\Verbs\AbstractVerbProxy
+     */
+    protected $object;
 
-	/**
-	 * @var string
-	 */
-	private $testFile;
-
-
-
-	/**
-	 * Setup
-	 */
-	protected function setUp()
-	{
-		$this->object = new AbstractVerbProxy();
-
-		$this->testFile = ASSIMP_TEST_FILES.'/ascii.stl';
-	}
+    /**
+     * @var string
+     */
+    private $testFile;
 
 
-	/**
-	 * @covers Assimp\Command\Verbs\AbstractVerb::getName
-	 */
-	public function testGetName()
-	{
-		$this->assertEquals('testproxy', $this->object->getName());
-	}
+
+    /**
+     * Setup
+     */
+    protected function setUp()
+    {
+        $this->object = new AbstractVerbProxy();
+
+        $this->testFile = ASSIMP_TEST_FILES.'/ascii.stl';
+    }
 
 
-	/**
-	 * @covers Assimp\Command\Verbs\AbstractVerb::setFile
-	 * @covers Assimp\Command\Verbs\AbstractVerb::getFile
-	 */
-	public function testGetSetFileSuccess()
-	{
-		$this->assertInstanceOf('\Assimp\Tests\Command\Verbs\AbstractVerbProxy', $this->object->setFile($this->testFile));
-		$this->assertEquals($this->testFile, $this->object->getFile());
-	}
+    /**
+     * @covers Assimp\Command\Verbs\AbstractVerb::getName
+     */
+    public function testGetName()
+    {
+        $this->assertEquals('testproxy', $this->object->getName());
+    }
 
 
-	/**
-	 * @covers Assimp\Command\Verbs\AbstractVerb::getFile
-	 * @expectedException \InvalidArgumentException
-	 */
-	public function testSetFileFailureNotExists()
-	{
-		$this->object->setFile('/path/to/none/existent/file.stl');
-	}
+    /**
+     * @covers Assimp\Command\Verbs\AbstractVerb::setFile
+     * @covers Assimp\Command\Verbs\AbstractVerb::getFile
+     */
+    public function testGetSetFileSuccess()
+    {
+        $this->assertInstanceOf('\Assimp\Tests\Command\Verbs\AbstractVerbProxy', $this->object->setFile($this->testFile));
+        $this->assertEquals($this->testFile, $this->object->getFile());
+    }
 
 
-	/**
-	 * @covers Assimp\Command\Verbs\AbstractVerb::getArgumentContainer
-	 */
-	public function testGetArgumentContainer()
-	{
-		$this->assertInstanceOf('\Assimp\Command\Verbs\Container\ParameterContainer', $this->object->getArgumentContainer());
-	}
+    /**
+     * @covers Assimp\Command\Verbs\AbstractVerb::getFile
+     * @expectedException \InvalidArgumentException
+     */
+    public function testSetFileFailureNotExists()
+    {
+        $this->object->setFile('/path/to/none/existent/file.stl');
+    }
 
 
-	/**
-	 * @covers Assimp\Command\Verbs\AbstractVerb::setArguments
-	 * @covers Assimp\Command\Verbs\AbstractVerb::getArguments
-	 */
-	public function testGetSetArguments()
-	{
-		$this->object->setArguments(array('var1' => 'val1'));
-		$this->assertArrayHasKey('var1', $this->object->getArguments());
-
-		$this->object->setArguments(array('var2' => 'val2'));
-		$this->assertArrayHasKey('var1', $this->object->getArguments());
-		$this->assertArrayHasKey('var2', $this->object->getArguments());
-
-		$this->assertEquals('--var1=val1 --var2=val2', $this->object->getArguments(true));
-	}
+    /**
+     * @covers Assimp\Command\Verbs\AbstractVerb::getArgumentContainer
+     */
+    public function testGetArgumentContainer()
+    {
+        $this->assertInstanceOf('\Assimp\Command\Verbs\Container\ParameterContainer', $this->object->getArgumentContainer());
+    }
 
 
-	/**
-	 * @covers Assimp\Command\Verbs\AbstractVerb::setArgument
-	 * @covers Assimp\Command\Verbs\AbstractVerb::getArgument
-	 * @covers Assimp\Command\Verbs\AbstractVerb::hasArgument
-	 * @covers Assimp\Command\Verbs\AbstractVerb::removeArgument
-	 */
-	public function testGetSetHasRemoveArgument()
-	{
-		$this->object->setArgument('var1', 'val1');
-		$this->assertTrue($this->object->hasArgument('var1'));
-		$this->assertEquals('val1', $this->object->getArgument('var1'));
+    /**
+     * @covers Assimp\Command\Verbs\AbstractVerb::setArguments
+     * @covers Assimp\Command\Verbs\AbstractVerb::getArguments
+     */
+    public function testGetSetArguments()
+    {
+        $this->object->setArguments(array('var1' => 'val1'));
+        $this->assertArrayHasKey('var1', $this->object->getArguments());
 
-		$this->object->removeArgument('var1');
-		$this->assertFalse($this->object->hasArgument('var1'));
-	}
+        $this->object->setArguments(array('var2' => 'val2'));
+        $this->assertArrayHasKey('var1', $this->object->getArguments());
+        $this->assertArrayHasKey('var2', $this->object->getArguments());
 
-
-	/**
-	 * @covers Assimp\Command\Verbs\AbstractVerb::getCommand
-	 */
-	public function testGetCommandSuccess()
-	{
-		$this->object->setFile($this->testFile);
-		$this->assertEquals('testproxy  '.$this->testFile, $this->object->getCommand());
-	}
+        $this->assertEquals('--var1=val1 --var2=val2', $this->object->getArguments(true));
+    }
 
 
-	/**
-	 * @covers Assimp\Command\Verbs\AbstractVerb::getCommand
-	 * @expectedException \RuntimeException
-	 */
-	public function testGetCommandFailureNoFile()
-	{
-		$this->object->getCommand();
-	}
+    /**
+     * @covers Assimp\Command\Verbs\AbstractVerb::setArgument
+     * @covers Assimp\Command\Verbs\AbstractVerb::getArgument
+     * @covers Assimp\Command\Verbs\AbstractVerb::hasArgument
+     * @covers Assimp\Command\Verbs\AbstractVerb::removeArgument
+     */
+    public function testGetSetHasRemoveArgument()
+    {
+        $this->object->setArgument('var1', 'val1');
+        $this->assertTrue($this->object->hasArgument('var1'));
+        $this->assertEquals('val1', $this->object->getArgument('var1'));
+
+        $this->object->removeArgument('var1');
+        $this->assertFalse($this->object->hasArgument('var1'));
+    }
 
 
-	/**
-	 * @covers Assimp\Command\Verbs\AbstractVerb::setExitCode
-	 * @covers Assimp\Command\Verbs\AbstractVerb::getExitCode
-	 */
-	public function testSetGetExitCode()
-	{
-		$this->assertInstanceOf('\Assimp\Tests\Command\Verbs\AbstractVerbProxy', $this->object->setExitCode(1));
-		$this->assertSame(1, $this->object->getExitCode());
-	}
+    /**
+     * @covers Assimp\Command\Verbs\AbstractVerb::getCommand
+     */
+    public function testGetCommandSuccess()
+    {
+        $this->object->setFile($this->testFile);
+        $this->assertEquals('testproxy  '.$this->testFile, $this->object->getCommand());
+    }
 
 
-	/**
-	 * @covers Assimp\Command\Verbs\AbstractVerb::setResults
-	 * @covers Assimp\Command\Verbs\AbstractVerb::getResults
-	 */
-	public function testSetGetResults()
-	{
-		$this->assertNull($this->object->getResults());
-
-		$results = array('var1' => 'val1');
-		$this->assertInstanceOf('\Assimp\Tests\Command\Verbs\AbstractVerbProxy', $this->object->setResults($results));
-		$this->assertSame($results, $this->object->getResults());
-	}
+    /**
+     * @covers Assimp\Command\Verbs\AbstractVerb::getCommand
+     * @expectedException \RuntimeException
+     */
+    public function testGetCommandFailureNoFile()
+    {
+        $this->object->getCommand();
+    }
 
 
-	/**
-	 * @covers Assimp\Command\Verbs\AbstractVerb::isSuccess
-	 */
-	public function testIsSuccess()
-	{
-		$this->assertFalse($this->object->isSuccess());
-
-		$this->object->setExitCode(1);
-		$this->assertFalse($this->object->isSuccess());
-
-		$this->object->setExitCode(0);
-		$this->assertTrue($this->object->isSuccess());
-	}
+    /**
+     * @covers Assimp\Command\Verbs\AbstractVerb::setExitCode
+     * @covers Assimp\Command\Verbs\AbstractVerb::getExitCode
+     */
+    public function testSetGetExitCode()
+    {
+        $this->assertInstanceOf('\Assimp\Tests\Command\Verbs\AbstractVerbProxy', $this->object->setExitCode(1));
+        $this->assertSame(1, $this->object->getExitCode());
+    }
 
 
-	/**
-	 * @covers Assimp\Command\Verbs\AbstractVerb::setException
-	 * @covers Assimp\Command\Verbs\AbstractVerb::getException
-	 */
-	public function testGetSetException()
-	{
-		$e = new CommandException('test', 1);
+    /**
+     * @covers Assimp\Command\Verbs\AbstractVerb::setResults
+     * @covers Assimp\Command\Verbs\AbstractVerb::getResults
+     */
+    public function testSetGetResults()
+    {
+        $this->assertNull($this->object->getResults());
 
-		$this->assertInstanceOf('\Assimp\Tests\Command\Verbs\AbstractVerbProxy', $this->object->setException($e));
-		$this->assertInstanceOf('\Assimp\Command\CommandException', $this->object->getException());
-		$this->assertEquals(1, $this->object->getExitCode());
-	}
+        $results = array('var1' => 'val1');
+        $this->assertInstanceOf('\Assimp\Tests\Command\Verbs\AbstractVerbProxy', $this->object->setResults($results));
+        $this->assertSame($results, $this->object->getResults());
+    }
 
 
-	/**
-	 * @covers Assimp\Command\Verbs\AbstractVerb::setExcecutedCommand
-	 * @covers Assimp\Command\Verbs\AbstractVerb::getExcecutedCommand
-	 */
-	public function testGetSetExcecutedCommand()
-	{
-		$command = '/test/command -p';
-		$this->assertInstanceOf('\Assimp\Tests\Command\Verbs\AbstractVerbProxy', $this->object->setExecutedCommand($command));
-		$this->assertEquals($command, $this->object->getExecutedCommand());
-	}
+    /**
+     * @covers Assimp\Command\Verbs\AbstractVerb::isSuccess
+     */
+    public function testIsSuccess()
+    {
+        $this->assertFalse($this->object->isSuccess());
+
+        $this->object->setExitCode(1);
+        $this->assertFalse($this->object->isSuccess());
+
+        $this->object->setExitCode(0);
+        $this->assertTrue($this->object->isSuccess());
+    }
+
+
+    /**
+     * @covers Assimp\Command\Verbs\AbstractVerb::setException
+     * @covers Assimp\Command\Verbs\AbstractVerb::getException
+     */
+    public function testGetSetException()
+    {
+        $e = new CommandException('test', 1);
+
+        $this->assertInstanceOf('\Assimp\Tests\Command\Verbs\AbstractVerbProxy', $this->object->setException($e));
+        $this->assertInstanceOf('\Assimp\Command\CommandException', $this->object->getException());
+        $this->assertEquals(1, $this->object->getExitCode());
+    }
+
+
+    /**
+     * @covers Assimp\Command\Verbs\AbstractVerb::setExcecutedCommand
+     * @covers Assimp\Command\Verbs\AbstractVerb::getExcecutedCommand
+     */
+    public function testGetSetExcecutedCommand()
+    {
+        $command = '/test/command -p';
+        $this->assertInstanceOf('\Assimp\Tests\Command\Verbs\AbstractVerbProxy', $this->object->setExecutedCommand($command));
+        $this->assertEquals($command, $this->object->getExecutedCommand());
+    }
 }

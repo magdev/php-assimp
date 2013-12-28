@@ -24,7 +24,7 @@
  *
  * @author    magdev
  * @copyright 2013 Marco Graetsch <magdev3.0@googlemail.com>
- * @package	  php-assimp
+ * @package   php-assimp
  * @license   http://opensource.org/licenses/MIT MIT License
  */
 
@@ -47,6 +47,6 @@ class ListExportVerb extends AbstractVerb implements CacheableVerbInterface
      */
     public function getCacheKey()
     {
-    	return $this->getName();
+        return $this->getName();
     }
 }

@@ -24,10 +24,9 @@
  *
  * @author    magdev
  * @copyright 2013 Marco Graetsch <magdev3.0@googlemail.com>
- * @package
+ * @package   php-assimp
  * @license   http://opensource.org/licenses/MIT MIT License
  */
-
 
 namespace Assimp\Tests\Command\Verbs;
 
@@ -40,64 +39,63 @@ use Assimp\Command\Verbs\KnowExtensionVerb;
  */
 class KnowExtensionVerbTest extends \PHPUnit_Framework_TestCase
 {
-	/**
-	 * @var \Assimp\Command\Verbs\KnownExtensionVerb
-	 */
-	protected $object;
+    /**
+     * @var \Assimp\Command\Verbs\KnownExtensionVerb
+     */
+    protected $object;
 
 
-	/**
-	 * Setup
-	 */
-	protected function setUp()
-	{
-		$this->object = new KnowExtensionVerb();
-	}
+    /**
+     * Setup
+     */
+    protected function setUp()
+    {
+        $this->object = new KnowExtensionVerb();
+    }
 
 
-
-	/**
-	 * @covers Assimp\Command\Verbs\KnowExtensionVerb::getFormat
-	 * @covers Assimp\Command\Verbs\KnowExtensionVerb::setFormat
-	 */
-	public function testGetSetFormat()
-	{
-		$this->object->setFormat('stl');
-		$this->assertEquals('stl', $this->object->getFormat());
-	}
-
-
-	/**
-	 * @covers Assimp\Command\Verbs\KnowExtensionVerb::getCommand
-	 */
-	public function testGetCommandSuccess()
-	{
-		$this->object->setFormat('stl');
-		$this->assertEquals('knowext stl', $this->object->getCommand());
-	}
+    /**
+     * @covers Assimp\Command\Verbs\KnowExtensionVerb::getFormat
+     * @covers Assimp\Command\Verbs\KnowExtensionVerb::setFormat
+     */
+    public function testGetSetFormat()
+    {
+        $this->object->setFormat('stl');
+        $this->assertEquals('stl', $this->object->getFormat());
+    }
 
 
-	/**
-	 * @covers Assimp\Command\Verbs\KnowExtensionVerb::getCommand
-	 * @expectedException \RuntimeException
-	 */
-	public function testGetCommandFailure()
-	{
-		$this->object->getCommand();
-	}
+    /**
+     * @covers Assimp\Command\Verbs\KnowExtensionVerb::getCommand
+     */
+    public function testGetCommandSuccess()
+    {
+        $this->object->setFormat('stl');
+        $this->assertEquals('knowext stl', $this->object->getCommand());
+    }
 
 
-	/**
-	 * @covers Assimp\Command\Verbs\KnowExtensionVerb::parseResults
-	 */
-	public function testResultParser()
-	{
-		$this->object->setResults(array('known'));
-		$results = $this->object->getResults();
-		$this->assertTrue($results[0]);
+    /**
+     * @covers Assimp\Command\Verbs\KnowExtensionVerb::getCommand
+     * @expectedException \RuntimeException
+     */
+    public function testGetCommandFailure()
+    {
+        $this->object->getCommand();
+    }
 
-		$this->object->setResults(array('not known'));
-		$results = $this->object->getResults();
-		$this->assertFalse($results[0]);
-	}
+
+    /**
+     * @covers Assimp\Command\Verbs\KnowExtensionVerb::parseResults
+     */
+    public function testResultParser()
+    {
+        $this->object->setResults(array('known'));
+        $results = $this->object->getResults();
+        $this->assertTrue($results[0]);
+
+        $this->object->setResults(array('not known'));
+        $results = $this->object->getResults();
+        $this->assertFalse($results[0]);
+    }
 }

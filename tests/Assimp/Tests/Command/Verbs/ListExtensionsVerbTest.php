@@ -39,40 +39,40 @@ use Assimp\Command\Verbs\ListExtensionsVerb;
  */
 class ListExtensionsVerbTest extends \PHPUnit_Framework_TestCase
 {
-	/**
-	 * @var \Assimp\Command\Verbs\ListExtensionsVerb
-	 */
-	protected $object;
+    /**
+     * @var \Assimp\Command\Verbs\ListExtensionsVerb
+     */
+    protected $object;
 
 
-	/**
-	 * Setup
-	 */
-	protected function setUp()
-	{
-		$this->object = new ListExtensionsVerb();
-	}
+    /**
+     * Setup
+     */
+    protected function setUp()
+    {
+        $this->object = new ListExtensionsVerb();
+    }
 
 
-	/**
-	 * @covers Assimp\Command\Verbs\ListExtensionsVerb::getCacheKey
-	 */
-	public function testGetCacheKey()
-	{
-		$this->assertEquals('listext', $this->object->getCacheKey());
-	}
+    /**
+     * @covers Assimp\Command\Verbs\ListExtensionsVerb::getCacheKey
+     */
+    public function testGetCacheKey()
+    {
+        $this->assertEquals('listext', $this->object->getCacheKey());
+    }
 
 
-	/**
-	 * @covers Assimp\Command\Verbs\ListExtensionsVerb::parseResults
-	 */
-	public function testResultParser()
-	{
-		$this->object->setResults(array('*.stl;*.obj'));
+    /**
+     * @covers Assimp\Command\Verbs\ListExtensionsVerb::parseResults
+     */
+    public function testResultParser()
+    {
+        $this->object->setResults(array('*.stl;*.obj'));
 
-		$results = $this->object->getResults();
-		$this->assertCount(2, $results);
-		$this->assertContains('stl', $results);
-		$this->assertContains('obj', $results);
-	}
+        $results = $this->object->getResults();
+        $this->assertCount(2, $results);
+        $this->assertContains('stl', $results);
+        $this->assertContains('obj', $results);
+    }
 }

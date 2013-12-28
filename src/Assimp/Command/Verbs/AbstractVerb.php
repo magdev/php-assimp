@@ -24,7 +24,7 @@
  *
  * @author    magdev
  * @copyright 2013 Marco Graetsch <magdev3.0@googlemail.com>
- * @package	  php-assimp
+ * @package   php-assimp
  * @license   http://opensource.org/licenses/MIT MIT License
  */
 
@@ -72,7 +72,7 @@ abstract class AbstractVerb implements VerbInterface
      */
     public function __construct($file = null, array $arguments = null)
     {
-    	$this->arguments = new ParameterContainer();
+        $this->arguments = new ParameterContainer();
 
         if (is_string($file)) {
             $this->setFile($file);
@@ -285,10 +285,10 @@ abstract class AbstractVerb implements VerbInterface
      */
     public function removeArgument($arg)
     {
-    	if ($this->hasArgument($arg)) {
-    		$this->arguments->remove($arg);
-    	}
-    	return $this;
+        if ($this->hasArgument($arg)) {
+            $this->arguments->remove($arg);
+        }
+        return $this;
     }
 
 
@@ -299,7 +299,7 @@ abstract class AbstractVerb implements VerbInterface
      */
     public function getArgumentContainer()
     {
-    	return $this->arguments;
+        return $this->arguments;
     }
 
 
@@ -329,11 +329,11 @@ abstract class AbstractVerb implements VerbInterface
      */
     public function __toString()
     {
-    	try {
-    		return $this->getCommand();
-    	} catch (\RuntimeException $e) {
-    		return get_class($e).': '.$e->getMessage().' in '.$e->getFile().':'.$e->getLine();
-    	}
+        try {
+            return $this->getCommand();
+        } catch (\RuntimeException $e) {
+            return get_class($e).': '.$e->getMessage().' in '.$e->getFile().':'.$e->getLine();
+        }
     }
 
 
