@@ -65,6 +65,8 @@ class FileConverterTest extends \PHPUnit_Framework_TestCase
 
 
 	/**
+	 * Test conversion ASCII-STL -> ASCII-STL (normalization)
+	 *
 	 * @covers Assimp\Converter\FileConverter::convert
 	 * @covers Assimp\Converter\FileConverter::getVerb
 	 */
@@ -81,6 +83,8 @@ class FileConverterTest extends \PHPUnit_Framework_TestCase
 
 
 	/**
+	 * Test conversion ASCII-STL -> OBJ
+	 *
 	 * @covers Assimp\Converter\FileConverter::convert
 	 * @covers Assimp\Converter\FileConverter::getVerb
 	 */
@@ -97,6 +101,8 @@ class FileConverterTest extends \PHPUnit_Framework_TestCase
 
 
 	/**
+	 * Test conversion Binary-STL -> Binary-STL (normalization)
+	 *
 	 * @covers Assimp\Converter\FileConverter::convert
 	 * @covers Assimp\Converter\FileConverter::getVerb
 	 */
@@ -113,6 +119,8 @@ class FileConverterTest extends \PHPUnit_Framework_TestCase
 
 
 	/**
+	 * Test conversion Binary-STL -> OBJ
+	 *
 	 * @covers Assimp\Converter\FileConverter::convert
 	 * @covers Assimp\Converter\FileConverter::getVerb
 	 */
