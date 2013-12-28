@@ -39,7 +39,7 @@ use Assimp\Command\Verbs\Container\ParameterContainer;
  *
  * @author magdev
  */
-class ExportVerb extends AbstractVerb
+class ExportVerb extends AbstractVerb implements InputFileVerbInterface
 {
     /** @var string */
     protected $name = 'export';

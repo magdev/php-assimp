@@ -115,7 +115,7 @@ abstract class AbstractVerb implements VerbInterface
      */
     public function getCommand()
     {
-        if (!$this->getFile()) {
+        if ($this instanceof InputFileVerbInterface && !$this->getFile()) {
              throw new \RuntimeException('Input-File is required', ErrorCodes::MISSING_VALUE);
         }
         return rtrim($this->getName().' '.$this->getArguments(true).' '.$this->getFile());

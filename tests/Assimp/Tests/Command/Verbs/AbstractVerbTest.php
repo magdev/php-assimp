@@ -158,16 +158,6 @@ class AbstractVerbTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('testproxy  '.$this->testFile, $this->object->getCommand());
     }
 
-
-    /**
-     * @covers Assimp\Command\Verbs\AbstractVerb::getCommand
-     * @expectedException \RuntimeException
-     */
-    public function testGetCommandFailureNoFile()
-    {
-        $this->object->getCommand();
-    }
-
     /**
      * @covers Assimp\Command\Verbs\AbstractVerb::setResult
      * @covers Assimp\Command\Verbs\AbstractVerb::getResult

@@ -2,7 +2,7 @@
 /**
  * The MIT License (MIT)
  *
- * Copyright (c) 2013 Marco Graetsch <magdev3.0@gmail.com>
+ * Copyright (c) 2013 Marco Graetsch <magdev3.0@googlemail.com>
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -23,54 +23,16 @@
  * THE SOFTWARE.
  *
  * @author    magdev
- * @copyright 2013 Marco Graetsch <magdev3.0@gmail.com>
- * @package   php-assimp
+ * @copyright 2013 Marco Graetsch <magdev3.0@googlemail.com>
+ * @package
  * @license   http://opensource.org/licenses/MIT MIT License
  */
 
-
 namespace Assimp\Command\Verbs;
 
-/**
- * Assimp Info Verb
- *
- * @author magdev
- */
-class InfoVerb extends AbstractVerb implements CacheableVerbInterface, InputFileVerbInterface
+interface InputFileVerbInterface
 {
-    /** @var string */
-    protected $name = 'info';
+	public function setFile($file);
 
-
-    /**
-     * Set the raw argument
-     *
-     * @param boolean $raw
-     * @return \Assimp\Command\Verbs\InfoVerb
-     */
-    public function setRaw($raw)
-    {
-        $this->setArgument('raw', (boolean) $raw);
-        return $this;
-    }
-
-
-    /**
-     * Get the raw argument
-     *
-     * @return boolean
-     */
-    public function getRaw()
-    {
-        return $this->getArgument('raw');
-    }
-
-
-    /**
-     * @see \Assimp\Command\Verbs\CacheableVerbInterface::getCacheKey()
-     */
-    public function getCacheKey()
-    {
-        return $this->getName().(int) $this->getRaw();
-    }
+	public function getFile();
 }
