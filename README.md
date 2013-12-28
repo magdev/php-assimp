@@ -33,12 +33,10 @@ and until this package is registered at [Packagist](https://packagist.org/) add 
 use Assimp\Command\Command;
 use Assimp\Command\Verbs\ListExtensionsVerb;
 
-$verb = new ListExtensionsVerb();
 $exec = new Command('/path/to/assimp');
-$exec->execute($verb);
-
-if ($verb->isSuccess()) {
-    print_r($verb->gerResults());
+$result = $exec->execute(new ListExtensionsVerb());
+if ($result->isSuccess()) {
+    print_r($result->getOutput());
 }
 ```
 
