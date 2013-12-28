@@ -130,7 +130,7 @@ final class FileConverter
      */
     public static function getCommand()
     {
-        if (!is_null(self::$exec)) {
+        if (is_null(self::$exec)) {
             self::$exec = new Command();
         }
         return self::$exec;
