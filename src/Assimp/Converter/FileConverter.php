@@ -85,7 +85,7 @@ final class FileConverter
 
             if (!self::getCommand()->execute($this->getVerb())) {
                 if ($this->getVerb()->getException()) {
-                    throw new ConverterException('Conversion failed', ErrorCodes::EXECUTION_FAILURE, $this->getVerb()->getException());
+                    throw $this->getVerb()->getException();
                 }
                 throw new \RuntimeException('Unknown error: ', $this->getVerb()->getExitCode());
             }
