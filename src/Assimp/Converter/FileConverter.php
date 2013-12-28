@@ -89,10 +89,10 @@ final class FileConverter
                 }
                 throw new \RuntimeException('Unknown error: ', $this->getVerb()->getExitCode());
             }
+        	return $this;
         } catch (\Exception $e) {
             throw new ConverterException('Conversion failed', ErrorCodes::EXECUTION_FAILURE, $e);
         }
-        return $this;
     }
 
 
