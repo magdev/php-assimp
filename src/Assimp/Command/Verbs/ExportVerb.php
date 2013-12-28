@@ -149,7 +149,7 @@ class ExportVerb extends AbstractVerb
             $str = (string) $this->parameters;
             return $str;
         }
-        return $this->parameters;
+        return $this->parameters->all();
     }
 
 
@@ -192,6 +192,32 @@ class ExportVerb extends AbstractVerb
 
 
     /**
+     * Remove a parameter
+     *
+     * @param string $name
+     * @return \Assimp\Command\Verbs\ExportVerb
+     */
+    public function removeParameter($name)
+    {
+    	if ($this->hasParameter($name)) {
+    		$this->parameters->remove($name);
+    	}
+    	return $this;
+    }
+
+
+    /**
+     * Get the parameter container
+     *
+     * @return \Assimp\Command\Verbs\Container\ParameterContainer
+     */
+    public function getParameterContainer()
+    {
+    	return $this->parameters;
+    }
+
+
+    /**
      * @see \Assimp\Command\Verbs\AbstractVerb::getCommand()
      */
     public function getCommand()
@@ -200,7 +226,7 @@ class ExportVerb extends AbstractVerb
             throw new \RuntimeException('Input-File is required', ErrorCodes::MISSING_VALUE);
         }
         if (!$this->getOutputFile()) {
-            throw new \RuntimeException('Input-File is required', ErrorCodes::MISSING_VALUE);
+            throw new \RuntimeException('Output-File is required', ErrorCodes::MISSING_VALUE);
         }
         return rtrim($this->getName().' '.$this->getFile().' '.$this->getOutputFile().' '.$this->getArguments(true).' '.$this->getParameters(true));
     }

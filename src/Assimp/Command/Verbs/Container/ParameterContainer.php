@@ -106,7 +106,7 @@ class ParameterContainer
      */
     public function has($parameter)
     {
-        return array_key_exists($arg, $this->parameters);
+        return array_key_exists($parameter, $this->all());
     }
 
 
@@ -118,6 +118,21 @@ class ParameterContainer
     public function all()
     {
         return $this->parameters;
+    }
+
+
+    /**
+     * Remove a parameter
+     *
+     * @param string $parameter
+     * @return \Assimp\Command\Verbs\Container\ParameterContainer
+     */
+    public function remove($parameter)
+    {
+    	if ($this->has($parameter)) {
+    		unset($this->parameters[$parameter]);
+    	}
+    	return $this;
     }
 
 

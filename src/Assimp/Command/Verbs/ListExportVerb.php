@@ -36,8 +36,17 @@ namespace Assimp\Command\Verbs;
  *
  * @author magdev
  */
-class ListExportVerb extends AbstractVerb
+class ListExportVerb extends AbstractVerb implements CacheableVerbInterface
 {
     /** @var string */
     protected $name = 'listexport';
+
+
+    /**
+     * @see \Assimp\Command\Verbs\CacheableVerbInterface::getCacheKey()
+     */
+    public function getCacheKey()
+    {
+    	return $this->getName();
+    }
 }

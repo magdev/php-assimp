@@ -101,7 +101,7 @@ abstract class AbstractVerb implements VerbInterface
             throw new \InvalidArgumentException('File not found: '.$file, ErrorCodes::FILE_NOT_FOUND);
         }
         if (!is_readable($file)) {
-        throw new \InvalidArgumentException('File is not readable: '.$file, ErrorCodes::FILE_NOT_READABLE);
+            throw new \InvalidArgumentException('File is not readable: '.$file, ErrorCodes::FILE_NOT_READABLE);
         }
         $this->file = $file;
         return $this;
@@ -119,12 +119,13 @@ abstract class AbstractVerb implements VerbInterface
 
     /**
      * @see \Assimp\Command\Verbs\VerbInterface::getCommand()
+     * @refactor avoid multiple spaces if arguments empty
      */
     public function getCommand()
     {
-    if (!$this->getFile()) {
-    throw new \RuntimeException('Input-File is required', ErrorCodes::MISSING_VALUE);
-    }
+        if (!$this->getFile()) {
+             throw new \RuntimeException('Input-File is required', ErrorCodes::MISSING_VALUE);
+        }
         return rtrim($this->getName().' '.$this->getArguments(true).' '.$this->getFile());
     }
 
@@ -186,7 +187,7 @@ abstract class AbstractVerb implements VerbInterface
      */
     public function setException(CommandException $e)
     {
-    $this->exception = $e;
+        $this->exception = $e;
 
         $results = array(
             get_class($e).': '.$e->getMessage(),
@@ -205,7 +206,7 @@ abstract class AbstractVerb implements VerbInterface
      */
     public function getException()
     {
-    return $this->exception;
+        return $this->exception;
     }
 
 
@@ -221,7 +222,7 @@ abstract class AbstractVerb implements VerbInterface
             $str = (string) $this->arguments;
             return $str;
         }
-        return $this->arguments;
+        return $this->arguments->all();
     }
 
 
@@ -277,6 +278,32 @@ abstract class AbstractVerb implements VerbInterface
 
 
     /**
+     * Remove an argument
+     *
+     * @param string $arg
+     * @return \Assimp\Command\Verbs\AbstractVerb
+     */
+    public function removeArgument($arg)
+    {
+    	if ($this->hasArgument($arg)) {
+    		$this->arguments->remove($arg);
+    	}
+    	return $this;
+    }
+
+
+    /**
+     * Get the argument container
+     *
+     * @return \Assimp\Command\Verbs\Container\ParameterContainer
+     */
+    public function getArgumentContainer()
+    {
+    	return $this->arguments;
+    }
+
+
+    /**
      * @see \Assimp\Command\Verbs\VerbInterface::getExecutedCommand()
      */
     public function getExecutedCommand()
@@ -292,6 +319,21 @@ abstract class AbstractVerb implements VerbInterface
     {
         $this->executedCommand = (string) $executedCommand;
         return $this;
+    }
+
+
+    /**
+     * Get the command
+     *
+     * @return string
+     */
+    public function __toString()
+    {
+    	try {
+    		return $this->getCommand();
+    	} catch (\RuntimeException $e) {
+    		return get_class($e).': '.$e->getMessage().' in '.$e->getFile().':'.$e->getLine();
+    	}
     }
 
 
