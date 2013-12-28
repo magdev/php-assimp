@@ -39,26 +39,26 @@ use Assimp\Command\Verbs\ListExportVerb;
  */
 class ListExportVerbTest extends \PHPUnit_Framework_TestCase
 {
-	/**
-	 * @var \Assimp\Command\Verbs\ListExportVerb
-	 */
-	protected $object;
+    /**
+     * @var \Assimp\Command\Verbs\ListExportVerb
+     */
+    protected $object;
 
 
-	/**
-	 * Setup
-	 */
-	protected function setUp()
-	{
-		$this->object = new ListExportVerb();
-	}
+    /**
+     * Setup
+     */
+    protected function setUp()
+    {
+        $this->object = new ListExportVerb();
+    }
 
 
-	/**
-	 * @covers Assimp\Command\Verbs\InfoVerb::getCacheKey
-	 */
-	public function testGetCacheKey()
-	{
-		$this->assertEquals('listexport', $this->object->getCacheKey());
-	}
+    /**
+     * @covers Assimp\Command\Verbs\InfoVerb::getCacheKey
+     */
+    public function testGetCacheKey()
+    {
+        $this->assertEquals('listexport', $this->object->getCacheKey());
+    }
 }

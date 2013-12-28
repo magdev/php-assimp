@@ -39,160 +39,160 @@ use Assimp\Command\Verbs\ExportVerb;
  */
 class ExportVerbTest extends \PHPUnit_Framework_TestCase
 {
-	/**
-	 * @var \Assimp\Command\Verbs\ExportVerb
-	 */
-	protected $object;
+    /**
+     * @var \Assimp\Command\Verbs\ExportVerb
+     */
+    protected $object;
 
-	private $testFile;
-	private $outputFile;
+    private $testFile;
+    private $outputFile;
 
-	/**
-	 * Setup
-	 */
-	protected function setUp()
-	{
-		$this->object = new ExportVerb();
+    /**
+     * Setup
+     */
+    protected function setUp()
+    {
+        $this->object = new ExportVerb();
 
-		$this->testFile = ASSIMP_TEST_FILES.'/ascii.stl';
-		$this->outputFile = ASSIMP_TEST_FILES.'/output/test.stl';
-	}
+        $this->testFile = ASSIMP_TEST_FILES.'/ascii.stl';
+        $this->outputFile = ASSIMP_TEST_FILES.'/output/test.stl';
+    }
 
-	/**
-	 * Cleanup
-	 */
-	protected function tearDown()
-	{
-		if (file_exists($this->outputFile)) {
-			unlink($this->outputFile);
-		}
-	}
-
-
-	/**
-	 * @covers Assimp\Command\Verbs\ExportVerb::getFormat
-	 * @covers Assimp\Command\Verbs\ExportVerb::setFormat
-	 */
-	public function testGetSetFormat()
-	{
-		$this->object->setFormat('stl');
-		$this->assertEquals('stl', $this->object->getFormat());
-	}
+    /**
+     * Cleanup
+     */
+    protected function tearDown()
+    {
+        if (file_exists($this->outputFile)) {
+            unlink($this->outputFile);
+        }
+    }
 
 
-	/**
-	 * @covers Assimp\Command\Verbs\ExportVerb::getOutputFile
-	 * @covers Assimp\Command\Verbs\ExportVerb::setOutputFile
-	 */
-	public function testGetSetOutputFileSuccess()
-	{
-		$this->assertInstanceOf('\Assimp\Command\Verbs\ExportVerb', $this->object->setOutputFile($this->outputFile));
-		$this->assertEquals($this->outputFile, $this->object->getOutputFile());
-	}
+    /**
+     * @covers Assimp\Command\Verbs\ExportVerb::getFormat
+     * @covers Assimp\Command\Verbs\ExportVerb::setFormat
+     */
+    public function testGetSetFormat()
+    {
+        $this->object->setFormat('stl');
+        $this->assertEquals('stl', $this->object->getFormat());
+    }
 
 
-	/**
-	 * @covers Assimp\Command\Verbs\ExportVerb::setOutputFile
-	 * @expectedException \InvalidArgumentException
-	 */
-	public function testGetSetOutputFileFailureInvalidFile()
-	{
-		$this->object->setOutputFile('/path/to/invalid/file.stl');
-	}
+    /**
+     * @covers Assimp\Command\Verbs\ExportVerb::getOutputFile
+     * @covers Assimp\Command\Verbs\ExportVerb::setOutputFile
+     */
+    public function testGetSetOutputFileSuccess()
+    {
+        $this->assertInstanceOf('\Assimp\Command\Verbs\ExportVerb', $this->object->setOutputFile($this->outputFile));
+        $this->assertEquals($this->outputFile, $this->object->getOutputFile());
+    }
 
 
-	/**
-	 * @covers Assimp\Command\Verbs\ExportVerb::setOutputFile
-	 * @expectedException \InvalidArgumentException
-	 */
-	public function testGetSetOutputFileFailureExistingFile()
-	{
-		$this->object->setOutputFile($this->testFile);
-	}
+    /**
+     * @covers Assimp\Command\Verbs\ExportVerb::setOutputFile
+     * @expectedException \InvalidArgumentException
+     */
+    public function testGetSetOutputFileFailureInvalidFile()
+    {
+        $this->object->setOutputFile('/path/to/invalid/file.stl');
+    }
 
 
-	/**
-	 * @covers Assimp\Command\Verbs\ExportVerb::setParameters
-	 * @covers Assimp\Command\Verbs\ExportVerb::getParameters
-	 */
-	public function testGetSetParameters()
-	{
-		$this->object->setParameters(array('var1' => 'val1'));
-		$this->assertArrayHasKey('var1', $this->object->getParameters());
-
-		$this->object->setParameters(array('var2' => 'val2'));
-		$this->assertArrayHasKey('var1', $this->object->getParameters());
-		$this->assertArrayHasKey('var2', $this->object->getParameters());
-
-		$this->assertEquals('--var1=val1 --var2=val2', $this->object->getParameters(true));
-	}
+    /**
+     * @covers Assimp\Command\Verbs\ExportVerb::setOutputFile
+     * @expectedException \InvalidArgumentException
+     */
+    public function testGetSetOutputFileFailureExistingFile()
+    {
+        $this->object->setOutputFile($this->testFile);
+    }
 
 
-	/**
-	 * @covers Assimp\Command\Verbs\ExportVerb::setParameter
-	 * @covers Assimp\Command\Verbs\ExportVerb::getParameter
-	 * @covers Assimp\Command\Verbs\ExportVerb::hasParameter
-	 * @covers Assimp\Command\Verbs\ExportVerb::removeParameter
-	 */
-	public function testGetSetHasRemoveParameter()
-	{
-		$this->object->setParameter('var1', 'val1');
-		$this->assertTrue($this->object->hasParameter('var1'));
-		$this->assertEquals('val1', $this->object->getParameter('var1'));
+    /**
+     * @covers Assimp\Command\Verbs\ExportVerb::setParameters
+     * @covers Assimp\Command\Verbs\ExportVerb::getParameters
+     */
+    public function testGetSetParameters()
+    {
+        $this->object->setParameters(array('var1' => 'val1'));
+        $this->assertArrayHasKey('var1', $this->object->getParameters());
 
-		$this->object->removeParameter('var1');
-		$this->assertFalse($this->object->hasParameter('var1'));
-	}
+        $this->object->setParameters(array('var2' => 'val2'));
+        $this->assertArrayHasKey('var1', $this->object->getParameters());
+        $this->assertArrayHasKey('var2', $this->object->getParameters());
 
-
-	/**
-	 * @covers Assimp\Command\Verbs\ExportVerb::getCommand
-	 */
-	public function testGetCommandSuccess()
-	{
-		$this->object->setFile($this->testFile);
-		$this->object->setOutputFile($this->outputFile);
-		$this->assertEquals('export '.$this->testFile.' '.$this->outputFile, $this->object->getCommand());
-	}
+        $this->assertEquals('--var1=val1 --var2=val2', $this->object->getParameters(true));
+    }
 
 
-	/**
-	 * @covers Assimp\Command\Verbs\ExportVerb::getCommand
-	 * @expectedException \RuntimeException
-	 */
-	public function testGetCommandFailureNoFiles()
-	{
-		$this->object->getCommand();
-	}
+    /**
+     * @covers Assimp\Command\Verbs\ExportVerb::setParameter
+     * @covers Assimp\Command\Verbs\ExportVerb::getParameter
+     * @covers Assimp\Command\Verbs\ExportVerb::hasParameter
+     * @covers Assimp\Command\Verbs\ExportVerb::removeParameter
+     */
+    public function testGetSetHasRemoveParameter()
+    {
+        $this->object->setParameter('var1', 'val1');
+        $this->assertTrue($this->object->hasParameter('var1'));
+        $this->assertEquals('val1', $this->object->getParameter('var1'));
+
+        $this->object->removeParameter('var1');
+        $this->assertFalse($this->object->hasParameter('var1'));
+    }
 
 
-	/**
-	 * @covers Assimp\Command\Verbs\ExportVerb::getCommand
-	 * @expectedException \RuntimeException
-	 */
-	public function testGetCommandFailureNoInputFile()
-	{
-		$this->object->setOutputFile($this->outputFile);
-		$this->object->getCommand();
-	}
+    /**
+     * @covers Assimp\Command\Verbs\ExportVerb::getCommand
+     */
+    public function testGetCommandSuccess()
+    {
+        $this->object->setFile($this->testFile);
+        $this->object->setOutputFile($this->outputFile);
+        $this->assertEquals('export '.$this->testFile.' '.$this->outputFile, $this->object->getCommand());
+    }
 
 
-	/**
-	 * @covers Assimp\Command\Verbs\ExportVerb::getCommand
-	 * @expectedException \RuntimeException
-	 */
-	public function testGetCommandFailureNoOutputFile()
-	{
-		$this->object->setFile($this->testFile);
-		$this->object->getCommand();
-	}
+    /**
+     * @covers Assimp\Command\Verbs\ExportVerb::getCommand
+     * @expectedException \RuntimeException
+     */
+    public function testGetCommandFailureNoFiles()
+    {
+        $this->object->getCommand();
+    }
 
 
-	/**
-	 * @covers Assimp\Command\Verbs\ExportVerb::getParameterContainer
-	 */
-	public function testGetParameterContainer()
-	{
-		$this->assertInstanceOf('\Assimp\Command\Verbs\Container\ParameterContainer', $this->object->getParameterContainer());
-	}
+    /**
+     * @covers Assimp\Command\Verbs\ExportVerb::getCommand
+     * @expectedException \RuntimeException
+     */
+    public function testGetCommandFailureNoInputFile()
+    {
+        $this->object->setOutputFile($this->outputFile);
+        $this->object->getCommand();
+    }
+
+
+    /**
+     * @covers Assimp\Command\Verbs\ExportVerb::getCommand
+     * @expectedException \RuntimeException
+     */
+    public function testGetCommandFailureNoOutputFile()
+    {
+        $this->object->setFile($this->testFile);
+        $this->object->getCommand();
+    }
+
+
+    /**
+     * @covers Assimp\Command\Verbs\ExportVerb::getParameterContainer
+     */
+    public function testGetParameterContainer()
+    {
+        $this->assertInstanceOf('\Assimp\Command\Verbs\Container\ParameterContainer', $this->object->getParameterContainer());
+    }
 }

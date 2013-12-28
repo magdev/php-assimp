@@ -39,35 +39,35 @@ use Assimp\Command\Verbs\InfoVerb;
  */
 class InfoVerbTest extends \PHPUnit_Framework_TestCase
 {
-	/**
-	 * @var \Assimp\Command\Verbs\InfoVerb
-	 */
-	protected $object;
+    /**
+     * @var \Assimp\Command\Verbs\InfoVerb
+     */
+    protected $object;
 
-	/**
-	 * Sets up the fixture, for example, opens a network connection.
-	 * This method is called before a test is executed.
-	 */
-	protected function setUp()
-	{
-		$this->object = new InfoVerb();
-	}
+    /**
+     * Sets up the fixture, for example, opens a network connection.
+     * This method is called before a test is executed.
+     */
+    protected function setUp()
+    {
+        $this->object = new InfoVerb();
+    }
 
 
-	/**
-	 * @covers Assimp\Command\Verbs\InfoVerb::getRaw
-	 * @covers Assimp\Command\Verbs\InfoVerb::setRaw
-	 * @covers Assimp\Command\Verbs\InfoVerb::getCacheKey
-	 */
-	public function testGetSetRawCacheKey()
-	{
-		$this->object->setRaw(false);
-		$this->assertFalse($this->object->getRaw());
-		$this->assertEquals('info0', $this->object->getCacheKey());
+    /**
+     * @covers Assimp\Command\Verbs\InfoVerb::getRaw
+     * @covers Assimp\Command\Verbs\InfoVerb::setRaw
+     * @covers Assimp\Command\Verbs\InfoVerb::getCacheKey
+     */
+    public function testGetSetRawCacheKey()
+    {
+        $this->object->setRaw(false);
+        $this->assertFalse($this->object->getRaw());
+        $this->assertEquals('info0', $this->object->getCacheKey());
 
-		$this->object->setRaw(true);
-		$this->assertTrue($this->object->getRaw());
-		$this->assertEquals('info1', $this->object->getCacheKey());
-	}
+        $this->object->setRaw(true);
+        $this->assertTrue($this->object->getRaw());
+        $this->assertEquals('info1', $this->object->getCacheKey());
+    }
 
 }

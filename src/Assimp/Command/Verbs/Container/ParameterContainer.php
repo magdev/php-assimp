@@ -129,10 +129,10 @@ class ParameterContainer
      */
     public function remove($parameter)
     {
-    	if ($this->has($parameter)) {
-    		unset($this->parameters[$parameter]);
-    	}
-    	return $this;
+        if ($this->has($parameter)) {
+            unset($this->parameters[$parameter]);
+        }
+        return $this;
     }
 
 

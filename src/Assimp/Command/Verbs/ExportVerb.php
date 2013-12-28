@@ -199,10 +199,10 @@ class ExportVerb extends AbstractVerb
      */
     public function removeParameter($name)
     {
-    	if ($this->hasParameter($name)) {
-    		$this->parameters->remove($name);
-    	}
-    	return $this;
+        if ($this->hasParameter($name)) {
+            $this->parameters->remove($name);
+        }
+        return $this;
     }
 
 
@@ -213,7 +213,7 @@ class ExportVerb extends AbstractVerb
      */
     public function getParameterContainer()
     {
-    	return $this->parameters;
+        return $this->parameters;
     }
 
 
