@@ -94,7 +94,7 @@ final class Command
             if ($verb instanceof CacheableVerbInterface && !$noCache) {
                 self::addCached($verb, $result);
             }
-            return $result;
+            return $verb->getResult();
         } catch (\Exception $e) {
             throw new CommandException('Execution failure', ErrorCodes::EXECUTION_FAILURE, $e);
         }
