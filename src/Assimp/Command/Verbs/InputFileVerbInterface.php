@@ -32,7 +32,7 @@ namespace Assimp\Command\Verbs;
 
 interface InputFileVerbInterface
 {
-	public function setFile($file);
+    public function setFile($file);
 
-	public function getFile();
+    public function getFile();
 }
