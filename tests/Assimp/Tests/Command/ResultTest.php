@@ -101,19 +101,19 @@ class ResultTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetSetAddOutput()
     {
-		$output = array('line1', 'line2');
+        $output = array('line1', 'line2');
 
-		$this->assertInstanceOf('\Assimp\Command\Result', $this->object->setOutput($output));
-		$this->assertCount(2, $this->object->getOutput());
-		$this->assertEquals('line1', $this->object->getOutputLine(0));
-		$this->assertEquals('line2', $this->object->getOutputLine(1));
+        $this->assertInstanceOf('\Assimp\Command\Result', $this->object->setOutput($output));
+        $this->assertCount(2, $this->object->getOutput());
+        $this->assertEquals('line1', $this->object->getOutputLine(0));
+        $this->assertEquals('line2', $this->object->getOutputLine(1));
 
-		$this->assertInstanceOf('\Assimp\Command\Result', $this->object->addOutput('line3'));
-		$this->assertCount(3, $this->object->getOutput());
-		$this->assertEquals('line3', $this->object->getOutputLine(2));
+        $this->assertInstanceOf('\Assimp\Command\Result', $this->object->addOutput('line3'));
+        $this->assertCount(3, $this->object->getOutput());
+        $this->assertEquals('line3', $this->object->getOutputLine(2));
 
-		$this->assertInstanceOf('\Assimp\Command\Result', $this->object->setOutput($output));
-		$this->assertEquals('line1', $this->object->getOutputLine(0));
-		$this->assertEquals('line2', $this->object->getOutputLine(1));
+        $this->assertInstanceOf('\Assimp\Command\Result', $this->object->setOutput($output));
+        $this->assertEquals('line1', $this->object->getOutputLine(0));
+        $this->assertEquals('line2', $this->object->getOutputLine(1));
     }
 }
