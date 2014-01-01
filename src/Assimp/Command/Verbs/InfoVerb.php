@@ -86,11 +86,11 @@ class InfoVerb extends AbstractVerb implements CacheableVerbInterface, InputFile
 			return $result;
 		}
 
-		$data = array();
     	$cleanup = function($value) {
     		return trim(str_replace(array('\'', ')'), '', $value));
     	};
 
+    	$data = array();
 		foreach ($lines as $i => $line) {
     		$line = trim($line);
     		if ($line) {
