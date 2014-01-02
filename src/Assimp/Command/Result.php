@@ -170,7 +170,7 @@ final class Result
      */
     public function getOutputLine($line)
     {
-        return isset($this->output[$line]) ? $this->output[$line] : null;
+        return array_key_exists($line, $this->output) ? $this->output[$line] : null;
     }
 
     /**
