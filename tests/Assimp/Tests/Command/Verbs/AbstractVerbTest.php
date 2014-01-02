@@ -86,27 +86,6 @@ class AbstractVerbTest extends \PHPUnit_Framework_TestCase
 
 
     /**
-     * @covers Assimp\Command\Verbs\AbstractVerb::setFile
-     * @covers Assimp\Command\Verbs\AbstractVerb::getFile
-     */
-    public function testGetSetFileSuccess()
-    {
-        $this->assertInstanceOf('\Assimp\Tests\Command\Verbs\AbstractVerbProxy', $this->object->setFile($this->testFile));
-        $this->assertEquals($this->testFile, $this->object->getFile());
-    }
-
-
-    /**
-     * @covers Assimp\Command\Verbs\AbstractVerb::getFile
-     * @expectedException \InvalidArgumentException
-     */
-    public function testSetFileFailureNotExists()
-    {
-        $this->object->setFile('/path/to/none/existent/file.stl');
-    }
-
-
-    /**
      * @covers Assimp\Command\Verbs\AbstractVerb::getArgumentContainer
      */
     public function testGetArgumentContainer()
@@ -154,8 +133,7 @@ class AbstractVerbTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetCommandSuccess()
     {
-        $this->object->setFile($this->testFile);
-        $this->assertEquals('testproxy '.$this->testFile, $this->object->getCommand());
+        $this->assertEquals('testproxy', $this->object->getCommand());
     }
 
 

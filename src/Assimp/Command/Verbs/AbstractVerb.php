@@ -46,9 +46,6 @@ abstract class AbstractVerb implements VerbInterface
     /** @var string */
     protected $name = null;
 
-    /** @var string */
-    protected $file = null;
-
     /** @var \Assimp\Command\Verbs\Container\ParameterContainer */
     protected $arguments = array();
 
@@ -85,31 +82,6 @@ abstract class AbstractVerb implements VerbInterface
 
 
     /**
-     * @see \Assimp\Command\Verbs\VerbInterface::setFile()
-     */
-    public function setFile($file)
-    {
-        if (!is_file($file)) {
-            throw new \InvalidArgumentException('File not found: '.$file, ErrorCodes::FILE_NOT_FOUND);
-        }
-        if (!is_readable($file)) {
-            throw new \InvalidArgumentException('File is not readable: '.$file, ErrorCodes::FILE_NOT_READABLE);
-        }
-        $this->file = $file;
-        return $this;
-    }
-
-
-    /**
-     * @see \Assimp\Command\Verbs\VerbInterface::getFile()
-     */
-    public function getFile()
-    {
-        return $this->file;
-    }
-
-
-    /**
      * @see \Assimp\Command\Verbs\VerbInterface::getCommand()
      * @refactor avoid multiple spaces if arguments empty
      */
@@ -118,7 +90,7 @@ abstract class AbstractVerb implements VerbInterface
         if ($this instanceof InputFileVerbInterface && !$this->getFile()) {
              throw new \RuntimeException('Input-File is required', ErrorCodes::MISSING_VALUE);
         }
-        return $this->normalizeCommand($this->getName().' '.$this->getArguments(true).' '.$this->getFile());
+        return $this->normalizeCommand($this->getName().' '.$this->getArguments(true));
     }
 
 

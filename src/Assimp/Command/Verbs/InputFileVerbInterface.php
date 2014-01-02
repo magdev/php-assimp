@@ -30,9 +30,28 @@
 
 namespace Assimp\Command\Verbs;
 
+
+/**
+ * Interface for verbs using input files
+ *
+ * @author magdev
+ */
 interface InputFileVerbInterface
 {
+    /**
+     * Set the input file
+     *
+     * @param string $file
+     * @throws \InvalidArgumentException
+     * @return \Assimp\Command\Verbs\InputFileVerbInterface
+     */
     public function setFile($file);
 
+
+    /**
+     * Get the input file
+     *
+     * @return string
+     */
     public function getFile();
 }

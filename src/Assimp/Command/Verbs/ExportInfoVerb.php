@@ -41,35 +41,10 @@ use Assimp\ErrorCodes;
  */
 class ExportInfoVerb extends AbstractVerb implements CacheableVerbInterface
 {
+	use Traits\FormatTrait;
+
     /** @var string */
     protected $name = 'exportinfo';
-
-    /** @var string */
-    protected $format;
-
-
-    /**
-     * Get the format
-     *
-     * @return string
-     */
-    public function getFormat()
-    {
-    	return $this->format;
-    }
-
-
-    /**
-     * Set the format
-     *
-     * @param string $format
-     * @return \Assimp\Command\Verbs\ExportInfoVerb
-     */
-    public function setFormat($format)
-    {
-    	$this->format = (string) $format;
-    	return $this;
-    }
 
 
     /**

@@ -2,7 +2,7 @@
 /**
  * The MIT License (MIT)
  *
- * Copyright (c) 2013 Marco Graetsch <magdev3.0@gmail.com>
+ * Copyright (c) 2014 Marco Graetsch <magdev3.0@googlemail.com>
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -23,54 +23,56 @@
  * THE SOFTWARE.
  *
  * @author    magdev
- * @copyright 2013 Marco Graetsch <magdev3.0@gmail.com>
+ * @copyright 2014 Marco Graetsch <magdev3.0@googlemail.com>
  * @package   php-assimp
  * @license   http://opensource.org/licenses/MIT MIT License
  */
 
-namespace Assimp\Command\Verbs;
+namespace Assimp\Command\Verbs\Traits;
 
-use Assimp\Command\CommandException;
-use Assimp\Command\Result;
-
+use Assimp\ErrorCodes;
 
 /**
- * Interface for Assimp-Verbs
+ * Trait for verbs using output files
  *
  * @author magdev
  */
-interface VerbInterface
+trait OutputFileTrait
 {
+    /** @var string */
+    protected $outputFile = null;
+
+
     /**
-     * Get the name of the verb
+     * Set the output file
+     *
+     * @param string $file
+     * @return \Assimp\Command\Verbs\Traits\OutputFileTrait
+     */
+    public function setOutputFile($file)
+    {
+    	$dir = dirname($file);
+    	if (is_file($file)) {
+    		throw new \InvalidArgumentException('File exists: '.$file, ErrorCodes::FILE_EXISTS);
+    	}
+    	if (!is_dir($dir)) {
+    		throw new \InvalidArgumentException('Directory not exists: '.$dir, ErrorCodes::DIR_NOT_FOUND);
+    	}
+    	if (!is_writable($dir)) {
+    		throw new \InvalidArgumentException('Directory not writeable: '.$dir, ErrorCodes::DIR_NOT_WRITEABLE);
+    	}
+    	$this->outputFile = $file;
+    	return $this;
+    }
+
+
+    /**
+     * Get the output file
      *
      * @return string
      */
-    public function getName();
-
-
-    /**
-     * Get the entire argument string
-     *
-     * @return string
-     * @throws \RuntimeException
-     */
-    public function getCommand();
-
-
-    /**
-     * Set the results of the command
-     *
-     * @param \Assimp\Command\Result $results
-     * @return \Assimp\Command\Verbs\VerbInterface
-     */
-    public function setResult(Result $result);
-
-
-    /**
-     * Get the results
-     *
-     * @return \Assimp\Command\Result
-     */
-    public function getResult();
+    public function getOutputFile()
+    {
+    	return $this->outputFile;
+    }
 }

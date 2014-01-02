@@ -40,6 +40,8 @@ use Assimp\Command\Result;
  */
 class InfoVerb extends AbstractVerb implements CacheableVerbInterface, InputFileVerbInterface
 {
+	use Traits\InputFileTrait;
+
     /** @var string */
     protected $name = 'info';
 

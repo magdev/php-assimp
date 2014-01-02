@@ -58,16 +58,6 @@ class DumpVerbTest extends \PHPUnit_Framework_TestCase
         $this->outputFile = ASSIMP_TEST_FILES.'/ascii.assxml';
     }
 
-    /**
-     * Cleanup
-     */
-    protected function tearDown()
-    {
-        if (file_exists($this->object->getOutputFile())) {
-            unlink($this->object->getOutputFile());
-        }
-    }
-
 
     /**
      * @covers Assimp\Command\Verbs\DumpVerb::getBinary
@@ -128,7 +118,7 @@ class DumpVerbTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetSetOutputFileFailureInvalidFile()
     {
-        $this->object->setOutputFile('/path/to/invalid/file.stl');
+        $this->object->setOutputFile('/path/to/invalid/file.assxml');
     }
 
 

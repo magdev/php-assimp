@@ -32,7 +32,7 @@
 namespace Assimp\Command\Verbs;
 
 use Assimp\ErrorCodes;
-use Assimp\Command\Verbs\Container\ParameterContainer;
+use Assimp\Command\Verbs\Traits\ParameterTrait;
 
 /**
  * Assimp Export Verb
@@ -41,28 +41,11 @@ use Assimp\Command\Verbs\Container\ParameterContainer;
  */
 class ExportVerb extends AbstractVerb implements InputFileVerbInterface
 {
-    /** @var string */
+	use Traits\InputFileTrait;
+	use Traits\OutputFileTrait;
+	use Traits\ParameterTrait;
+
     protected $name = 'export';
-
-    /** @var string */
-    protected $outputFile = null;
-
-    /** @var \Assimp\Command\Verbs\Container\ParameterContainer */
-    protected $parameters = null;
-
-
-    /**
-     * Constructor
-     *
-     * @param string $file
-     * @param array|null $arguments
-     */
-    public function __construct($file = null, array $arguments = null)
-    {
-        parent::__construct($file, $arguments);
-        $this->parameters = new ParameterContainer();
-    }
-
 
     /**
      * Set the output format
@@ -85,141 +68,6 @@ class ExportVerb extends AbstractVerb implements InputFileVerbInterface
     public function getFormat()
     {
         return $this->getArgument('format');
-    }
-
-
-    /**
-     * Set the output file
-     *
-     * @param string $file
-     * @return \Assimp\Command\Verbs\ExportVerb
-     */
-    public function setOutputFile($file)
-    {
-        $dir = dirname($file);
-        if (is_file($file)) {
-            throw new \InvalidArgumentException('File exists: '.$file, ErrorCodes::FILE_EXISTS);
-        }
-        if (!is_dir($dir)) {
-            throw new \InvalidArgumentException('Directory not exists: '.$dir, ErrorCodes::DIR_NOT_FOUND);
-        }
-        if (!is_writable($dir)) {
-            throw new \InvalidArgumentException('Directory not writeable: '.$dir, ErrorCodes::DIR_NOT_WRITEABLE);
-        }
-        $this->outputFile = $file;
-        return $this;
-    }
-
-
-    /**
-     * Get the output file
-     *
-     * @return string
-     */
-    public function getOutputFile()
-    {
-        return $this->outputFile;
-    }
-
-
-    /**
-     * Set multiple parameters
-     *
-     * @param array $params
-     * @return \Assimp\Command\Verbs\ExportVerb
-     * @deprecated Use ParameterContainer methods
-     */
-    public function setParameters(array $params)
-    {
-        foreach ($params as $name => $value) {
-            $this->parameters->add($name, $value);
-        }
-        return $this;
-    }
-
-
-    /**
-     * Get all parameters
-     *
-     * @param boolean $asString
-     * @return string|array
-     * @deprecated Use ParameterContainer methods
-     */
-    public function getParameters($asString = false)
-    {
-        if ($asString) {
-            $str = (string) $this->parameters;
-            return $str;
-        }
-        return $this->parameters->all();
-    }
-
-
-    /**
-     * Set a specific parameter
-     *
-     * @param string $name
-     * @param mixed $value
-     * @return \Assimp\Command\Verbs\ExportVerb
-     * @deprecated Use ParameterContainer methods
-     */
-    public function setParameter($name, $value)
-    {
-        $this->parameters->add($name, $value);
-        return $this;
-    }
-
-
-    /**
-     * Get a specific parameter
-     *
-     * @param string $name
-     * @return mixed
-     * @deprecated Use ParameterContainer methods
-     */
-    public function getParameter($name)
-    {
-        return $this->parameters->get($name);
-    }
-
-
-    /**
-     * Check if a specific parameter is set
-     *
-     * @param string $name
-     * @return boolean
-     * @deprecated Use ParameterContainer methods
-     */
-    public function hasParameter($name)
-    {
-        return $this->parameters->has($name);
-    }
-
-
-    /**
-     * Remove a parameter
-     *
-     * @param string $name
-     * @return \Assimp\Command\Verbs\ExportVerb
-     * @deprecated Use ParameterContainer methods
-     */
-    public function removeParameter($name)
-    {
-        if ($this->hasParameter($name)) {
-            $this->parameters->remove($name);
-        }
-        return $this;
-    }
-
-
-    /**
-     * Get the parameter container
-     *
-     * @return \Assimp\Command\Verbs\Container\ParameterContainer
-     */
-    public function getParameterContainer()
-    {
-        return $this->parameters;
     }
 
 

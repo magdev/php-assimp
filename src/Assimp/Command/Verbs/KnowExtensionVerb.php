@@ -41,35 +41,10 @@ use Assimp\Command\Result;
  */
 class KnowExtensionVerb extends AbstractVerb
 {
-    /** @var string */
+	use Traits\FormatTrait;
+
+	/** @var string */
     protected $name = 'knowext';
-
-    /** @var string */
-    protected $format = null;
-
-
-    /**
-     * Set the format
-     *
-     * @param string $format
-     * @return \Assimp\Command\Verbs\KnowExtensionVerb
-     */
-    public function setFormat($format)
-    {
-        $this->format = $format;
-        return $this;
-    }
-
-
-    /**
-     * Get the format
-     *
-     * @return string
-     */
-    public function getFormat()
-    {
-        return $this->format;
-    }
 
 
     /**

@@ -2,7 +2,7 @@
 /**
  * The MIT License (MIT)
  *
- * Copyright (c) 2013 Marco Graetsch <magdev3.0@gmail.com>
+ * Copyright (c) 2014 Marco Graetsch <magdev3.0@googlemail.com>
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -23,54 +23,46 @@
  * THE SOFTWARE.
  *
  * @author    magdev
- * @copyright 2013 Marco Graetsch <magdev3.0@gmail.com>
- * @package   php-assimp
+ * @copyright 2014 Marco Graetsch <magdev3.0@googlemail.com>
+ * @package
  * @license   http://opensource.org/licenses/MIT MIT License
  */
 
-namespace Assimp\Command\Verbs;
+namespace Assimp\Command\Verbs\Traits;
 
-use Assimp\Command\CommandException;
-use Assimp\Command\Result;
-
+use Assimp\ErrorCodes;
 
 /**
- * Interface for Assimp-Verbs
+ * Trait for verbs using format arguments
  *
  * @author magdev
  */
-interface VerbInterface
+trait FormatTrait
 {
+	/** @var string */
+    protected $format = null;
+
+
     /**
-     * Get the name of the verb
+     * Set the format
+     *
+     * @param string $format
+     * @return \Assimp\Command\Verbs\Traits\FormatTrait
+     */
+    public function setFormat($format)
+    {
+    	$this->format = $format;
+    	return $this;
+    }
+
+
+    /**
+     * Get the format
      *
      * @return string
      */
-    public function getName();
-
-
-    /**
-     * Get the entire argument string
-     *
-     * @return string
-     * @throws \RuntimeException
-     */
-    public function getCommand();
-
-
-    /**
-     * Set the results of the command
-     *
-     * @param \Assimp\Command\Result $results
-     * @return \Assimp\Command\Verbs\VerbInterface
-     */
-    public function setResult(Result $result);
-
-
-    /**
-     * Get the results
-     *
-     * @return \Assimp\Command\Result
-     */
-    public function getResult();
+    public function getFormat()
+    {
+    	return $this->format;
+    }
 }
