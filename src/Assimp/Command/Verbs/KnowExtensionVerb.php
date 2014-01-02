@@ -89,7 +89,12 @@ class KnowExtensionVerb extends AbstractVerb
      */
     protected function parseResult(Result $result)
     {
-        return $result->setOutput(array(strstr($result->getOutputLine(0), 'not known') == false ? true : false));
+    	$known = strstr($result->getOutputLine(0), 'not known') ? false : true;
+        $result->setOutput(array(
+        	'format' => $this->getFormat(),
+        	'known' => (boolean) $known,
+        ));
+        return $this;
     }
 
 }
