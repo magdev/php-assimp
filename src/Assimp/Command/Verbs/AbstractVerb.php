@@ -140,7 +140,8 @@ abstract class AbstractVerb implements VerbInterface
         if (!$this->result) {
             $this->result = new Result($this);
         }
-        return $this->parseResult($this->result);
+        $this->parseResult($this->result);
+        return $this->result;
     }
 
 
@@ -256,10 +257,10 @@ abstract class AbstractVerb implements VerbInterface
      * Parse result if needed
      *
      * @param \Assimp\Command\Result $results
-     * @return \Assimp\Command\Result
+     * @return \Assimp\Command\Verbs\VerbInterface
      */
-    protected function parseResult(Result $result)
+    public function parseResult(Result $result)
     {
-        return $result;
+        return $this;
     }
 }
