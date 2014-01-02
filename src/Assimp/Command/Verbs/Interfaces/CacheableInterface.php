@@ -36,7 +36,7 @@ namespace Assimp\Command\Verbs\Interfaces;
  *
  * @author magdev
  */
-interface CacheableVerbInterface
+interface CacheableInterface
 {
     /**
      * Get the key for the cache-index

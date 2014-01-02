@@ -36,7 +36,7 @@ namespace Assimp\Command\Verbs\Interfaces;
  *
  * @author magdev
  */
-interface InputFileVerbInterface
+interface InputFileInterface
 {
     /**
      * Set the input file

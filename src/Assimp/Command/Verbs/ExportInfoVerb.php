@@ -39,7 +39,7 @@ use Assimp\ErrorCodes;
  *
  * @author magdev
  */
-class ExportInfoVerb extends AbstractVerb implements Interfaces\CacheableVerbInterface
+class ExportInfoVerb extends AbstractVerb implements Interfaces\CacheableInterface
 {
 	use Traits\FormatTrait;
 

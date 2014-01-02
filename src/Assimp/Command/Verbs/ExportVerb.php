@@ -39,7 +39,7 @@ use Assimp\Command\Verbs\Traits\ParameterTrait;
  *
  * @author magdev
  */
-class ExportVerb extends AbstractVerb implements Interfaces\InputFileVerbInterface
+class ExportVerb extends AbstractVerb implements Interfaces\InputFileInterface
 {
 	use Traits\InputFileTrait;
 	use Traits\OutputFileTrait;

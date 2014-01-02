@@ -36,7 +36,7 @@ namespace Assimp\Command\Verbs;
  *
  * @author magdev
  */
-class ListExportVerb extends AbstractVerb implements Interfaces\CacheableVerbInterface
+class ListExportVerb extends AbstractVerb implements Interfaces\CacheableInterface
 {
     /** @var string */
     protected $name = 'listexport';
