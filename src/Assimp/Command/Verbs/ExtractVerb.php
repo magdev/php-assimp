@@ -24,10 +24,9 @@
  *
  * @author    magdev
  * @copyright 2014 Marco Graetsch <magdev3.0@googlemail.com>
- * @package
+ * @package   php-assimp
  * @license   http://opensource.org/licenses/MIT MIT License
  */
-
 
 namespace Assimp\Command\Verbs;
 
@@ -38,12 +37,12 @@ use Assimp\ErrorCodes;
  * Assimp ExtractVerb
  *
  * @author magdev
+ * @todo Implement result parser
  */
 class ExtractVerb extends AbstractVerb implements Interfaces\InputFileInterface, Interfaces\OutputFileInterface
 {
     const FORMAT_BMP = 'bmp';
     const FORMAT_TGA = 'tga';
-
 
     use Traits\InputFileTrait;
     use Traits\OutputFileTrait;
