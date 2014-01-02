@@ -80,7 +80,7 @@ class KnowExtensionVerb extends AbstractVerb
         if (!$this->getFormat()) {
             throw new \RuntimeException('Format is required', ErrorCodes::MISSING_VALUE);
         }
-        return rtrim($this->getName().' '.$this->getFormat());
+        return $this->normalizeCommand($this->getName().' '.$this->getFormat());
     }
 
 

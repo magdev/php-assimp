@@ -234,6 +234,6 @@ class ExportVerb extends AbstractVerb implements InputFileVerbInterface
         if (!$this->getOutputFile()) {
             throw new \RuntimeException('Output-File is required', ErrorCodes::MISSING_VALUE);
         }
-        return rtrim($this->getName().' '.$this->getFile().' '.$this->getOutputFile().' '.$this->getArguments(true).' '.$this->getParameters(true));
+        return $this->normalizeCommand($this->getName().' '.$this->getFile().' '.$this->getOutputFile().' '.$this->getArguments(true).' '.$this->getParameters(true));
     }
 }

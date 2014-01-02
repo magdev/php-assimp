@@ -118,7 +118,7 @@ abstract class AbstractVerb implements VerbInterface
         if ($this instanceof InputFileVerbInterface && !$this->getFile()) {
              throw new \RuntimeException('Input-File is required', ErrorCodes::MISSING_VALUE);
         }
-        return rtrim($this->getName().' '.$this->getArguments(true).' '.$this->getFile());
+        return $this->normalizeCommand($this->getName().' '.$this->getArguments(true).' '.$this->getFile());
     }
 
 
@@ -269,5 +269,18 @@ abstract class AbstractVerb implements VerbInterface
     protected function parseResult(Result $result)
     {
         return $this;
+    }
+
+
+    /**
+     * Normalize the command
+     *
+     * @param string $command
+     * @return string
+     */
+    protected function normalizeCommand($command)
+    {
+    	$command = preg_replace('/[\s]{2,}/', ' ', $command);
+    	return trim($command);
     }
 }

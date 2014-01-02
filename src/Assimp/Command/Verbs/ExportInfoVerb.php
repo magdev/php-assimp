@@ -89,7 +89,7 @@ class ExportInfoVerb extends AbstractVerb implements CacheableVerbInterface
     	if (!$this->getFormat()) {
     		throw new \RuntimeException('Format is required', ErrorCodes::MISSING_VALUE);
     	}
-    	return rtrim($this->getName().' '.$this->getFormat());
+    	return $this->normalizeCommand($this->getName().' '.$this->getFormat());
     }
 
 
