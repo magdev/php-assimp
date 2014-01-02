@@ -51,18 +51,18 @@ trait OutputFileTrait
      */
     public function setOutputFile($file)
     {
-    	$dir = dirname($file);
-    	if (is_file($file)) {
-    		throw new \InvalidArgumentException('File exists: '.$file, ErrorCodes::FILE_EXISTS);
-    	}
-    	if (!is_dir($dir)) {
-    		throw new \InvalidArgumentException('Directory not exists: '.$dir, ErrorCodes::DIR_NOT_FOUND);
-    	}
-    	if (!is_writable($dir)) {
-    		throw new \InvalidArgumentException('Directory not writeable: '.$dir, ErrorCodes::DIR_NOT_WRITEABLE);
-    	}
-    	$this->outputFile = $file;
-    	return $this;
+        $dir = dirname($file);
+        if (is_file($file)) {
+            throw new \InvalidArgumentException('File exists: '.$file, ErrorCodes::FILE_EXISTS);
+        }
+        if (!is_dir($dir)) {
+            throw new \InvalidArgumentException('Directory not exists: '.$dir, ErrorCodes::DIR_NOT_FOUND);
+        }
+        if (!is_writable($dir)) {
+            throw new \InvalidArgumentException('Directory not writeable: '.$dir, ErrorCodes::DIR_NOT_WRITEABLE);
+        }
+        $this->outputFile = $file;
+        return $this;
     }
 
 
@@ -73,6 +73,6 @@ trait OutputFileTrait
      */
     public function getOutputFile()
     {
-    	return $this->outputFile;
+        return $this->outputFile;
     }
 }

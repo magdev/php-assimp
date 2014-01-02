@@ -41,9 +41,9 @@ use Assimp\ErrorCodes;
  */
 class DumpVerb extends AbstractVerb implements Interfaces\InputFileInterface, Interfaces\OutputFileInterface
 {
-	use Traits\InputFileTrait;
-	use Traits\OutputFileTrait;
-	use Traits\ParameterTrait;
+    use Traits\InputFileTrait;
+    use Traits\OutputFileTrait;
+    use Traits\ParameterTrait;
 
     /** @var string */
     protected $name = 'dump';
@@ -57,8 +57,8 @@ class DumpVerb extends AbstractVerb implements Interfaces\InputFileInterface, In
      */
     public function setBinary($value = true)
     {
-    	$this->setArgument('b', (boolean) $value);
-    	return $this;
+        $this->setArgument('b', (boolean) $value);
+        return $this;
     }
 
 
@@ -69,8 +69,8 @@ class DumpVerb extends AbstractVerb implements Interfaces\InputFileInterface, In
      */
     public function getBinary()
     {
-    	$value = (boolean) $this->getArgument('b');
-    	return $value;
+        $value = (boolean) $this->getArgument('b');
+        return $value;
     }
 
 
@@ -82,8 +82,8 @@ class DumpVerb extends AbstractVerb implements Interfaces\InputFileInterface, In
      */
     public function setShortened($value = true)
     {
-    	$this->setArgument('s', (boolean) $value);
-    	return $this;
+        $this->setArgument('s', (boolean) $value);
+        return $this;
     }
 
 
@@ -94,8 +94,8 @@ class DumpVerb extends AbstractVerb implements Interfaces\InputFileInterface, In
      */
     public function getShortened()
     {
-    	$value = (boolean) $this->getArgument('s');
-    	return $value;
+        $value = (boolean) $this->getArgument('s');
+        return $value;
     }
 
 
@@ -107,8 +107,8 @@ class DumpVerb extends AbstractVerb implements Interfaces\InputFileInterface, In
      */
     public function setCompressed($value = true)
     {
-    	$this->setArgument('z', (boolean) $value);
-    	return $this;
+        $this->setArgument('z', (boolean) $value);
+        return $this;
     }
 
 
@@ -119,8 +119,8 @@ class DumpVerb extends AbstractVerb implements Interfaces\InputFileInterface, In
      */
     public function getCompressed()
     {
-    	$value = (boolean) $this->getArgument('z');
-    	return $value;
+        $value = (boolean) $this->getArgument('z');
+        return $value;
     }
 
 
@@ -131,13 +131,13 @@ class DumpVerb extends AbstractVerb implements Interfaces\InputFileInterface, In
      */
     public function getOutputFile()
     {
-    	if (!$this->outputFile) {
-    		$dir = rtrim(dirname($this->getFile()), '/\\');
-    		$file = basename($this->getFile());
-    		$basename = substr($file, 0, strpos($file, '.'));
-    		$ext = $this->getBinary() ? 'assbin' : 'assxml';
-    		$this->outputFile = $dir.'/'.$basename.'.'.$ext;
-    	}
+        if (!$this->outputFile) {
+            $dir = rtrim(dirname($this->getFile()), '/\\');
+            $file = basename($this->getFile());
+            $basename = substr($file, 0, strpos($file, '.'));
+            $ext = $this->getBinary() ? 'assbin' : 'assxml';
+            $this->outputFile = $dir.'/'.$basename.'.'.$ext;
+        }
         return $this->outputFile;
     }
 
@@ -159,38 +159,38 @@ class DumpVerb extends AbstractVerb implements Interfaces\InputFileInterface, In
      */
     protected function parseResult(Result $result)
     {
-    	/**
-		 * Cleanup Callback
-		 *
-		 * @param string $value
-		 * @return string
-    	 */
-    	$cleanup = function($value) {
-    		return trim(str_replace(array('\'', ')'), '', $value));
-    	};
+        /**
+         * Cleanup Callback
+         *
+         * @param string $value
+         * @return string
+         */
+        $cleanup = function($value) {
+            return trim(str_replace(array('\'', ')'), '', $value));
+        };
 
 
-    	$data = array();
-    	$lines = $result->getOutput();
-    	foreach ($lines as $i => $line) {
-    		$line = trim($line);
-    		if ($line) {
-    			$parts = array();
-    			if (preg_match('/^([\w\s\/]+)[\s\.:]+([\d]+|[\w]+|[\d]+\sB|\([\d\.\s-]+\))$/', $line, $parts)) {
-    				$key = preg_replace('/[^\d\w]+/', '_', strtolower(trim($parts[1])));
-    				$value = trim($parts[2]);
-    				$points = array();
-    				if (preg_match('/\(.+\)/', $value)) {
-    					$value = explode(' ', trim($value, '()'));
-    				}
-    			} else if (preg_match('/^import took approx\.\s([\d\.]+)\s([\w]+)/', $line, $parts)) {
-    				$key = 'import_time';
-    				$value = $parts[1].' '.ucfirst($parts[2]);
-    			}
-    			$data[$key] = $value;
-    		}
-    	}
-    	$result->setOutput($data)->setParsed();
-    	return $this;
+        $data = array();
+        $lines = $result->getOutput();
+        foreach ($lines as $i => $line) {
+            $line = trim($line);
+            if ($line) {
+                $parts = array();
+                if (preg_match('/^([\w\s\/]+)[\s\.:]+([\d]+|[\w]+|[\d]+\sB|\([\d\.\s-]+\))$/', $line, $parts)) {
+                    $key = preg_replace('/[^\d\w]+/', '_', strtolower(trim($parts[1])));
+                    $value = trim($parts[2]);
+                    $points = array();
+                    if (preg_match('/\(.+\)/', $value)) {
+                        $value = explode(' ', trim($value, '()'));
+                    }
+                } else if (preg_match('/^import took approx\.\s([\d\.]+)\s([\w]+)/', $line, $parts)) {
+                    $key = 'import_time';
+                    $value = $parts[1].' '.ucfirst($parts[2]);
+                }
+                $data[$key] = $value;
+            }
+        }
+        $result->setOutput($data)->setParsed();
+        return $this;
     }
 }

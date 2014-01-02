@@ -41,7 +41,7 @@ use Assimp\ErrorCodes;
  */
 class ExportInfoVerb extends AbstractVerb implements Interfaces\CacheableInterface
 {
-	use Traits\FormatTrait;
+    use Traits\FormatTrait;
 
     /** @var string */
     protected $name = 'exportinfo';
@@ -52,7 +52,7 @@ class ExportInfoVerb extends AbstractVerb implements Interfaces\CacheableInterfa
      */
     public function getCacheKey()
     {
-		return $this->getName().$this->getFormat();
+        return $this->getName().$this->getFormat();
     }
 
 
@@ -61,10 +61,10 @@ class ExportInfoVerb extends AbstractVerb implements Interfaces\CacheableInterfa
      */
     public function getCommand()
     {
-    	if (!$this->getFormat()) {
-    		throw new \RuntimeException('Format is required', ErrorCodes::MISSING_VALUE);
-    	}
-    	return $this->normalizeCommand($this->getName().' '.$this->getFormat());
+        if (!$this->getFormat()) {
+            throw new \RuntimeException('Format is required', ErrorCodes::MISSING_VALUE);
+        }
+        return $this->normalizeCommand($this->getName().' '.$this->getFormat());
     }
 
 
@@ -73,12 +73,12 @@ class ExportInfoVerb extends AbstractVerb implements Interfaces\CacheableInterfa
      */
     public function parseResult(Result $result)
     {
-    	$data = array(
-    	    'format' => $result->getOutputLine(0),
-    	    'extension' => $result->getOutputLine(1),
-    	    'name' => $result->getOutputLine(2),
-    	);
-    	$result->setOutput($data)->setParsed();
-    	return $this;
+        $data = array(
+            'format' => $result->getOutputLine(0),
+            'extension' => $result->getOutputLine(1),
+            'name' => $result->getOutputLine(2),
+        );
+        $result->setOutput($data)->setParsed();
+        return $this;
     }
 }

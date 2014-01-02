@@ -41,9 +41,9 @@ use Assimp\Command\Result;
  */
 class KnowExtensionVerb extends AbstractVerb
 {
-	use Traits\FormatTrait;
+    use Traits\FormatTrait;
 
-	/** @var string */
+    /** @var string */
     protected $name = 'knowext';
 
 
@@ -64,10 +64,10 @@ class KnowExtensionVerb extends AbstractVerb
      */
     protected function parseResult(Result $result)
     {
-    	$known = strstr($result->getOutputLine(0), 'not known') ? false : true;
+        $known = strstr($result->getOutputLine(0), 'not known') ? false : true;
         $result->setOutput(array(
-        	'format' => $this->getFormat(),
-        	'known' => (boolean) $known,
+            'format' => $this->getFormat(),
+            'known' => (boolean) $known,
         ))->setParsed();
         return $this;
     }

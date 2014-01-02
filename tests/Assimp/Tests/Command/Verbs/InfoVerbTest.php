@@ -77,44 +77,44 @@ class InfoVerbTest extends \PHPUnit_Framework_TestCase
      */
     public function testResultParserDefault()
     {
-    	$testdata = array(
-    		'Launching asset import ...           OK',
-   			'Validating postprocessing flags ...  OK',
-   			'Importing file ...                   OK',
-   			'   import took approx. 0.11398 seconds',
-   			'',
-   			'Memory consumption: 1518080 B',
-   			'Nodes:              1',
-   			'Maximum depth       1',
-   			'Meshes:             1',
-   			'Animations:         0',
-   			'Textures (embed.):  0',
-   			'Materials:          1',
-   			'Cameras:            0',
-   			'Lights:             0',
-   			'Vertices:           18944',
-   			'Faces:              37884',
-   			'Bones:              0',
-   			'Animation Channels: 0',
-   			'Primitive Types:    triangles',
-   			'Average faces/mesh  37884',
-   			'Average verts/mesh  18944',
-   			'Minimum point      (-46.475552 -46.713150 0.000000)',
-   			'Maximum point      (46.475552 46.713150 33.647507)',
-   			'Center point       (0.000000 0.000000 16.823753)',
-   			'',
-   			'Named Materials:',
-   			'    \'DefaultMaterial\'',
-   			'',
-   			'Node hierarchy:',
-   			'\'<STL_BINARY>\', meshes: 1)',
-    	);
+        $testdata = array(
+            'Launching asset import ...           OK',
+               'Validating postprocessing flags ...  OK',
+               'Importing file ...                   OK',
+               '   import took approx. 0.11398 seconds',
+               '',
+               'Memory consumption: 1518080 B',
+               'Nodes:              1',
+               'Maximum depth       1',
+               'Meshes:             1',
+               'Animations:         0',
+               'Textures (embed.):  0',
+               'Materials:          1',
+               'Cameras:            0',
+               'Lights:             0',
+               'Vertices:           18944',
+               'Faces:              37884',
+               'Bones:              0',
+               'Animation Channels: 0',
+               'Primitive Types:    triangles',
+               'Average faces/mesh  37884',
+               'Average verts/mesh  18944',
+               'Minimum point      (-46.475552 -46.713150 0.000000)',
+               'Maximum point      (46.475552 46.713150 33.647507)',
+               'Center point       (0.000000 0.000000 16.823753)',
+               '',
+               'Named Materials:',
+               '    \'DefaultMaterial\'',
+               '',
+               'Node hierarchy:',
+               '\'<STL_BINARY>\', meshes: 1)',
+        );
 
-		$this->object->getResult()->setOutput($testdata);
-		$result = $this->object->getResult();
+        $this->object->getResult()->setOutput($testdata);
+        $result = $this->object->getResult();
 
-		$this->assertArrayHasKey('launching_asset_import', $result->getOutput());
-		$this->assertArrayHasKey('importing_file', $result->getOutput());
-		$this->assertArrayHasKey('import_time', $result->getOutput());
+        $this->assertArrayHasKey('launching_asset_import', $result->getOutput());
+        $this->assertArrayHasKey('importing_file', $result->getOutput());
+        $this->assertArrayHasKey('import_time', $result->getOutput());
     }
 }

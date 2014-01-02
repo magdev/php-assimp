@@ -55,13 +55,13 @@ class VersionVerb extends AbstractVerb implements Interfaces\CacheableInterface
             $matches = array();
             if (preg_match('/Version ([\d.]+).*\(SVNREV ([\d]+)\)/', $row, $matches)) {
                 $result->setOutput(array(
-                	'version' => $matches[1],
-                	'svnrev' => $matches[2]
+                    'version' => $matches[1],
+                    'svnrev' => $matches[2]
                 ))->setParsed();
                 continue;
             } else if (preg_match('/Version ([\d.]+).*/', $row, $matches)) {
                 $result->setOutput(array(
-                	'version' => $matches[1],
+                    'version' => $matches[1],
                 ))->setParsed();
                 continue;
             }

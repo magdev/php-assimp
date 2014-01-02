@@ -72,17 +72,17 @@ class ExportInfoVerbTest extends \PHPUnit_Framework_TestCase
      */
     public function testResultParser()
     {
-    	$testdata = array(
-    		'stl',
-    		'stl',
-    		'Stereolithography',
-    	);
+        $testdata = array(
+            'stl',
+            'stl',
+            'Stereolithography',
+        );
 
-		$this->object->getResult()->setOutput($testdata);
-		$result = $this->object->getResult();
+        $this->object->getResult()->setOutput($testdata);
+        $result = $this->object->getResult();
 
-		$this->assertArrayHasKey('format', $result->getOutput());
-		$this->assertArrayHasKey('extension', $result->getOutput());
-		$this->assertArrayHasKey('name', $result->getOutput());
+        $this->assertArrayHasKey('format', $result->getOutput());
+        $this->assertArrayHasKey('extension', $result->getOutput());
+        $this->assertArrayHasKey('name', $result->getOutput());
     }
 }

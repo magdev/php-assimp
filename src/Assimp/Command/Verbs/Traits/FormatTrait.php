@@ -39,7 +39,7 @@ use Assimp\ErrorCodes;
  */
 trait FormatTrait
 {
-	/** @var string */
+    /** @var string */
     protected $format = null;
 
 
@@ -51,8 +51,8 @@ trait FormatTrait
      */
     public function setFormat($format)
     {
-    	$this->format = $format;
-    	return $this;
+        $this->format = $format;
+        return $this;
     }
 
 
@@ -63,6 +63,6 @@ trait FormatTrait
      */
     public function getFormat()
     {
-    	return $this->format;
+        return $this->format;
     }
 }

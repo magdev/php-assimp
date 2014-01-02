@@ -41,9 +41,9 @@ use Assimp\Command\Verbs\Traits\ParameterTrait;
  */
 class ExportVerb extends AbstractVerb implements Interfaces\InputFileInterface, Interfaces\OutputFileInterface
 {
-	use Traits\InputFileTrait;
-	use Traits\OutputFileTrait;
-	use Traits\ParameterTrait;
+    use Traits\InputFileTrait;
+    use Traits\OutputFileTrait;
+    use Traits\ParameterTrait;
 
     protected $name = 'export';
 

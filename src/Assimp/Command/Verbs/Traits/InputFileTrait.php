@@ -52,14 +52,14 @@ trait InputFileTrait
      */
     public function setFile($file)
     {
-    	if (!is_file($file)) {
-    		throw new \InvalidArgumentException('File not found: '.$file, ErrorCodes::FILE_NOT_FOUND);
-    	}
-    	if (!is_readable($file)) {
-    		throw new \InvalidArgumentException('File is not readable: '.$file, ErrorCodes::FILE_NOT_READABLE);
-    	}
-    	$this->file = $file;
-    	return $this;
+        if (!is_file($file)) {
+            throw new \InvalidArgumentException('File not found: '.$file, ErrorCodes::FILE_NOT_FOUND);
+        }
+        if (!is_readable($file)) {
+            throw new \InvalidArgumentException('File is not readable: '.$file, ErrorCodes::FILE_NOT_READABLE);
+        }
+        $this->file = $file;
+        return $this;
     }
 
 
@@ -70,6 +70,6 @@ trait InputFileTrait
      */
     public function getFile()
     {
-    	return $this->file;
+        return $this->file;
     }
 }

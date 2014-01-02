@@ -91,8 +91,8 @@ class KnowExtensionVerbTest extends \PHPUnit_Framework_TestCase
     public function testResultParserSuccess()
     {
         $this->object->setFormat('stl');
-    	$result = $this->object->getResult();
-    	$result->setOutput(array('File extension \'stl\'  is known'));
+        $result = $this->object->getResult();
+        $result->setOutput(array('File extension \'stl\'  is known'));
 
         $this->assertArrayHasKey('known', $this->object->getResult()->getOutput());
         $this->assertArrayHasKey('format', $this->object->getResult()->getOutput());
@@ -105,9 +105,9 @@ class KnowExtensionVerbTest extends \PHPUnit_Framework_TestCase
      */
     public function testResultParserFailure()
     {
-    	$this->object->setFormat('pdf');
-    	$result = $this->object->getResult();
-    	$result->setOutput(array('File extension \'pdf\'  is not known'));
+        $this->object->setFormat('pdf');
+        $result = $this->object->getResult();
+        $result->setOutput(array('File extension \'pdf\'  is not known'));
 
         $this->assertArrayHasKey('known', $this->object->getResult()->getOutput());
         $this->assertArrayHasKey('format', $this->object->getResult()->getOutput());

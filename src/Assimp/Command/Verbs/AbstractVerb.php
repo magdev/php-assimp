@@ -255,7 +255,7 @@ abstract class AbstractVerb implements Interfaces\VerbInterface
      */
     protected function normalizeCommand($command)
     {
-    	$command = preg_replace('/[\s]{2,}/', ' ', $command);
-    	return trim($command);
+        $command = preg_replace('/[\s]{2,}/', ' ', $command);
+        return trim($command);
     }
 }

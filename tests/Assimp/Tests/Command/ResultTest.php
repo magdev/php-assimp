@@ -59,7 +59,7 @@ class ResultTest extends \PHPUnit_Framework_TestCase
      */
     protected function tearDown()
     {
-    	$this->object = null;
+        $this->object = null;
     }
 
 
@@ -142,18 +142,18 @@ class ResultTest extends \PHPUnit_Framework_TestCase
      */
     public function testArrayAccessCountable()
     {
-		$this->object['line1'] = 'line-1';
-		$this->object['line2'] = 'line-2';
+        $this->object['line1'] = 'line-1';
+        $this->object['line2'] = 'line-2';
 
-		$this->assertCount(2, $this->object->getOutput());
-		$this->assertEquals('line-1', $this->object['line1']);
-		$this->assertEquals('line-2', $this->object['line2']);
-		$this->assertArrayHasKey('line1', $this->object);
-		$this->assertArrayHasKey('line2', $this->object);
+        $this->assertCount(2, $this->object->getOutput());
+        $this->assertEquals('line-1', $this->object['line1']);
+        $this->assertEquals('line-2', $this->object['line2']);
+        $this->assertArrayHasKey('line1', $this->object);
+        $this->assertArrayHasKey('line2', $this->object);
 
-		unset($this->object['line2']);
-		$this->assertCount(1, $this->object);
-		$this->assertArrayNotHasKey('line2', $this->object);
+        unset($this->object['line2']);
+        $this->assertCount(1, $this->object);
+        $this->assertArrayNotHasKey('line2', $this->object);
     }
 
 
@@ -163,8 +163,8 @@ class ResultTest extends \PHPUnit_Framework_TestCase
      */
     public function testSetIsParsed()
     {
-    	$this->assertFalse($this->object->isParsed());
-    	$this->assertInstanceOf('\Assimp\Command\Result', $this->object->setParsed(true));
-    	$this->assertTrue($this->object->isParsed());
+        $this->assertFalse($this->object->isParsed());
+        $this->assertInstanceOf('\Assimp\Command\Result', $this->object->setParsed(true));
+        $this->assertTrue($this->object->isParsed());
     }
 }

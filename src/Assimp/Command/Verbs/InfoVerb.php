@@ -40,7 +40,7 @@ use Assimp\Command\Result;
  */
 class InfoVerb extends AbstractVerb implements Interfaces\CacheableInterface, Interfaces\InputFileInterface
 {
-	use Traits\InputFileTrait;
+    use Traits\InputFileTrait;
 
     /** @var string */
     protected $name = 'info';
@@ -84,47 +84,47 @@ class InfoVerb extends AbstractVerb implements Interfaces\CacheableInterface, In
      */
     public function parseResult(Result $result)
     {
-    	$lines = $result->getOutput();
-		if (!sizeof($lines)) {
-			return $this;
-		}
+        $lines = $result->getOutput();
+        if (!sizeof($lines)) {
+            return $this;
+        }
 
-		/**
-		 * Cleanup Callback
-		 *
-		 * @param string $value
-		 * @return string
-		 */
-    	$cleanup = function($value) {
-    		return trim(str_replace(array('\'', ')'), '', $value));
-    	};
+        /**
+         * Cleanup Callback
+         *
+         * @param string $value
+         * @return string
+         */
+        $cleanup = function($value) {
+            return trim(str_replace(array('\'', ')'), '', $value));
+        };
 
-    	$data = array();
-		foreach ($lines as $i => $line) {
-    		$line = trim($line);
-    		if ($line) {
-    			$parts = array();
-	    		if (preg_match('/^([\w\s\/]+)[\s\.:]+([\d]+|[\w]+|[\d]+\sB|\([\d\.\s-]+\))$/', $line, $parts)) {
-	    			$key = preg_replace('/[^\d\w]+/', '_', strtolower(trim($parts[1])));
-	    			$value = trim($parts[2]);
-	    			$points = array();
-	    			if (preg_match('/\(.+\)/', $value)) {
-	    				$value = explode(' ', trim($value, '()'));
-	    			}
-	    		} else if (preg_match('/^import took approx\.\s([\d\.]+)\s([\w]+)/', $line, $parts)) {
-	    			$key = 'import_time';
-	    			$value = $parts[1].' '.ucfirst($parts[2]);
-	    		} else if (preg_match('/^Named Materials:/', $line)) {
-	    			$key = 'named_materials';
-	    			$value = $cleanup($lines[$i+1]);
-	    		} else if (preg_match('/^Node hierarchy:/', $line)) {
-	    			$key = 'node_hierarchy';
-	    			$value = array_map($cleanup, explode(',', trim($lines[$i+1])));
-	    		}
-	    		$data[$key] = $value;
-    		}
-    	}
-    	$result->setOutput($data)->setParsed();
-    	return $this;
+        $data = array();
+        foreach ($lines as $i => $line) {
+            $line = trim($line);
+            if ($line) {
+                $parts = array();
+                if (preg_match('/^([\w\s\/]+)[\s\.:]+([\d]+|[\w]+|[\d]+\sB|\([\d\.\s-]+\))$/', $line, $parts)) {
+                    $key = preg_replace('/[^\d\w]+/', '_', strtolower(trim($parts[1])));
+                    $value = trim($parts[2]);
+                    $points = array();
+                    if (preg_match('/\(.+\)/', $value)) {
+                        $value = explode(' ', trim($value, '()'));
+                    }
+                } else if (preg_match('/^import took approx\.\s([\d\.]+)\s([\w]+)/', $line, $parts)) {
+                    $key = 'import_time';
+                    $value = $parts[1].' '.ucfirst($parts[2]);
+                } else if (preg_match('/^Named Materials:/', $line)) {
+                    $key = 'named_materials';
+                    $value = $cleanup($lines[$i+1]);
+                } else if (preg_match('/^Node hierarchy:/', $line)) {
+                    $key = 'node_hierarchy';
+                    $value = array_map($cleanup, explode(',', trim($lines[$i+1])));
+                }
+                $data[$key] = $value;
+            }
+        }
+        $result->setOutput($data)->setParsed();
+        return $this;
     }
 }

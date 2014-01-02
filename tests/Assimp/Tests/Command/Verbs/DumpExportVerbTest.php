@@ -200,20 +200,20 @@ class DumpVerbTest extends \PHPUnit_Framework_TestCase
      */
     public function testResultParserDefault()
     {
-    	$testdata = array(
-    		'Launching asset import ...           OK',
-   			'Validating postprocessing flags ...  OK',
-   			'Importing file ...                   OK',
-   			'   import took approx. 0.11398 seconds',
-   			'',
-   			'assimp dump: Wrote output dump Fuss2.assbin',
-    	);
+        $testdata = array(
+            'Launching asset import ...           OK',
+               'Validating postprocessing flags ...  OK',
+               'Importing file ...                   OK',
+               '   import took approx. 0.11398 seconds',
+               '',
+               'assimp dump: Wrote output dump Fuss2.assbin',
+        );
 
-		$this->object->getResult()->setOutput($testdata);
-		$result = $this->object->getResult();
+        $this->object->getResult()->setOutput($testdata);
+        $result = $this->object->getResult();
 
-		$this->assertArrayHasKey('launching_asset_import', $result->getOutput());
-		$this->assertArrayHasKey('importing_file', $result->getOutput());
-		$this->assertArrayHasKey('import_time', $result->getOutput());
+        $this->assertArrayHasKey('launching_asset_import', $result->getOutput());
+        $this->assertArrayHasKey('importing_file', $result->getOutput());
+        $this->assertArrayHasKey('import_time', $result->getOutput());
     }
 }

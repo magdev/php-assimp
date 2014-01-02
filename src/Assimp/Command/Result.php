@@ -75,7 +75,7 @@ final class Result implements \ArrayAccess, \Countable
      */
     public function isExecuted()
     {
-    	return $this->getExitCode() !== null && $this->count();
+        return $this->getExitCode() !== null && $this->count();
     }
 
 
@@ -169,7 +169,7 @@ final class Result implements \ArrayAccess, \Countable
      */
     public function getOutput($glue = null)
     {
-    	if (!is_null($glue)) {
+        if (!is_null($glue)) {
             return implode($glue, $this->output);
         }
         return $this->output;
@@ -206,7 +206,7 @@ final class Result implements \ArrayAccess, \Countable
      */
     public function offsetExists($offset)
     {
-    	return isset($this->output[$offset]);
+        return isset($this->output[$offset]);
     }
 
 
@@ -215,7 +215,7 @@ final class Result implements \ArrayAccess, \Countable
      */
     public function offsetGet($offset)
     {
-		return isset($this->output[$offset]) ? $this->output[$offset] : null;
+        return isset($this->output[$offset]) ? $this->output[$offset] : null;
     }
 
 
@@ -224,11 +224,11 @@ final class Result implements \ArrayAccess, \Countable
      */
     public function offsetSet($offset, $value)
     {
-    	if (is_null($offset)) {
-    		$this->output[] = $value;
-    	} else {
-    		$this->output[$offset] = $value;
-    	}
+        if (is_null($offset)) {
+            $this->output[] = $value;
+        } else {
+            $this->output[$offset] = $value;
+        }
     }
 
 
@@ -237,7 +237,7 @@ final class Result implements \ArrayAccess, \Countable
      */
     public function offsetUnset($offset)
     {
-		unset($this->output[$offset]);
+        unset($this->output[$offset]);
     }
 
 
@@ -246,7 +246,7 @@ final class Result implements \ArrayAccess, \Countable
      */
     public function count()
     {
-    	return sizeof($this->output);
+        return sizeof($this->output);
     }
 
 

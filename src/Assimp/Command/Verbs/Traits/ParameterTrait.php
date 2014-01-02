@@ -53,8 +53,8 @@ trait ParameterTrait
      */
     public function setParameterContainer(ParameterContainer $parameters)
     {
-    	$this->parameters = $parameters;
-    	return $this;
+        $this->parameters = $parameters;
+        return $this;
     }
 
     /**
@@ -64,9 +64,9 @@ trait ParameterTrait
      */
     public function getParameterContainer()
     {
-    	if (!$this->parameters) {
-    		$this->parameters = new ParameterContainer();
-    	}
+        if (!$this->parameters) {
+            $this->parameters = new ParameterContainer();
+        }
         return $this->parameters;
     }
 
@@ -96,7 +96,7 @@ trait ParameterTrait
      */
     public function getParameters($asString = false)
     {
-    	if ($asString) {
+        if ($asString) {
             $str = (string) $this->getParameterContainer();
             return $str;
         }
