@@ -32,6 +32,7 @@
 namespace Assimp\Command\Verbs;
 
 use Assimp\Command\Result;
+
 /**
  * Assimp Info Verb
  *
