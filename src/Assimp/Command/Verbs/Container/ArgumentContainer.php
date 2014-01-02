@@ -39,17 +39,17 @@ namespace Assimp\Command\Verbs\Container;
  */
 class ArgumentContainer extends ParameterContainer
 {
-	/**
-	 * @see \Assimp\Command\Verbs\Container\ParameterContainer::format()
-	 */
-	protected function format($parameter, $value)
-	{
-		if ($value) {
-			if (is_bool($value)) {
-				return '-'.$parameter;
-			}
-			return '-'.$parameter.$value;
-		}
-		return '';
-	}
+    /**
+     * @see \Assimp\Command\Verbs\Container\ParameterContainer::format()
+     */
+    protected function format($parameter, $value)
+    {
+        if ($value) {
+            if (is_bool($value)) {
+                return '-'.$parameter;
+            }
+            return '-'.$parameter.$value;
+        }
+        return '';
+    }
 }

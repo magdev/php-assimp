@@ -41,8 +41,8 @@ use Assimp\ErrorCodes;
  */
 class ExtractVerb extends AbstractVerb implements Interfaces\InputFileInterface, Interfaces\OutputFileInterface
 {
-	const FORMAT_BMP = 'bmp';
-	const FORMAT_TGA = 'tga';
+    const FORMAT_BMP = 'bmp';
+    const FORMAT_TGA = 'tga';
 
 
     use Traits\InputFileTrait;
@@ -61,8 +61,8 @@ class ExtractVerb extends AbstractVerb implements Interfaces\InputFileInterface,
      */
     public function setBMPAlpha($enable = true)
     {
-    	$this->setArgument('ba', $enable);
-    	return $this;
+        $this->setArgument('ba', $enable);
+        return $this;
     }
 
 
@@ -73,7 +73,7 @@ class ExtractVerb extends AbstractVerb implements Interfaces\InputFileInterface,
      */
     public function getBMPAlpha()
     {
-    	return $this->getArgument('ba');
+        return $this->getArgument('ba');
     }
 
 
@@ -85,8 +85,8 @@ class ExtractVerb extends AbstractVerb implements Interfaces\InputFileInterface,
      */
     public function setIndex($index)
     {
-    	$this->setArgument('t', (int) $index);
-    	return $this;
+        $this->setArgument('t', (int) $index);
+        return $this;
     }
 
 
@@ -97,7 +97,7 @@ class ExtractVerb extends AbstractVerb implements Interfaces\InputFileInterface,
      */
     public function getIndex()
     {
-    	return $this->getArgument('t');
+        return $this->getArgument('t');
     }
 
 
@@ -109,11 +109,11 @@ class ExtractVerb extends AbstractVerb implements Interfaces\InputFileInterface,
      */
     public function setFileFormat($format)
     {
-    	if (!in_array($format, array(self::FORMAT_BMP, self::FORMAT_TGA))) {
-    		throw new \InvalidArgumentException('Invalid file format: '.$format, ErrorCodes::INVALID_VALUE);
-    	}
-    	$this->setArgument('f', $format);
-    	return $this;
+        if (!in_array($format, array(self::FORMAT_BMP, self::FORMAT_TGA))) {
+            throw new \InvalidArgumentException('Invalid file format: '.$format, ErrorCodes::INVALID_VALUE);
+        }
+        $this->setArgument('f', $format);
+        return $this;
     }
 
 
@@ -124,7 +124,7 @@ class ExtractVerb extends AbstractVerb implements Interfaces\InputFileInterface,
      */
     public function getFileFormat()
     {
-    	return $this->getArgument('f');
+        return $this->getArgument('f');
     }
 
 
@@ -135,13 +135,13 @@ class ExtractVerb extends AbstractVerb implements Interfaces\InputFileInterface,
      */
     public function getOutputFile()
     {
-    	if (!$this->outputFile) {
-    		$dir = rtrim(dirname($this->getFile()), '/\\');
-    		$file = basename($this->getFile());
-    		$basename = substr($file, 0, strpos($file, '.'));
-    		$this->outputFile = $dir.'/'.$basename.'.bmp';
-    	}
-    	return $this->outputFile;
+        if (!$this->outputFile) {
+            $dir = rtrim(dirname($this->getFile()), '/\\');
+            $file = basename($this->getFile());
+            $basename = substr($file, 0, strpos($file, '.'));
+            $this->outputFile = $dir.'/'.$basename.'.bmp';
+        }
+        return $this->outputFile;
     }
 
 
