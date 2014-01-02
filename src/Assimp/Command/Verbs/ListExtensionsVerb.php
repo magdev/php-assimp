@@ -64,6 +64,6 @@ class ListExtensionsVerb extends AbstractVerb implements CacheableVerbInterface
             };
             $result->setOutput(array_map($cleanup, $extensions));
         }
-        return $result;
+        return $this;
     }
 }
