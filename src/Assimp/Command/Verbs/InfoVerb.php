@@ -117,6 +117,6 @@ class InfoVerb extends AbstractVerb implements CacheableVerbInterface, InputFile
     		}
     	}
     	$result->setOutput($data);
-    	return $result;
+    	return $this;
     }
 }
