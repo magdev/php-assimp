@@ -258,6 +258,7 @@ abstract class AbstractVerb implements VerbInterface
      *
      * @param \Assimp\Command\Result $results
      * @return \Assimp\Command\Verbs\VerbInterface
+     * @refactor Rethink result parsing
      */
     protected function parseResult(Result $result)
     {
