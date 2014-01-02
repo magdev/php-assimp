@@ -51,6 +51,9 @@ final class Result implements \ArrayAccess, \Countable
     /** @var string */
     private $command = null;
 
+    /** @var boolean */
+    private $parsed = false;
+
 
     /**
      * Constructor
@@ -62,6 +65,17 @@ final class Result implements \ArrayAccess, \Countable
         if (!is_null($verb)) {
             $this->setVerb($verb);
         }
+    }
+
+
+    /**
+     * Check if the verb has been executed
+     *
+     * @return boolean
+     */
+    public function isExecuted()
+    {
+    	return $this->getExitCode() !== null && $this->count();
     }
 
 
@@ -155,7 +169,7 @@ final class Result implements \ArrayAccess, \Countable
      */
     public function getOutput($glue = null)
     {
-        if (!is_null($glue)) {
+    	if (!is_null($glue)) {
             return implode($glue, $this->output);
         }
         return $this->output;
@@ -233,5 +247,29 @@ final class Result implements \ArrayAccess, \Countable
     public function count()
     {
     	return sizeof($this->output);
+    }
+
+
+    /**
+     * Check if the output is already parsed
+     *
+     * @return boolean
+     */
+    public function isParsed()
+    {
+        return $this->parsed;
+    }
+
+
+    /**
+     * Mark the output as parsed
+     *
+     * @param boolean $parsed
+     * @return \Assimp\Command\Result
+     */
+    public function setParsed($parsed = true)
+    {
+        $this->parsed = (boolean) $parsed;
+        return $this;
     }
 }
