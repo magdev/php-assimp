@@ -127,6 +127,7 @@ class ExportVerb extends AbstractVerb implements InputFileVerbInterface
      *
      * @param array $params
      * @return \Assimp\Command\Verbs\ExportVerb
+     * @deprecated Use ParameterContainer methods
      */
     public function setParameters(array $params)
     {
@@ -142,6 +143,7 @@ class ExportVerb extends AbstractVerb implements InputFileVerbInterface
      *
      * @param boolean $asString
      * @return string|array
+     * @deprecated Use ParameterContainer methods
      */
     public function getParameters($asString = false)
     {
@@ -159,6 +161,7 @@ class ExportVerb extends AbstractVerb implements InputFileVerbInterface
      * @param string $name
      * @param mixed $value
      * @return \Assimp\Command\Verbs\ExportVerb
+     * @deprecated Use ParameterContainer methods
      */
     public function setParameter($name, $value)
     {
@@ -172,6 +175,7 @@ class ExportVerb extends AbstractVerb implements InputFileVerbInterface
      *
      * @param string $name
      * @return mixed
+     * @deprecated Use ParameterContainer methods
      */
     public function getParameter($name)
     {
@@ -184,6 +188,7 @@ class ExportVerb extends AbstractVerb implements InputFileVerbInterface
      *
      * @param string $name
      * @return boolean
+     * @deprecated Use ParameterContainer methods
      */
     public function hasParameter($name)
     {
@@ -196,6 +201,7 @@ class ExportVerb extends AbstractVerb implements InputFileVerbInterface
      *
      * @param string $name
      * @return \Assimp\Command\Verbs\ExportVerb
+     * @deprecated Use ParameterContainer methods
      */
     public function removeParameter($name)
     {

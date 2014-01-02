@@ -150,6 +150,7 @@ abstract class AbstractVerb implements VerbInterface
      *
      * @param boolean $asString
      * @return string|array
+     * @deprecated Use ParameterContainer methods
      */
     public function getArguments($asString = false)
     {
@@ -166,6 +167,7 @@ abstract class AbstractVerb implements VerbInterface
      *
      * @param array $arguments
      * @return \Assimp\Command\Verbs\AbstractVerb
+     * @deprecated Use ParameterContainer methods
      */
     public function setArguments(array $arguments)
     {
@@ -180,6 +182,7 @@ abstract class AbstractVerb implements VerbInterface
      * @param string $arg
      * @param mixed $value
      * @return \Assimp\Command\Verbs\AbstractVerb
+     * @deprecated Use ParameterContainer methods
      */
     public function setArgument($arg, $value)
     {
@@ -193,6 +196,7 @@ abstract class AbstractVerb implements VerbInterface
      *
      * @param string $arg
      * @return boolean
+     * @deprecated Use ParameterContainer methods
      */
     public function hasArgument($arg)
     {
@@ -205,6 +209,7 @@ abstract class AbstractVerb implements VerbInterface
      *
      * @param string $arg
      * @return mixed
+     * @deprecated Use ParameterContainer methods
      */
     public function getArgument($arg)
     {
@@ -217,6 +222,7 @@ abstract class AbstractVerb implements VerbInterface
      *
      * @param string $arg
      * @return \Assimp\Command\Verbs\AbstractVerb
+     * @deprecated Use ParameterContainer methods
      */
     public function removeArgument($arg)
     {
