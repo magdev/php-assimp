@@ -64,7 +64,10 @@ class DumpResult extends AbstractResult
             	$value = null;
                 $parts = array();
 
-                if (preg_match('/^([\w\s\/]+)[\s\.:]+([\d]+|[\w]+|[\d]+\sB|\([\d\.\s-]+\))$/', $line, $parts)) {
+                if (preg_match('/^assimp\sdump\:\sWrote\soutput\sdump\s(.+)$/', $line, $parts)) {
+                	$key = 'output_file';
+                	$value = trim($parts[1]);
+                } else if (preg_match('/^([\w\s\/]+)[\s\.:]+([\d]+|[\w]+|[\d]+\sB|\([\d\.\s-]+\))$/', $line, $parts)) {
                     $key = preg_replace('/[^\d\w]+/', '_', strtolower(trim($parts[1])));
                     $value = trim($parts[2]);
                     $points = array();

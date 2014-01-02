@@ -81,5 +81,6 @@ class DumpResultTest extends \PHPUnit_Framework_TestCase
         $this->assertArrayHasKey('launching_asset_import', $this->object->getOutput());
         $this->assertArrayHasKey('importing_file', $this->object->getOutput());
         $this->assertArrayHasKey('import_time', $this->object->getOutput());
+        $this->assertArrayHasKey('output_file', $this->object->getOutput());
     }
 }
