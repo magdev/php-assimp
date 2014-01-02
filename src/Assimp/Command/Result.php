@@ -37,7 +37,7 @@ use Assimp\Command\Verbs\Interfaces\VerbInterface;
  *
  * @author magdev
  */
-final class Result implements \ArrayAccess
+final class Result implements \ArrayAccess, \Countable
 {
     /** @var \Assimp\Command\Verbs\VerbInterface */
     private $verb = null;
@@ -188,7 +188,7 @@ final class Result implements \ArrayAccess
 
 
     /**
-     * @see ArrayAccess::offsetExists()
+     * @see \ArrayAccess::offsetExists()
      */
     public function offsetExists($offset)
     {
@@ -197,7 +197,7 @@ final class Result implements \ArrayAccess
 
 
     /**
-     * @see ArrayAccess::offsetGet()
+     * @see \ArrayAccess::offsetGet()
      */
     public function offsetGet($offset)
     {
@@ -206,7 +206,7 @@ final class Result implements \ArrayAccess
 
 
     /**
-     * @see ArrayAccess::offsetSet()
+     * @see \ArrayAccess::offsetSet()
      */
     public function offsetSet($offset, $value)
     {
@@ -219,11 +219,19 @@ final class Result implements \ArrayAccess
 
 
     /**
-     * @see ArrayAccess::offsetUnset()
+     * @see \ArrayAccess::offsetUnset()
      */
     public function offsetUnset($offset)
     {
 		unset($this->output[$offset]);
     }
 
+
+    /**
+     * @see \Countable::count()
+     */
+    public function count()
+    {
+    	return sizeof($this->output);
+    }
 }

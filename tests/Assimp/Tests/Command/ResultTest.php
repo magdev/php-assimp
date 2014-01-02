@@ -46,11 +46,20 @@ class ResultTest extends \PHPUnit_Framework_TestCase
     protected $object;
 
     /**
-     * Setup
+     * @see PHPUnit_Framework_TestCase::setUp()
      */
     protected function setUp()
     {
         $this->object = new Result();
+    }
+
+
+    /**
+     * @see PHPUnit_Framework_TestCase::tearDown()
+     */
+    protected function tearDown()
+    {
+    	$this->object = null;
     }
 
 
@@ -106,5 +115,29 @@ class ResultTest extends \PHPUnit_Framework_TestCase
         $this->assertCount(2, $this->object->getOutput());
         $this->assertEquals('line1', $this->object->getOutputLine(0));
         $this->assertEquals('line2', $this->object->getOutputLine(1));
+    }
+
+
+    /**
+     * @covers Assimp\Command\Result::offsetGet
+     * @covers Assimp\Command\Result::offsetSet
+     * @covers Assimp\Command\Result::offsetExists
+     * @covers Assimp\Command\Result::offsetUnset
+     * @covers Assimp\Command\Result::count
+     */
+    public function testArrayAccessCountable()
+    {
+		$this->object['line1'] = 'line-1';
+		$this->object['line2'] = 'line-2';
+
+		$this->assertCount(2, $this->object->getOutput());
+		$this->assertEquals('line-1', $this->object['line1']);
+		$this->assertEquals('line-2', $this->object['line2']);
+		$this->assertArrayHasKey('line1', $this->object);
+		$this->assertArrayHasKey('line2', $this->object);
+
+		unset($this->object['line2']);
+		$this->assertCount(1, $this->object);
+		$this->assertArrayNotHasKey('line2', $this->object);
     }
 }
