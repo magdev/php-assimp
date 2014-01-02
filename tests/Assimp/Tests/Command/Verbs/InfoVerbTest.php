@@ -115,5 +115,6 @@ class InfoVerbTest extends \PHPUnit_Framework_TestCase
 
 		$this->assertArrayHasKey('launching_asset_import', $result->getOutput());
 		$this->assertArrayHasKey('importing_file', $result->getOutput());
+		$this->assertArrayHasKey('import_time', $result->getOutput());
     }
 }
