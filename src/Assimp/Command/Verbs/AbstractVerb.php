@@ -87,8 +87,11 @@ abstract class AbstractVerb implements Interfaces\VerbInterface
      */
     public function getCommand()
     {
-        if ($this instanceof InputFileVerbInterface && !$this->getFile()) {
+        if ($this instanceof InputFileInterface && !$this->getFile()) {
              throw new \RuntimeException('Input-File is required', ErrorCodes::MISSING_VALUE);
+        }
+        if ($this instanceof OutputFileInterface && !$this->getOutputFile()) {
+             throw new \RuntimeException('Output-File is required', ErrorCodes::MISSING_VALUE);
         }
         return $this->normalizeCommand($this->getName().' '.$this->getArguments(true));
     }

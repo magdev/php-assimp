@@ -32,7 +32,6 @@
 namespace Assimp\Command\Verbs;
 
 use Assimp\Command\Result;
-use Assimp\Command\Verbs\Container\ParameterContainer;
 use Assimp\ErrorCodes;
 
 /**
@@ -40,7 +39,7 @@ use Assimp\ErrorCodes;
  *
  * @author magdev
  */
-class DumpVerb extends AbstractVerb implements Interfaces\InputFileInterface
+class DumpVerb extends AbstractVerb implements Interfaces\InputFileInterface, Interfaces\OutputFileInterface
 {
 	use Traits\InputFileTrait;
 	use Traits\OutputFileTrait;

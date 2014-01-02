@@ -62,7 +62,7 @@ interface VerbInterface
      * Set the results of the command
      *
      * @param \Assimp\Command\Result $results
-     * @return \Assimp\Command\Verbs\VerbInterface
+     * @return \Assimp\Command\Verbs\Interfaces\VerbInterface
      */
     public function setResult(Result $result);
 

@@ -32,20 +32,20 @@ namespace Assimp\Command\Verbs\Interfaces;
 
 
 /**
- * Interface for verbs using input files
+ * Interface for verbs using output files
  *
  * @author magdev
  */
-interface InputFileInterface
+interface OutputFileInterface
 {
     /**
-     * Set the input file
+     * Set the output file
      *
      * @param string $file
      * @throws \InvalidArgumentException
-     * @return \Assimp\Command\Verbs\Interfaces\InputFileInterface
+     * @return \Assimp\Command\Verbs\Interfaces\OutputFileVerbInterface
      */
-    public function setFile($file);
+    public function setOutputFile($file);
 
 
     /**
@@ -53,5 +53,5 @@ interface InputFileInterface
      *
      * @return string
      */
-    public function getFile();
+    public function getOutputFile();
 }
