@@ -2,7 +2,7 @@
 /**
  * The MIT License (MIT)
  *
- * Copyright (c) 2013 Marco Graetsch <magdev3.0@gmail.com>
+ * Copyright (c) 2014 Marco Graetsch <magdev3.0@googlemail.com>
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -23,38 +23,46 @@
  * THE SOFTWARE.
  *
  * @author    magdev
- * @copyright 2013 Marco Graetsch <magdev3.0@gmail.com>
- * @package   php-assimp
+ * @copyright 2014 Marco Graetsch <magdev3.0@googlemail.com>
+ * @package
  * @license   http://opensource.org/licenses/MIT MIT License
  */
 
-
-
-
-namespace Assimp\Command\Verbs;
-
-use Assimp\Command\Result;
-use Assimp\Command\Result\Interfaces\ResultInterface;
+namespace Assimp\Command\Result;
 
 /**
- * Assimp Version Verb
+ * Result class for ListExtensionsVerb
  *
  * @author magdev
  */
-class VersionVerb extends AbstractVerb implements Interfaces\CacheableInterface
+class ListExtensionsResult extends AbstractResult
 {
-    /** @var string */
-    protected $name = 'version';
+	/**
+	 * @see \Assimp\Command\Result\AbstractResult::parse()
+	 */
+	protected function parse()
+	{
+		if ($this->isParsed()) {
+			return $this;
+		}
 
-    /** @var string */
-    protected $resultClass = '\Assimp\Command\Result\VersionResult';
+		/**
+         * Cleanup Callback
+         *
+         * @param string $value
+         * @return string
+         */
+        $cleanup = function($value) {
+            return str_replace('*.', '', $value);
+        };
 
-
-    /**
-     * @see \Assimp\Command\Verbs\CacheableVerbInterface::getCacheKey()
-     */
-    public function getCacheKey()
-    {
-        return $this->getName();
-    }
+		if (sizeof($this->getOutput()) === 1) {
+            $extensions = explode(';', $this->getOutputLine(0));
+            if (sizeof($extensions)) {
+	            $this->parsed = true;
+	            $this->setOutput(array_map($cleanup, $extensions));
+            }
+        }
+        return $this;
+	}
 }

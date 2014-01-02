@@ -2,7 +2,7 @@
 /**
  * The MIT License (MIT)
  *
- * Copyright (c) 2013 Marco Graetsch <magdev3.0@gmail.com>
+ * Copyright (c) 2014 Marco Graetsch <magdev3.0@googlemail.com>
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -23,38 +23,46 @@
  * THE SOFTWARE.
  *
  * @author    magdev
- * @copyright 2013 Marco Graetsch <magdev3.0@gmail.com>
+ * @copyright 2014 Marco Graetsch <magdev3.0@googlemail.com>
  * @package   php-assimp
  * @license   http://opensource.org/licenses/MIT MIT License
  */
 
-
-
-
-namespace Assimp\Command\Verbs;
-
-use Assimp\Command\Result;
-use Assimp\Command\Result\Interfaces\ResultInterface;
+namespace Assimp\Command\Result;
 
 /**
- * Assimp Version Verb
+ * Result class for VersionVerb
  *
  * @author magdev
  */
-class VersionVerb extends AbstractVerb implements Interfaces\CacheableInterface
+class VersionResult extends AbstractResult
 {
-    /** @var string */
-    protected $name = 'version';
+	/**
+	 * @see \Assimp\Command\Result\AbstractResult::parse()
+	 */
+	protected function parse()
+	{
+		if ($this->isParsed()) {
+			return $this;
+		}
 
-    /** @var string */
-    protected $resultClass = '\Assimp\Command\Result\VersionResult';
-
-
-    /**
-     * @see \Assimp\Command\Verbs\CacheableVerbInterface::getCacheKey()
-     */
-    public function getCacheKey()
-    {
-        return $this->getName();
-    }
+		foreach ($this->getOutput() as $row) {
+            $matches = array();
+            if (preg_match('/Version ([\d.]+).*\(SVNREV ([\d]+)\)/', $row, $matches)) {
+            	$this->parsed = true;
+                $this->setOutput(array(
+                    'version' => $matches[1],
+                    'svnrev' => $matches[2]
+                ));
+                continue;
+            } else if (preg_match('/Version ([\d.]+).*/', $row, $matches)) {
+            	$this->parsed = true;
+                $this->setOutput(array(
+                    'version' => $matches[1],
+                ));
+                continue;
+            }
+        }
+		return $this;
+	}
 }

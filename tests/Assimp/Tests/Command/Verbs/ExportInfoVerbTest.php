@@ -70,7 +70,7 @@ class ExportInfoVerbTest extends \PHPUnit_Framework_TestCase
     /**
      * @covers Assimp\Command\Verbs\ExportInfoVerb::parseResult
      */
-    public function testResultParser()
+    /*public function testResultParser()
     {
         $testdata = array(
             'stl',
@@ -84,5 +84,5 @@ class ExportInfoVerbTest extends \PHPUnit_Framework_TestCase
         $this->assertArrayHasKey('format', $result->getOutput());
         $this->assertArrayHasKey('extension', $result->getOutput());
         $this->assertArrayHasKey('name', $result->getOutput());
-    }
+    }*/
 }

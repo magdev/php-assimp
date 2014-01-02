@@ -2,7 +2,7 @@
 /**
  * The MIT License (MIT)
  *
- * Copyright (c) 2013 Marco Graetsch <magdev3.0@googlemail.com>
+ * Copyright (c) 2014 Marco Graetsch <magdev3.0@googlemail.com>
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -23,43 +23,41 @@
  * THE SOFTWARE.
  *
  * @author    magdev
- * @copyright 2013 Marco Graetsch <magdev3.0@googlemail.com>
+ * @copyright 2014 Marco Graetsch <magdev3.0@googlemail.com>
  * @package   php-assimp
  * @license   http://opensource.org/licenses/MIT MIT License
  */
 
-namespace Assimp\Command;
+namespace Assimp\Command\Result;
 
 use Assimp\Command\Verbs\Interfaces\VerbInterface;
 use Assimp\Command\Result\Interfaces\ResultInterface;
 
 /**
- * Assimp Command Result
+ * Abstract class for results
  *
  * @author magdev
  */
-final class Result implements \ArrayAccess, \Countable, ResultInterface
+abstract class AbstractResult implements \ArrayAccess, \Countable, ResultInterface
 {
     /** @var \Assimp\Command\Verbs\VerbInterface */
-    private $verb = null;
+    protected $verb = null;
 
     /** @var array */
-    private $output = array();
+    protected $output = array();
 
     /** @var int */
-    private $exitCode = null;
+    protected $exitCode = null;
 
     /** @var string */
-    private $command = null;
+    protected $command = null;
 
     /** @var boolean */
-    private $parsed = false;
+    protected $parsed = false;
 
 
     /**
-     * Constructor
-     *
-     * @param \Assimp\Command\Verbs\VerbInterface $verb
+     * @see \Assimp\Command\Result\Interfaces\ResultInterface::__constructor()
      */
     public function __construct(VerbInterface $verb = null)
     {
@@ -70,9 +68,7 @@ final class Result implements \ArrayAccess, \Countable, ResultInterface
 
 
     /**
-     * Check if the verb has been executed
-     *
-     * @return boolean
+     * @see \Assimp\Command\Result\Interfaces\ResultInterface::isExecuted()
      */
     public function isExecuted()
     {
@@ -81,10 +77,16 @@ final class Result implements \ArrayAccess, \Countable, ResultInterface
 
 
     /**
-     * Set the exit-code
-     *
-     * @param int $exitCode
-     * @return \Assimp\Command\Result
+     * @see \Assimp\Command\Result\Interfaces\ResultInterface::isSuccess()
+     */
+    public function isSuccess()
+    {
+        return !is_null($this->exitCode) && $this->exitCode === 0;
+    }
+
+
+    /**
+     * @see \Assimp\Command\Result\Interfaces\ResultInterface::setExitCode()
      */
     public function setExitCode($exitCode)
     {
@@ -94,9 +96,7 @@ final class Result implements \ArrayAccess, \Countable, ResultInterface
 
 
     /**
-     * Get the exit-code
-     *
-     * @return int
+     * @see \Assimp\Command\Result\Interfaces\ResultInterface::getExitCode()
      */
     public function getExitCode()
     {
@@ -105,20 +105,7 @@ final class Result implements \ArrayAccess, \Countable, ResultInterface
 
 
     /**
-     * Check if the command was successful executed
-     *
-     * @return boolean
-     */
-    public function isSuccess()
-    {
-        return !is_null($this->exitCode) && $this->exitCode === 0;
-    }
-
-
-    /**
-     * Get the executed command
-     *
-     * @return string
+     * @see \Assimp\Command\Result\Interfaces\ResultInterface::getCommand()
      */
     public function getCommand()
     {
@@ -127,10 +114,7 @@ final class Result implements \ArrayAccess, \Countable, ResultInterface
 
 
     /**
-     * Set the executed command
-     *
-     * @param string $command
-     * @return \Assimp\Command\Result
+     * @see \Assimp\Command\Result\Interfaces\ResultInterface::setCommand()
      */
     public function setCommand($command)
     {
@@ -138,10 +122,9 @@ final class Result implements \ArrayAccess, \Countable, ResultInterface
         return $this;
     }
 
+
     /**
-     * Get the verb
-     *
-     * @return \Assimp\Command\Verbs\VerbInterface
+     * @see \Assimp\Command\Result\Interfaces\ResultInterface::getVerb()
      */
     public function getVerb()
     {
@@ -150,10 +133,7 @@ final class Result implements \ArrayAccess, \Countable, ResultInterface
 
 
     /**
-     * Set the verb
-     *
-     * @param \Assimp\Command\Verbs\VerbInterface $verb
-     * @return \Assimp\Command\Result
+     * @see \Assimp\Command\Result\Interfaces\ResultInterface::setVerb()
      */
     public function setVerb(VerbInterface $verb)
     {
@@ -163,10 +143,7 @@ final class Result implements \ArrayAccess, \Countable, ResultInterface
 
 
     /**
-     * Get the full output array
-     *
-     * @param string|null $glue
-     * @return string|array
+     * @see \Assimp\Command\Result\Interfaces\ResultInterface::getOutput()
      */
     public function getOutput($glue = null)
     {
@@ -178,27 +155,22 @@ final class Result implements \ArrayAccess, \Countable, ResultInterface
 
 
     /**
-     * Get a specific line from the output array
-     *
-     * @param int $line
-     * @return string|null
-     */
-    public function getOutputLine($line)
-    {
-        return array_key_exists($line, $this->output) ? $this->output[$line] : null;
-    }
-
-
-    /**
-     * Set the output array
-     *
-     * @param array $output
-     * @return \Assimp\Command\Result
+     * @see \Assimp\Command\Result\Interfaces\ResultInterface::setOutput()
      */
     public function setOutput(array $output)
     {
         $this->output = $output;
+        $this->parse();
         return $this;
+    }
+
+
+    /**
+     * @see \Assimp\Command\Result\Interfaces\ResultInterface::getOutputLine()
+     */
+    public function getOutputLine($line)
+    {
+        return array_key_exists($line, $this->output) ? $this->output[$line] : null;
     }
 
 
@@ -252,25 +224,20 @@ final class Result implements \ArrayAccess, \Countable, ResultInterface
 
 
     /**
-     * Check if the output is already parsed
+     * Check if the output has been parsed
      *
      * @return boolean
      */
-    public function isParsed()
+    protected function isParsed()
     {
-        return $this->parsed;
+    	return $this->parsed;
     }
 
 
     /**
-     * Mark the output as parsed
+     * Parse the output
      *
-     * @param boolean $parsed
      * @return \Assimp\Command\Result
      */
-    public function setParsed($parsed = true)
-    {
-        $this->parsed = (boolean) $parsed;
-        return $this;
-    }
+    abstract protected function parse();
 }

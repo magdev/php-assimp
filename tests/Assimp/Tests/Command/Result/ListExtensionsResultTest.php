@@ -2,7 +2,7 @@
 /**
  * The MIT License (MIT)
  *
- * Copyright (c) 2013 Marco Graetsch <magdev3.0@gmail.com>
+ * Copyright (c) 2014 Marco Graetsch <magdev3.0@googlemail.com>
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -23,38 +23,56 @@
  * THE SOFTWARE.
  *
  * @author    magdev
- * @copyright 2013 Marco Graetsch <magdev3.0@gmail.com>
+ * @copyright 2014 Marco Graetsch <magdev3.0@googlemail.com>
  * @package   php-assimp
  * @license   http://opensource.org/licenses/MIT MIT License
  */
 
+namespace Assimp\Tests\Command\Result;
 
-
-
-namespace Assimp\Command\Verbs;
-
-use Assimp\Command\Result;
-use Assimp\Command\Result\Interfaces\ResultInterface;
+use Assimp\Command\Result\ListExtensionsResult;
 
 /**
- * Assimp Version Verb
+ * Test for Assimp ListExtensionsResult
  *
  * @author magdev
  */
-class VersionVerb extends AbstractVerb implements Interfaces\CacheableInterface
+class ListExtensionsResultTest extends \PHPUnit_Framework_TestCase
 {
-    /** @var string */
-    protected $name = 'version';
+    /**
+     * @var \Assimp\Command\Result\ListExtensionsResult
+     */
+    protected $object;
 
-    /** @var string */
-    protected $resultClass = '\Assimp\Command\Result\VersionResult';
 
 
     /**
-     * @see \Assimp\Command\Verbs\CacheableVerbInterface::getCacheKey()
+     * @see PHPUnit_Framework_TestCase::setUp()
      */
-    public function getCacheKey()
+    protected function setUp()
     {
-        return $this->getName();
+        $this->object = new ListExtensionsResult();
+    }
+
+
+    /**
+     * @see PHPUnit_Framework_TestCase::tearDown()
+     */
+    protected function tearDown()
+    {
+        $this->object = null;
+    }
+
+
+    /**
+     * @covers \Assimp\Command\Result\ListExtensionsResult::parse
+     */
+    public function testParse()
+    {
+    	$this->object->setOutput(array('*.stl;*.obj'));
+
+    	$this->assertCount(2, $this->object->getOutput());
+    	$this->assertContains('stl', $this->object->getOutput());
+    	$this->assertContains('obj', $this->object->getOutput());
     }
 }

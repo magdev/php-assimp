@@ -30,8 +30,8 @@
 
 namespace Assimp\Command\Verbs;
 
+use Assimp\Command\Result\Interfaces\ResultInterface;
 
-use Assimp\Command\Result;
 /**
  * Assimp List Extensions Verb
  *
@@ -42,6 +42,9 @@ class ListExtensionsVerb extends AbstractVerb implements Interfaces\CacheableInt
     /** @var string */
     protected $name = 'listext';
 
+    /** @var string */
+    protected $resultClass = '\Assimp\Command\Result\ListExtensionsResult';
+
 
     /**
      * @see \Assimp\Command\Verbs\CacheableVerbInterface::getCacheKey()
@@ -49,21 +52,5 @@ class ListExtensionsVerb extends AbstractVerb implements Interfaces\CacheableInt
     public function getCacheKey()
     {
         return $this->getName();
-    }
-
-
-    /**
-     * @see \Assimp\Command\Verbs\AbstractVerb::parseResult()
-     */
-    protected function parseResult(Result $result)
-    {
-        if (sizeof($result->getOutput()) === 1) {
-            $extensions = explode(';', $result->getOutputLine(0));
-            $cleanup = function($value) {
-                return str_replace('*.', '', $value);
-            };
-            $result->setOutput(array_map($cleanup, $extensions))->setParsed();
-        }
-        return $this;
     }
 }

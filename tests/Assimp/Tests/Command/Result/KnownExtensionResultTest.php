@@ -2,7 +2,7 @@
 /**
  * The MIT License (MIT)
  *
- * Copyright (c) 2013 Marco Graetsch <magdev3.0@gmail.com>
+ * Copyright (c) 2014 Marco Graetsch <magdev3.0@googlemail.com>
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -23,38 +23,55 @@
  * THE SOFTWARE.
  *
  * @author    magdev
- * @copyright 2013 Marco Graetsch <magdev3.0@gmail.com>
- * @package   php-assimp
+ * @copyright 2014 Marco Graetsch <magdev3.0@googlemail.com>
+ * @package
  * @license   http://opensource.org/licenses/MIT MIT License
  */
 
+namespace Assimp\Tests\Command\Result;
 
-
-
-namespace Assimp\Command\Verbs;
-
-use Assimp\Command\Result;
-use Assimp\Command\Result\Interfaces\ResultInterface;
+use Assimp\Command\Result\KnownExtensionResult;
 
 /**
- * Assimp Version Verb
+ * Test for Assimp InfoResult
  *
  * @author magdev
  */
-class VersionVerb extends AbstractVerb implements Interfaces\CacheableInterface
+class KnownExtensionResultTest extends \PHPUnit_Framework_TestCase
 {
-    /** @var string */
-    protected $name = 'version';
+    /**
+     * @var \Assimp\Command\Result\KnownExtensionResult
+     */
+    protected $object;
 
-    /** @var string */
-    protected $resultClass = '\Assimp\Command\Result\VersionResult';
 
 
     /**
-     * @see \Assimp\Command\Verbs\CacheableVerbInterface::getCacheKey()
+     * @see PHPUnit_Framework_TestCase::setUp()
      */
-    public function getCacheKey()
+    protected function setUp()
     {
-        return $this->getName();
+        $this->object = new KnownExtensionResult();
+    }
+
+
+    /**
+     * @see PHPUnit_Framework_TestCase::tearDown()
+     */
+    protected function tearDown()
+    {
+    	$this->object = null;
+    }
+
+
+    /**
+     * @covers \Assimp\Command\Result\KnownExtensionResult::parse
+     */
+    public function testParse()
+    {
+    	$this->object->setOutput(array('File extension \'stl\'  is known'));
+
+        $this->assertArrayHasKey('known', $this->object->getOutput());
+        $this->assertTrue($this->object->getOutputLine('known'));
     }
 }

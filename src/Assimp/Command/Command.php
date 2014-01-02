@@ -28,12 +28,12 @@
  * @license   http://opensource.org/licenses/MIT MIT License
  */
 
-
 namespace Assimp\Command;
 
 use Assimp\ErrorCodes;
 use Assimp\Command\Verbs\Interfaces\VerbInterface;
-use Assimp\Command\Verbs\Interfaces\CacheableVerbInterface;
+use Assimp\Command\Verbs\Interfaces\CacheableInterface;
+use Assimp\Command\Result\Interfaces\ResultInterface;
 
 /**
  * Assimp Command
@@ -73,7 +73,7 @@ final class Command
     public function execute(VerbInterface $verb, $noCache = false)
     {
         try {
-            if ($verb instanceof CacheableVerbInterface && !$noCache) {
+            if ($verb instanceof CacheableInterface && !$noCache) {
                 if ($result = self::getCached($verb)) {
                     return $result;
                 }
@@ -91,7 +91,7 @@ final class Command
             $result->setExitCode($exitCode)
                 ->setOutput($output);
 
-            if ($verb instanceof CacheableVerbInterface && !$noCache) {
+            if ($verb instanceof CacheableInterface && !$noCache) {
                 self::addCached($verb, $result);
             }
             return $verb->getResult();
@@ -152,10 +152,10 @@ final class Command
     /**
      * Get a cached version of the verb
      *
-     * @param \Assimp\Command\Verbs\CacheableVerbInterface $verb
-     * @return \Assimp\Command\Result|NULL
+     * @param \Assimp\Command\Verbs\Interfaces\CacheableInterface $verb
+     * @return \Assimp\Command\Result\Interfaces\ResultInterface|null
      */
-    private static function getCached(CacheableVerbInterface $verb)
+    private static function getCached(CacheableInterface $verb)
     {
         $key = $verb->getCacheKey();
         if (array_key_exists($key, self::$cache)) {
@@ -168,11 +168,11 @@ final class Command
     /**
      * Add a verb to the cache
      *
-     * @param \Assimp\Command\Verbs\CacheableVerbInterface $verb
-     * @param \Assimp\Command\Result $result
+     * @param \Assimp\Command\Verbs\Interfaces\CacheableInterface $verb
+     * @param \Assimp\Command\Result\Interfaces\ResultInterface $result
      * @return void
      */
-    private static function addCached(CacheableVerbInterface $verb, Result $result)
+    private static function addCached(CacheableInterface $verb, ResultInterface $result)
     {
         self::$cache[$verb->getCacheKey()] = $result;
     }

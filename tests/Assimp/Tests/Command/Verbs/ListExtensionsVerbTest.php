@@ -45,12 +45,22 @@ class ListExtensionsVerbTest extends \PHPUnit_Framework_TestCase
     protected $object;
 
 
+
     /**
-     * Setup
+     * @see PHPUnit_Framework_TestCase::setUp()
      */
     protected function setUp()
     {
         $this->object = new ListExtensionsVerb();
+    }
+
+
+    /**
+     * @see PHPUnit_Framework_TestCase::tearDown()
+     */
+    protected function tearDown()
+    {
+    	$this->object = null;
     }
 
 
@@ -60,18 +70,5 @@ class ListExtensionsVerbTest extends \PHPUnit_Framework_TestCase
     public function testGetCacheKey()
     {
         $this->assertEquals('listext', $this->object->getCacheKey());
-    }
-
-
-    /**
-     * @covers Assimp\Command\Verbs\ListExtensionsVerb::parseResults
-     */
-    public function testResultParser()
-    {
-        $this->object->getResult()->setOutput(array('*.stl;*.obj'));
-
-        $this->assertCount(2, $this->object->getResult()->getOutput());
-        $this->assertContains('stl', $this->object->getResult()->getOutput());
-        $this->assertContains('obj', $this->object->getResult()->getOutput());
     }
 }

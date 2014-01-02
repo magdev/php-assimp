@@ -45,12 +45,22 @@ class KnowExtensionVerbTest extends \PHPUnit_Framework_TestCase
     protected $object;
 
 
+
     /**
-     * Setup
+     * @see PHPUnit_Framework_TestCase::setUp()
      */
     protected function setUp()
     {
         $this->object = new KnowExtensionVerb();
+    }
+
+
+    /**
+     * @see PHPUnit_Framework_TestCase::tearDown()
+     */
+    protected function tearDown()
+    {
+    	$this->object = null;
     }
 
 
@@ -82,36 +92,5 @@ class KnowExtensionVerbTest extends \PHPUnit_Framework_TestCase
     public function testGetCommandFailure()
     {
         $this->object->getCommand();
-    }
-
-
-    /**
-     * @covers Assimp\Command\Verbs\KnowExtensionVerb::parseResults
-     */
-    public function testResultParserSuccess()
-    {
-        $this->object->setFormat('stl');
-        $result = $this->object->getResult();
-        $result->setOutput(array('File extension \'stl\'  is known'));
-
-        $this->assertArrayHasKey('known', $this->object->getResult()->getOutput());
-        $this->assertArrayHasKey('format', $this->object->getResult()->getOutput());
-        $this->assertTrue($this->object->getResult()->getOutputLine('known'));
-    }
-
-
-    /**
-     * @covers Assimp\Command\Verbs\KnowExtensionVerb::parseResults
-     */
-    public function testResultParserFailure()
-    {
-        $this->object->setFormat('pdf');
-        $result = $this->object->getResult();
-        $result->setOutput(array('File extension \'pdf\'  is not known'));
-
-        $this->assertArrayHasKey('known', $this->object->getResult()->getOutput());
-        $this->assertArrayHasKey('format', $this->object->getResult()->getOutput());
-        // @todo Check what going on there
-        //$this->assertFalse($this->object->getResult()->getOutputLine('known'));
     }
 }

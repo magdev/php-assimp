@@ -31,8 +31,8 @@
 
 namespace Assimp\Command\Verbs;
 
-use Assimp\Command\Result;
 use Assimp\ErrorCodes;
+use Assimp\Command\Result\Interfaces\ResultInterface;
 
 /**
  * Assimp Info Verb
@@ -65,20 +65,5 @@ class ExportInfoVerb extends AbstractVerb implements Interfaces\CacheableInterfa
             throw new \RuntimeException('Format is required', ErrorCodes::MISSING_VALUE);
         }
         return $this->normalizeCommand($this->getName().' '.$this->getFormat());
-    }
-
-
-    /**
-     * @see \Assimp\Command\Verbs\AbstractVerb::parseResult()
-     */
-    public function parseResult(Result $result)
-    {
-        $data = array(
-            'format' => $result->getOutputLine(0),
-            'extension' => $result->getOutputLine(1),
-            'name' => $result->getOutputLine(2),
-        );
-        $result->setOutput($data)->setParsed();
-        return $this;
     }
 }

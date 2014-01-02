@@ -31,7 +31,7 @@
 namespace Assimp\Command\Verbs\Interfaces;
 
 use Assimp\Command\CommandException;
-use Assimp\Command\Result;
+use Assimp\Command\Result\Interfaces\ResultInterface;
 
 
 /**
@@ -61,16 +61,16 @@ interface VerbInterface
     /**
      * Set the results of the command
      *
-     * @param \Assimp\Command\Result $results
+     * @param \Assimp\Command\Result\Interfaces\ResultInterface $result
      * @return \Assimp\Command\Verbs\Interfaces\VerbInterface
      */
-    public function setResult(Result $result);
+    public function setResult(ResultInterface $result);
 
 
     /**
      * Get the results
      *
-     * @return \Assimp\Command\Result
+     * @return \Assimp\Command\Result\Interfaces\ResultInterface
      */
     public function getResult();
 }

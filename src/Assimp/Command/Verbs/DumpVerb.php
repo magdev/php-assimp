@@ -33,6 +33,7 @@ namespace Assimp\Command\Verbs;
 
 use Assimp\Command\Result;
 use Assimp\ErrorCodes;
+use Assimp\Command\Result\Interfaces\ResultInterface;
 
 /**
  * Assimp DumpVerb
@@ -47,6 +48,11 @@ class DumpVerb extends AbstractVerb implements Interfaces\InputFileInterface, In
 
     /** @var string */
     protected $name = 'dump';
+
+    /** @var string */
+    protected $resultClass = '\Assimp\Command\Result\DumpResult';
+
+
 
 
     /**
@@ -151,46 +157,5 @@ class DumpVerb extends AbstractVerb implements Interfaces\InputFileInterface, In
             throw new \RuntimeException('Input-File is required', ErrorCodes::MISSING_VALUE);
         }
         return $this->normalizeCommand($this->getName().' '.$this->getFile().' '.$this->getOutputFile().' '.$this->getArguments(true).' '.$this->getParameters(true));
-    }
-
-
-    /**
-     * @see \Assimp\Command\Verbs\AbstractVerb::parseResult()
-     */
-    protected function parseResult(Result $result)
-    {
-        /**
-         * Cleanup Callback
-         *
-         * @param string $value
-         * @return string
-         */
-        $cleanup = function($value) {
-            return trim(str_replace(array('\'', ')'), '', $value));
-        };
-
-
-        $data = array();
-        $lines = $result->getOutput();
-        foreach ($lines as $i => $line) {
-            $line = trim($line);
-            if ($line) {
-                $parts = array();
-                if (preg_match('/^([\w\s\/]+)[\s\.:]+([\d]+|[\w]+|[\d]+\sB|\([\d\.\s-]+\))$/', $line, $parts)) {
-                    $key = preg_replace('/[^\d\w]+/', '_', strtolower(trim($parts[1])));
-                    $value = trim($parts[2]);
-                    $points = array();
-                    if (preg_match('/\(.+\)/', $value)) {
-                        $value = explode(' ', trim($value, '()'));
-                    }
-                } else if (preg_match('/^import took approx\.\s([\d\.]+)\s([\w]+)/', $line, $parts)) {
-                    $key = 'import_time';
-                    $value = $parts[1].' '.ucfirst($parts[2]);
-                }
-                $data[$key] = $value;
-            }
-        }
-        $result->setOutput($data)->setParsed();
-        return $this;
     }
 }

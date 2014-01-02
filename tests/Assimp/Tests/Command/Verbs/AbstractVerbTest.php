@@ -33,6 +33,8 @@ namespace Assimp\Tests\Command\Verbs;
 use Assimp\Command\Verbs\AbstractVerb;
 use Assimp\Command\CommandException;
 use Assimp\Command\Result;
+use Assimp\Command\Result\SimpleResult;
+use Assimp\Command\Result\VersionResult;
 
 
 /**
@@ -141,12 +143,12 @@ class AbstractVerbTest extends \PHPUnit_Framework_TestCase
      * @covers Assimp\Command\Verbs\AbstractVerb::setResult
      * @covers Assimp\Command\Verbs\AbstractVerb::getResult
      */
-    public function testSetGetResult()
+    public function testSetGetResultSuccess()
     {
-        $result1 = new Result();
+        $result1 = new SimpleResult();
         $result2 = $this->object->getResult();
 
-        $this->assertInstanceOf('\Assimp\Command\Result', $result2);
+        $this->assertInstanceOf('\Assimp\Command\Result\Interfaces\ResultInterface', $result2);
 
         $this->assertInstanceOf('\Assimp\Tests\Command\Verbs\AbstractVerbProxy', $this->object->setResult($result1));
         $this->assertNotSame($result2, $this->object->getResult());
@@ -154,4 +156,16 @@ class AbstractVerbTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf('\Assimp\Tests\Command\Verbs\AbstractVerbProxy', $this->object->setResult($result2));
         $this->assertSame($result2, $this->object->getResult());
     }
+
+
+
+    /**
+     * @covers Assimp\Command\Verbs\AbstractVerb::setResult
+     * @expectedException \InvaliadArgumentException
+     * @todo Implement test
+     */
+    /*public function testSetGetResultFailure()
+    {
+    	$this->object->setResult(new VersionResult());
+    }*/
 }

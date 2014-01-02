@@ -32,7 +32,7 @@
 namespace Assimp\Command\Verbs;
 
 use Assimp\ErrorCodes;
-use Assimp\Command\Result;
+use Assimp\Command\Result\Interfaces\ResultInterface;
 use Assimp\Command\CommandException;
 use Assimp\Command\Verbs\Container\ArgumentContainer;
 
@@ -51,6 +51,9 @@ abstract class AbstractVerb implements Interfaces\VerbInterface
 
     /** @var \Assimp\Command\Result */
     protected $result = null;
+
+    /** @var string */
+    protected $resultClass = '\Assimp\Command\Result\SimpleResult';
 
 
     /**
@@ -100,8 +103,11 @@ abstract class AbstractVerb implements Interfaces\VerbInterface
     /**
      * @see \Assimp\Command\Verbs\VerbInterface::setResult()
      */
-    public function setResult(Result $result)
+    public function setResult(ResultInterface $result)
     {
+    	if (!$result instanceof $this->resultClass) {
+    		throw new \InvalidArgumentException('Invalid result class: '.get_class($result), ErrorCodes::INVALID_VALUE);
+    	}
         $this->result = $result;
         return $this;
     }
@@ -113,9 +119,9 @@ abstract class AbstractVerb implements Interfaces\VerbInterface
     public function getResult()
     {
         if (!$this->result) {
-            $this->result = new Result($this);
+        	$class = $this->getResultClass();
+            $this->result = new $class($this);
         }
-        $this->parseResult($this->result);
         return $this->result;
     }
 
@@ -235,19 +241,6 @@ abstract class AbstractVerb implements Interfaces\VerbInterface
 
 
     /**
-     * Parse result if needed
-     *
-     * @param \Assimp\Command\Result $results
-     * @return \Assimp\Command\Verbs\VerbInterface
-     * @refactor Rethink result parsing
-     */
-    protected function parseResult(Result $result)
-    {
-        return $this;
-    }
-
-
-    /**
      * Normalize the command
      *
      * @param string $command
@@ -257,5 +250,16 @@ abstract class AbstractVerb implements Interfaces\VerbInterface
     {
         $command = preg_replace('/[\s]{2,}/', ' ', $command);
         return trim($command);
+    }
+
+
+    /**
+     * Get the classname of the result class
+     *
+     * @return string
+     */
+    public function getResultClass()
+    {
+        return $this->resultClass;
     }
 }

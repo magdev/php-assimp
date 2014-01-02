@@ -2,7 +2,7 @@
 /**
  * The MIT License (MIT)
  *
- * Copyright (c) 2013 Marco Graetsch <magdev3.0@gmail.com>
+ * Copyright (c) 2014 Marco Graetsch <magdev3.0@googlemail.com>
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -23,42 +23,63 @@
  * THE SOFTWARE.
  *
  * @author    magdev
- * @copyright 2013 Marco Graetsch <magdev3.0@gmail.com>
- * @package   php-assimp
+ * @copyright 2014 Marco Graetsch <magdev3.0@googlemail.com>
+ * @package
  * @license   http://opensource.org/licenses/MIT MIT License
  */
 
-namespace Assimp\Tests\Command\Verbs;
+namespace Assimp\Tests\Command\Result;
 
-use Assimp\Command\Verbs\VersionVerb;
+use Assimp\Command\Result\DumpResult;
 
 /**
- * Test for VersionVerb
+ * Test for Assimp DumpResult
  *
  * @author magdev
  */
-class VersionVerbTest extends \PHPUnit_Framework_TestCase
+class DumpResultTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @var \Assimp\Command\Verbs\VersionVerb
+     * @var \Assimp\Command\Result\DumpResult
      */
     protected $object;
 
-
     /**
-     * Setup
+     * @see PHPUnit_Framework_TestCase::setUp()
      */
     protected function setUp()
     {
-        $this->object = new VersionVerb();
+        $this->object = new DumpResult();
     }
 
 
     /**
-     * @covers Assimp\Command\Verbs\VersionVerb::getCacheKey
+     * @see PHPUnit_Framework_TestCase::tearDown()
      */
-    public function testGetCacheKey()
+    protected function tearDown()
     {
-        $this->assertEquals('version', $this->object->getCacheKey());
+    	$this->object = null;
+    }
+
+
+    /**
+     * @covers \Assimp\Command\Result\DumpResult::parse
+     */
+    public function testParse()
+    {
+    	$testdata = array(
+            'Launching asset import ...           OK',
+            'Validating postprocessing flags ...  OK',
+            'Importing file ...                   OK',
+            '   import took approx. 0.11398 seconds',
+            '',
+            'assimp dump: Wrote output dump Fuss2.assbin',
+        );
+
+        $result = $this->object->setOutput($testdata);
+
+        $this->assertArrayHasKey('launching_asset_import', $this->object->getOutput());
+        $this->assertArrayHasKey('importing_file', $this->object->getOutput());
+        $this->assertArrayHasKey('import_time', $this->object->getOutput());
     }
 }
