@@ -37,7 +37,7 @@ use Assimp\Command\Verbs\Interfaces\VerbInterface;
  *
  * @author magdev
  */
-final class Result
+final class Result implements \ArrayAccess
 {
     /** @var \Assimp\Command\Verbs\VerbInterface */
     private $verb = null;
@@ -173,6 +173,7 @@ final class Result
         return array_key_exists($line, $this->output) ? $this->output[$line] : null;
     }
 
+
     /**
      * Set the output array
      *
@@ -184,4 +185,45 @@ final class Result
         $this->output = $output;
         return $this;
     }
+
+
+    /**
+     * @see ArrayAccess::offsetExists()
+     */
+    public function offsetExists($offset)
+    {
+    	return isset($this->output[$offset]);
+    }
+
+
+    /**
+     * @see ArrayAccess::offsetGet()
+     */
+    public function offsetGet($offset)
+    {
+		return isset($this->output[$offset]) ? $this->output[$offset] : null;
+    }
+
+
+    /**
+     * @see ArrayAccess::offsetSet()
+     */
+    public function offsetSet($offset, $value)
+    {
+    	if (is_null($offset)) {
+    		$this->output[] = $value;
+    	} else {
+    		$this->output[$offset] = $value;
+    	}
+    }
+
+
+    /**
+     * @see ArrayAccess::offsetUnset()
+     */
+    public function offsetUnset($offset)
+    {
+		unset($this->output[$offset]);
+    }
+
 }
