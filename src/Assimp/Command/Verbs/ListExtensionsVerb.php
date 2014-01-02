@@ -62,7 +62,7 @@ class ListExtensionsVerb extends AbstractVerb implements Interfaces\CacheableInt
             $cleanup = function($value) {
                 return str_replace('*.', '', $value);
             };
-            $result->setOutput(array_map($cleanup, $extensions));
+            $result->setOutput(array_map($cleanup, $extensions))->setParsed();
         }
         return $this;
     }

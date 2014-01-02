@@ -86,9 +86,15 @@ class InfoVerb extends AbstractVerb implements Interfaces\CacheableInterface, In
     {
     	$lines = $result->getOutput();
 		if (!sizeof($lines)) {
-			return $result;
+			return $this;
 		}
 
+		/**
+		 * Cleanup Callback
+		 *
+		 * @param string $value
+		 * @return string
+		 */
     	$cleanup = function($value) {
     		return trim(str_replace(array('\'', ')'), '', $value));
     	};
@@ -118,7 +124,7 @@ class InfoVerb extends AbstractVerb implements Interfaces\CacheableInterface, In
 	    		$data[$key] = $value;
     		}
     	}
-    	$result->setOutput($data);
+    	$result->setOutput($data)->setParsed();
     	return $this;
     }
 }

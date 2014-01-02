@@ -159,16 +159,19 @@ class DumpVerb extends AbstractVerb implements Interfaces\InputFileInterface, In
      */
     protected function parseResult(Result $result)
     {
-    	$lines = $result->getOutput();
-    	if (!sizeof($lines)) {
-    		return $result;
-    	}
-
+    	/**
+		 * Cleanup Callback
+		 *
+		 * @param string $value
+		 * @return string
+    	 */
     	$cleanup = function($value) {
     		return trim(str_replace(array('\'', ')'), '', $value));
     	};
 
+
     	$data = array();
+    	$lines = $result->getOutput();
     	foreach ($lines as $i => $line) {
     		$line = trim($line);
     		if ($line) {
@@ -187,7 +190,7 @@ class DumpVerb extends AbstractVerb implements Interfaces\InputFileInterface, In
     			$data[$key] = $value;
     		}
     	}
-    	$result->setOutput($data);
+    	$result->setOutput($data)->setParsed();
     	return $this;
     }
 }

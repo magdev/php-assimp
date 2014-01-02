@@ -76,6 +76,21 @@ class ResultTest extends \PHPUnit_Framework_TestCase
 
 
     /**
+     * @covers Assimp\Command\Result::isExecuted
+     */
+    public function testIsExecuted()
+    {
+        $this->assertFalse($this->object->isExecuted());
+
+        $this->object->setExitCode(1);
+        $this->assertFalse($this->object->isExecuted());
+
+        $this->object->setOutput(array('a' => 'b'));
+        $this->assertTrue($this->object->isExecuted());
+    }
+
+
+    /**
      * @covers Assimp\Command\Result::isSuccess
      */
     public function testIsSuccess()
@@ -139,5 +154,17 @@ class ResultTest extends \PHPUnit_Framework_TestCase
 		unset($this->object['line2']);
 		$this->assertCount(1, $this->object);
 		$this->assertArrayNotHasKey('line2', $this->object);
+    }
+
+
+    /**
+     * @covers Assimp\Command\Result::setParsed
+     * @covers Assimp\Command\Result::isParsed
+     */
+    public function testSetIsParsed()
+    {
+    	$this->assertFalse($this->object->isParsed());
+    	$this->assertInstanceOf('\Assimp\Command\Result', $this->object->setParsed(true));
+    	$this->assertTrue($this->object->isParsed());
     }
 }

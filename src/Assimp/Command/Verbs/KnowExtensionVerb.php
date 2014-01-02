@@ -68,8 +68,7 @@ class KnowExtensionVerb extends AbstractVerb
         $result->setOutput(array(
         	'format' => $this->getFormat(),
         	'known' => (boolean) $known,
-        ));
+        ))->setParsed();
         return $this;
     }
-
 }

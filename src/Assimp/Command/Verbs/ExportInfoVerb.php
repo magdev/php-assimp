@@ -78,7 +78,7 @@ class ExportInfoVerb extends AbstractVerb implements Interfaces\CacheableInterfa
     	    'extension' => $result->getOutputLine(1),
     	    'name' => $result->getOutputLine(2),
     	);
-    	$result->setOutput($data);
+    	$result->setOutput($data)->setParsed();
     	return $this;
     }
 }
