@@ -46,6 +46,9 @@ class ExportInfoVerb extends AbstractVerb implements Interfaces\CacheableInterfa
     /** @var string */
     protected $name = 'exportinfo';
 
+    /** @var string */
+    protected $resultClass = '\Assimp\Command\Result\ExportInfoResult';
+
 
     /**
      * @see \Assimp\Command\Verbs\CacheableVerbInterface::getCacheKey()

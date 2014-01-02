@@ -161,11 +161,10 @@ class AbstractVerbTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers Assimp\Command\Verbs\AbstractVerb::setResult
-     * @expectedException \InvaliadArgumentException
-     * @todo Implement test
+     * @expectedException \InvalidArgumentException
      */
-    /*public function testSetGetResultFailure()
+    public function testSetGetResultFailure()
     {
     	$this->object->setResult(new VersionResult());
-    }*/
+    }
 }

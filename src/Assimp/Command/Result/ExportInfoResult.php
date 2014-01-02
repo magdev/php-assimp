@@ -2,7 +2,7 @@
 /**
  * The MIT License (MIT)
  *
- * Copyright (c) 2013 Marco Graetsch <magdev3.0@gmail.com>
+ * Copyright (c) 2014 Marco Graetsch <magdev3.0@googlemail.com>
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -23,55 +23,38 @@
  * THE SOFTWARE.
  *
  * @author    magdev
- * @copyright 2013 Marco Graetsch <magdev3.0@gmail.com>
- * @package   php-assimp
+ * @copyright 2014 Marco Graetsch <magdev3.0@googlemail.com>
+ * @package
  * @license   http://opensource.org/licenses/MIT MIT License
  */
 
-namespace Assimp\Tests\Command\Verbs;
-
-use Assimp\Command\Verbs\ExportInfoVerb;
+namespace Assimp\Command\Result;
 
 /**
- * Test for ExportInfoVerb
+ * Result class for ExportInfoVerb
  *
  * @author magdev
  */
-class ExportInfoVerbTest extends \PHPUnit_Framework_TestCase
+class ExportInfoResult extends AbstractResult
 {
     /**
-     * @var \Assimp\Command\Verbs\ExportInfoVerb
+     * @see \Assimp\Command\Result\AbstractResult::parse()
      */
-    protected $object;
-
-
-    /**
-     * @see PHPUnit_Framework_TestCase::setUp()
-     */
-    protected function setUp()
+    protected function parse()
     {
-        $this->object = new ExportInfoVerb();
-    }
+    	if ($this->isParsed()) {
+    		return $this;
+    	}
 
-
-    /**
-     * @see PHPUnit_Framework_TestCase::tearDown()
-     */
-    protected function tearDown()
-    {
-    	$this->object = null;
-    }
-
-
-    /**
-     * @covers Assimp\Command\Verbs\InfoVerb::getFormat
-     * @covers Assimp\Command\Verbs\InfoVerb::setFormat
-     * @covers Assimp\Command\Verbs\InfoVerb::getCacheKey
-     */
-    public function testGetSetFormat()
-    {
-        $this->object->setFormat('stl');
-        $this->assertEquals('stl', $this->object->getFormat());
-        $this->assertEquals('exportinfostl', $this->object->getCacheKey());
+    	if ($this->count() === 3) {
+	    	$data = array(
+	    	    'format' => $this->getOutputLine(0),
+	    		'extension' => $this->getOutputLine(1),
+	    		'name' => $this->getOutputLine(2),
+	    	);
+			$this->parsed = true;
+			$this->setOutput($data);
+    	}
+    	return $this;
     }
 }

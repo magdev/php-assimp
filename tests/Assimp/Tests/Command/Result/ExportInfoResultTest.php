@@ -2,7 +2,7 @@
 /**
  * The MIT License (MIT)
  *
- * Copyright (c) 2013 Marco Graetsch <magdev3.0@gmail.com>
+ * Copyright (c) 2014 Marco Graetsch <magdev3.0@googlemail.com>
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -23,34 +23,33 @@
  * THE SOFTWARE.
  *
  * @author    magdev
- * @copyright 2013 Marco Graetsch <magdev3.0@gmail.com>
- * @package   php-assimp
+ * @copyright 2014 Marco Graetsch <magdev3.0@googlemail.com>
+ * @package
  * @license   http://opensource.org/licenses/MIT MIT License
  */
 
-namespace Assimp\Tests\Command\Verbs;
+namespace Assimp\Tests\Command\Result;
 
-use Assimp\Command\Verbs\ExportInfoVerb;
+use Assimp\Command\Result\ExportInfoResult;
 
 /**
- * Test for ExportInfoVerb
+ * Test for Assimp ExportInfoResult
  *
  * @author magdev
  */
-class ExportInfoVerbTest extends \PHPUnit_Framework_TestCase
+class ExportInfoResultTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @var \Assimp\Command\Verbs\ExportInfoVerb
+     * @var \Assimp\Command\Result\ExportInfoResult
      */
     protected $object;
-
 
     /**
      * @see PHPUnit_Framework_TestCase::setUp()
      */
     protected function setUp()
     {
-        $this->object = new ExportInfoVerb();
+        $this->object = new ExportInfoResult();
     }
 
 
@@ -64,14 +63,21 @@ class ExportInfoVerbTest extends \PHPUnit_Framework_TestCase
 
 
     /**
-     * @covers Assimp\Command\Verbs\InfoVerb::getFormat
-     * @covers Assimp\Command\Verbs\InfoVerb::setFormat
-     * @covers Assimp\Command\Verbs\InfoVerb::getCacheKey
+     * @covers \Assimp\Command\Result\ExportInfoResult::parse
      */
-    public function testGetSetFormat()
+    public function testParse()
     {
-        $this->object->setFormat('stl');
-        $this->assertEquals('stl', $this->object->getFormat());
-        $this->assertEquals('exportinfostl', $this->object->getCacheKey());
+    	$testdata = array(
+    		'stl',
+    		'stl',
+    		'Stereolithography',
+    	);
+
+    	$result = $this->object->setOutput($testdata);
+
+    	$this->assertArrayHasKey('format', $this->object->getOutput());
+    	$this->assertArrayHasKey('extension', $this->object->getOutput());
+    	$this->assertArrayHasKey('name', $this->object->getOutput());
     }
+
 }
