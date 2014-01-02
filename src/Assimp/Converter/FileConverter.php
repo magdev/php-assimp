@@ -34,7 +34,6 @@ namespace Assimp\Converter;
 use Assimp\ErrorCodes;
 use Assimp\Command\Command;
 use Assimp\Command\Verbs\ExportVerb;
-use Assimp\Command\Verbs\VerbInterface;
 
 
 /**
@@ -44,7 +43,7 @@ use Assimp\Command\Verbs\VerbInterface;
  */
 final class FileConverter
 {
-    /** \Assimp\Command\Verbs\VerbInterface */
+    /** \Assimp\Command\Verbs\ExportVerb */
     private $verb = null;
 
     /** \Assimp\Command\Command */
