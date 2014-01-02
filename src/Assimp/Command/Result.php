@@ -184,17 +184,4 @@ final class Result
         $this->output = $output;
         return $this;
     }
-
-
-    /**
-     * Add a line to the output array
-     *
-     * @param string $line
-     * @return \Assimp\Command\Result
-     */
-    public function addOutput($line)
-    {
-        $this->output[] = (string) $line;
-        return $this;
-    }
 }
