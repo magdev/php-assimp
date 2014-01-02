@@ -259,7 +259,7 @@ abstract class AbstractVerb implements VerbInterface
      * @param \Assimp\Command\Result $results
      * @return \Assimp\Command\Verbs\VerbInterface
      */
-    public function parseResult(Result $result)
+    protected function parseResult(Result $result)
     {
         return $this;
     }
