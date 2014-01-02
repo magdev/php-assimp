@@ -64,13 +64,13 @@ class ExportResult extends AbstractResult
             	$value = null;
                 $parts = array();
 
-                if (preg_match('/^assimp export\:\sselect\sfile\sformat\:\s\'([\w\d]+)\'\s\(([^\)]+)\)/', $line, $parts)) {
+                if (preg_match('/^assimp\sexport\:\sselect\sfile\sformat\:\s\'([\w\d]+)\'\s\(([^\)]+)\)/', $line, $parts)) {
                 	$key = 'output_format';
                 	$value = array(
                 	    'extension' => trim($parts[1]),
                 		'name' => trim($parts[2]),
                 	);
-                } else if (preg_match('/^assimp export\:\swrote\soutput\sfile\:\s(.+)$/', $line, $parts)) {
+                } else if (preg_match('/^assimp\sexport\:\swrote\soutput\sfile\:\s(.+)$/', $line, $parts)) {
                 	$key = 'output_file';
                 	$value = trim($parts[1]);
                 } else if (preg_match('/^([\w\s\/]+)[\s\.:]+([\d]+|[\w]+|[\d]+\sB|\([\d\.\s-]+\))$/', $line, $parts)) {
