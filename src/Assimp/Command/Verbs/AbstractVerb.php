@@ -41,7 +41,7 @@ use Assimp\Command\Verbs\Container\ParameterContainer;
  *
  * @author magdev
  */
-abstract class AbstractVerb implements VerbInterface
+abstract class AbstractVerb implements Interfaces\VerbInterface
 {
     /** @var string */
     protected $name = null;

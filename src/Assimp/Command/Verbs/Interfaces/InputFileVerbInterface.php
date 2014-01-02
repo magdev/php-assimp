@@ -2,7 +2,7 @@
 /**
  * The MIT License (MIT)
  *
- * Copyright (c) 2013 Marco Graetsch <magdev3.0@gmail.com>
+ * Copyright (c) 2013 Marco Graetsch <magdev3.0@googlemail.com>
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -23,54 +23,35 @@
  * THE SOFTWARE.
  *
  * @author    magdev
- * @copyright 2013 Marco Graetsch <magdev3.0@gmail.com>
- * @package   php-assimp
+ * @copyright 2013 Marco Graetsch <magdev3.0@googlemail.com>
+ * @package
  * @license   http://opensource.org/licenses/MIT MIT License
  */
 
-namespace Assimp\Command\Verbs;
-
-use Assimp\Command\CommandException;
-use Assimp\Command\Result;
+namespace Assimp\Command\Verbs\Interfaces;
 
 
 /**
- * Interface for Assimp-Verbs
+ * Interface for verbs using input files
  *
  * @author magdev
  */
-interface VerbInterface
+interface InputFileVerbInterface
 {
     /**
-     * Get the name of the verb
+     * Set the input file
+     *
+     * @param string $file
+     * @throws \InvalidArgumentException
+     * @return \Assimp\Command\Verbs\InputFileVerbInterface
+     */
+    public function setFile($file);
+
+
+    /**
+     * Get the input file
      *
      * @return string
      */
-    public function getName();
-
-
-    /**
-     * Get the entire argument string
-     *
-     * @return string
-     * @throws \RuntimeException
-     */
-    public function getCommand();
-
-
-    /**
-     * Set the results of the command
-     *
-     * @param \Assimp\Command\Result $results
-     * @return \Assimp\Command\Verbs\VerbInterface
-     */
-    public function setResult(Result $result);
-
-
-    /**
-     * Get the results
-     *
-     * @return \Assimp\Command\Result
-     */
-    public function getResult();
+    public function getFile();
 }

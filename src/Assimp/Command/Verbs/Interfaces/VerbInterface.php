@@ -28,20 +28,49 @@
  * @license   http://opensource.org/licenses/MIT MIT License
  */
 
-namespace Assimp\Command\Verbs;
+namespace Assimp\Command\Verbs\Interfaces;
+
+use Assimp\Command\CommandException;
+use Assimp\Command\Result;
 
 
 /**
- * Interface for cacheable Assimp-Verbs
+ * Interface for Assimp-Verbs
  *
  * @author magdev
  */
-interface CacheableVerbInterface
+interface VerbInterface
 {
     /**
-     * Get the key for the cache-index
+     * Get the name of the verb
      *
      * @return string
      */
-    public function getCacheKey();
+    public function getName();
+
+
+    /**
+     * Get the entire argument string
+     *
+     * @return string
+     * @throws \RuntimeException
+     */
+    public function getCommand();
+
+
+    /**
+     * Set the results of the command
+     *
+     * @param \Assimp\Command\Result $results
+     * @return \Assimp\Command\Verbs\VerbInterface
+     */
+    public function setResult(Result $result);
+
+
+    /**
+     * Get the results
+     *
+     * @return \Assimp\Command\Result
+     */
+    public function getResult();
 }

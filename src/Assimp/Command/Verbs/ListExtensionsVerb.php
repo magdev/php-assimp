@@ -37,7 +37,7 @@ use Assimp\Command\Result;
  *
  * @author magdev
  */
-class ListExtensionsVerb extends AbstractVerb implements CacheableVerbInterface
+class ListExtensionsVerb extends AbstractVerb implements Interfaces\CacheableVerbInterface
 {
     /** @var string */
     protected $name = 'listext';

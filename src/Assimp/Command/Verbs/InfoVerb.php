@@ -38,7 +38,7 @@ use Assimp\Command\Result;
  *
  * @author magdev
  */
-class InfoVerb extends AbstractVerb implements CacheableVerbInterface, InputFileVerbInterface
+class InfoVerb extends AbstractVerb implements Interfaces\CacheableVerbInterface, Interfaces\InputFileVerbInterface
 {
 	use Traits\InputFileTrait;
 

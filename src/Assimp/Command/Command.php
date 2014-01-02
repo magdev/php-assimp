@@ -32,8 +32,8 @@
 namespace Assimp\Command;
 
 use Assimp\ErrorCodes;
-use Assimp\Command\Verbs\VerbInterface;
-use Assimp\Command\Verbs\CacheableVerbInterface;
+use Assimp\Command\Verbs\Interfaces\VerbInterface;
+use Assimp\Command\Verbs\Interfaces\CacheableVerbInterface;
 
 /**
  * Assimp Command

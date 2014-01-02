@@ -40,7 +40,7 @@ use Assimp\ErrorCodes;
  *
  * @author magdev
  */
-class DumpVerb extends AbstractVerb implements InputFileVerbInterface
+class DumpVerb extends AbstractVerb implements Interfaces\InputFileVerbInterface
 {
 	use Traits\InputFileTrait;
 	use Traits\OutputFileTrait;

@@ -40,7 +40,7 @@ use Assimp\Command\Result;
  *
  * @author magdev
  */
-class VersionVerb extends AbstractVerb implements CacheableVerbInterface
+class VersionVerb extends AbstractVerb implements Interfaces\CacheableVerbInterface
 {
     /** @var string */
     protected $name = 'version';

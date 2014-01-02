@@ -30,7 +30,7 @@
 
 namespace Assimp\Command;
 
-use Assimp\Command\Verbs\VerbInterface;
+use Assimp\Command\Verbs\Interfaces\VerbInterface;
 
 /**
  * Assimp Command Result

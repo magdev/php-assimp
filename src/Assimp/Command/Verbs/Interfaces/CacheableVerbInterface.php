@@ -2,7 +2,7 @@
 /**
  * The MIT License (MIT)
  *
- * Copyright (c) 2013 Marco Graetsch <magdev3.0@googlemail.com>
+ * Copyright (c) 2013 Marco Graetsch <magdev3.0@gmail.com>
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -23,35 +23,25 @@
  * THE SOFTWARE.
  *
  * @author    magdev
- * @copyright 2013 Marco Graetsch <magdev3.0@googlemail.com>
- * @package
+ * @copyright 2013 Marco Graetsch <magdev3.0@gmail.com>
+ * @package   php-assimp
  * @license   http://opensource.org/licenses/MIT MIT License
  */
 
-namespace Assimp\Command\Verbs;
+namespace Assimp\Command\Verbs\Interfaces;
 
 
 /**
- * Interface for verbs using input files
+ * Interface for cacheable Assimp-Verbs
  *
  * @author magdev
  */
-interface InputFileVerbInterface
+interface CacheableVerbInterface
 {
     /**
-     * Set the input file
-     *
-     * @param string $file
-     * @throws \InvalidArgumentException
-     * @return \Assimp\Command\Verbs\InputFileVerbInterface
-     */
-    public function setFile($file);
-
-
-    /**
-     * Get the input file
+     * Get the key for the cache-index
      *
      * @return string
      */
-    public function getFile();
+    public function getCacheKey();
 }
