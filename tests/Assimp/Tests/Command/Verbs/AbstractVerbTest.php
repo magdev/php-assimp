@@ -107,7 +107,7 @@ class AbstractVerbTest extends \PHPUnit_Framework_TestCase
         $this->assertArrayHasKey('var1', $this->object->getArguments());
         $this->assertArrayHasKey('var2', $this->object->getArguments());
 
-        $this->assertEquals('--var1=val1 --var2=val2', $this->object->getArguments(true));
+        $this->assertEquals('-var1val1 -var2val2', $this->object->getArguments(true));
     }
 
 

@@ -34,7 +34,7 @@ namespace Assimp\Command\Verbs;
 use Assimp\ErrorCodes;
 use Assimp\Command\Result;
 use Assimp\Command\CommandException;
-use Assimp\Command\Verbs\Container\ParameterContainer;
+use Assimp\Command\Verbs\Container\ArgumentContainer;
 
 /**
  * Abstract Verb-Class
@@ -61,7 +61,7 @@ abstract class AbstractVerb implements Interfaces\VerbInterface
      */
     public function __construct($file = null, array $arguments = null)
     {
-        $this->arguments = new ParameterContainer();
+        $this->arguments = new ArgumentContainer();
 
         if (is_string($file)) {
             $this->setFile($file);
