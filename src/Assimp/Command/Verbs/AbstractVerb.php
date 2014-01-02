@@ -50,7 +50,7 @@ abstract class AbstractVerb implements Interfaces\VerbInterface
     protected $arguments = array();
 
     /** @var \Assimp\Command\Result */
-    protected $result = array();
+    protected $result = null;
 
 
     /**
