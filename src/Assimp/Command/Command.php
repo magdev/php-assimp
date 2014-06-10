@@ -118,7 +118,7 @@ final class Command
             }
 
             if (!$this->bin) {
-                throw new \RuntimeException('assimp-binary not found in '.explode(', ', $paths), ErrorCodes::FILE_NOT_FOUND);
+                throw new \RuntimeException('assimp-binary not found in '.implode(', ', $paths), ErrorCodes::FILE_NOT_FOUND);
             }
 
             if (!is_executable($this->bin)) {
