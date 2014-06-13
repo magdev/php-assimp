@@ -1,31 +1,36 @@
 {
-    "minimum-stability": "dev",
-    "name": "magdev/php-assimp",
-    "description": "PHP Wrapper for Assimp - the Open Asset Import Library",
-    "keywords": ["3d", "converter", "assimp", "cad"],
-    "license": "MIT",
-    "authors": [
-        {
-            "name": "Marco Graetsch",
-            "email": "magdev3.0@gmail.com"
-        }
-    ],
-    "require": {
-        "php": ">=5.4.0"
-    },
-    "require-dev": {
-        "phpunit/phpunit": "3.8.*@dev"
-    },
-    "suggest": {
-        "magdev/php-assimp-validator": "Extension for the Symfony2 validator component"
-    },
-    "autoload": {
-        "psr-0": { "Assimp": "src/" }
-    },
-    "repositories": [
-        {
-            "type": "vcs",
-            "url": "git@bitbucket.org:magdev/php-assimp-validator.git"
-        }
-    ]
+	"minimum-stability" : "dev",
+	"name" : "magdev/php-assimp",
+	"description" : "PHP Wrapper for Assimp - the Open Asset Import Library",
+	"keywords" : [
+		"3d",
+		"converter",
+		"assimp",
+		"cad"
+	],
+	"license" : "MIT",
+	"authors" : [{
+			"name" : "Marco Graetsch",
+			"email" : "magdev3.0@gmail.com"
+		}
+	],
+	"require" : {
+		"php" : ">=5.4.0"
+	},
+	"require-dev" : {
+		"phpunit/phpunit" : "4.3.*@dev"
+	},
+	"suggest" : {
+		"magdev/php-assimp-validator" : "Extension for the Symfony2 validator component"
+	},
+	"autoload" : {
+		"psr-0" : {
+			"Assimp" : "src/"
+		}
+	},
+	"repositories" : [{
+			"type" : "vcs",
+			"url" : "git@bitbucket.org:magdev/php-assimp-validator.git"
+		}
+	]
 }
