@@ -86,7 +86,7 @@ final class Command
 
             $output = array();
             $exitCode = null;
-            exec($command, $output, $exitCode);
+            exec(escapeshellcmd($command), $output, $exitCode);
 
             $result->setExitCode($exitCode)
                 ->setOutput($output);
