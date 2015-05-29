@@ -90,17 +90,17 @@ abstract class AbstractVerb implements Interfaces\VerbInterface
      */
     public function getCommand()
     {
-        if ($this instanceof InputFileInterface && !$this->getFile()) {
-             throw new \RuntimeException('Input-File is required', ErrorCodes::MISSING_VALUE);
-        }
-        $file = null;
-        if($this instanceof InputFileInterface) {
-          $file = ' '.$this->getFile().' ';
-        }
-        if ($this instanceof OutputFileInterface && !$this->getOutputFile()) {
-             throw new \RuntimeException('Output-File is required', ErrorCodes::MISSING_VALUE);
-        }
-        return $this->normalizeCommand($this->getName().$file.$this->getArguments(true));
+         $file = null;
+         if (in_array('Assimp\Command\Verbs\Interfaces\InputFileInterface', class_implements($this))) {
+              if(!$this->getFile()) {
+                   throw new \RuntimeException('Input-File is required', ErrorCodes::MISSING_VALUE);
+              }
+              $file = $this->getFile().' ';
+         }
+         if (in_array('Assimp\Command\Verbs\Interfaces\OutputFileInterface', class_implements($this))) {
+              throw new \RuntimeException('Output-File is required', ErrorCodes::MISSING_VALUE);
+         }
+         return $this->normalizeCommand($this->getName().' '.$file.$this->getArguments(true));
     }
 
 
