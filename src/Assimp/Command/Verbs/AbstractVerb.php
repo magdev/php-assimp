@@ -100,7 +100,7 @@ abstract class AbstractVerb implements Interfaces\VerbInterface
         if ($this instanceof OutputFileInterface && !$this->getOutputFile()) {
              throw new \RuntimeException('Output-File is required', ErrorCodes::MISSING_VALUE);
         }
-        return $this->normalizeCommand($this->getName().' '.$file.' '.$this->getArguments(true));
+        return $this->normalizeCommand($this->getName().$file.$this->getArguments(true));
     }
 
 
