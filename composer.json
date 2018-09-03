@@ -21,7 +21,7 @@
 		"phpunit/phpunit" : "6.4.*"
 	},
 	"suggest" : {
-		"magdev/php-assimp-validator" : "Extension for the Symfony2 validator component"
+		"magdev/php-assimp-validator" : "Extension for the Symfony Validator component"
 	},
 	"autoload" : {
 		"psr-4" : {
