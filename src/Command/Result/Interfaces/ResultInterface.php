@@ -47,7 +47,7 @@ interface ResultInterface
      *
      * @return boolean
      */
-    public function isExecuted();
+    public function isExecuted(): bool;
 
 
     /**
@@ -55,16 +55,16 @@ interface ResultInterface
      *
      * @return boolean
      */
-    public function isSuccess();
+    public function isSuccess(): bool;
 
 
     /**
      * Set the exit-code
      *
      * @param int $exitCode
-     * @return \Assimp\Command\Result
+     * @return \Assimp\Command\Result\Interfaces\ResultInterface
      */
-    public function setExitCode($exitCode);
+    public function setExitCode(int $exitCode): ResultInterface;
 
 
     /**
@@ -72,7 +72,7 @@ interface ResultInterface
      *
      * @return int
      */
-    public function getExitCode();
+    public function getExitCode(): int;
 
 
     /**
@@ -80,16 +80,16 @@ interface ResultInterface
      *
      * @return string
      */
-    public function getCommand();
+    public function getCommand(): string;
 
 
     /**
      * Set the executed command
      *
      * @param string $command
-     * @return \Assimp\Command\Result
+     * @return \Assimp\Command\Result\Interfaces\ResultInterface
      */
-    public function setCommand($command);
+    public function setCommand(string $command): ResultInterface;
 
 
     /**
@@ -97,16 +97,16 @@ interface ResultInterface
      *
      * @return \Assimp\Command\Verbs\Interfaces\VerbInterface
      */
-    public function getVerb();
+    public function getVerb(): VerbInterface;
 
 
     /**
      * Set the verb
      *
      * @param \Assimp\Command\Verbs\Interfaces\VerbInterface $verb
-     * @return \Assimp\Command\Result
+     * @return \Assimp\Command\Result\Interfaces\ResultInterface
      */
-    public function setVerb(VerbInterface $verb);
+    public function setVerb(VerbInterface $verb): ResultInterface;
 
 
     /**
@@ -115,16 +115,16 @@ interface ResultInterface
      * @param string|null $glue
      * @return string|array
      */
-    public function getOutput($glue = null);
+    public function getOutput(sting $glue = null);
 
 
     /**
      * Set the output array
      *
      * @param array $output
-     * @return \Assimp\Command\Result
+     * @return \Assimp\Command\Result\Interfaces\ResultInterface
      */
-    public function setOutput(array $output);
+    public function setOutput(array $output): ResultInterface;
 
 
     /**
@@ -133,5 +133,5 @@ interface ResultInterface
      * @param int|string $line
      * @return string|null
      */
-    public function getOutputLine($line);
+    public function getOutputLine(int $line): string;
 }

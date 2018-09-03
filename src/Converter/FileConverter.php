@@ -34,6 +34,7 @@ namespace Assimp\Converter;
 use Assimp\ErrorCodes;
 use Assimp\Command\Command;
 use Assimp\Command\Verbs\ExportVerb;
+use Assimp\Command\Result\ExportResult;
 
 
 /**
@@ -55,7 +56,7 @@ final class FileConverter
      *
      * @param string $inputFile
      */
-    public function __construct($inputFile = null, array $arguments = null)
+    public function __construct(string $inputFile = null, array $arguments = null)
     {
         if (!is_null($inputFile)) {
             $this->getVerb()->setFile($inputFile);
@@ -72,10 +73,10 @@ final class FileConverter
      * @param string $outputFile
      * @param string $format
      * @param array $params
-     * @return \Assimp\Converter\Result
+     * @return \Assimp\Command\Result\ExportResult
      * @throws \Assimp\Converter\ConverterException
      */
-    public function convert($outputFile, $format, array $params = array())
+    public function convert(string $outputFile, string $format, array $params = array()): ExportResult
     {
         try {
             $this->getVerb()->setOutputFile($outputFile)
@@ -101,7 +102,7 @@ final class FileConverter
      *
      * @return \Assimp\Command\Verbs\ExportVerb
      */
-    public function getVerb()
+    public function getVerb(): ExportVerb
     {
         if (!$this->verb) {
             $this->verb = new ExportVerb();
@@ -116,7 +117,7 @@ final class FileConverter
      * @param \Assimp\Command\Verbs\ExportVerb $verb
      * @return \Assimp\Converter\FileConverter
      */
-    public function setVerb(ExportVerb $verb)
+    public function setVerb(ExportVerb $verb): FileConverter
     {
         $this->verb = $verb;
         return $this;
@@ -128,7 +129,7 @@ final class FileConverter
      *
      * @return \Assimp\Command\Command
      */
-    public static function getCommand()
+    public static function getCommand(): Command
     {
         if (is_null(self::$exec)) {
             self::$exec = new Command();
@@ -142,7 +143,7 @@ final class FileConverter
      *
      * @param string $bin
      */
-    public static function setBinary($bin)
+    public static function setBinary(string $bin): void
     {
         self::getCommand()->setBinary($bin);
     }

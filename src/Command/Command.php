@@ -54,7 +54,7 @@ final class Command
      *
      * @param string|null $bin Path to the assimp executable
      */
-    public function __construct($bin = null)
+    public function __construct(string $bin = null)
     {
         if (is_string($bin)) {
             $this->setBinary($bin);
@@ -67,10 +67,10 @@ final class Command
      *
      * @param \Assimp\Command\Verbs\VerbInterface $verb
      * @param boolean $noCache Set to true to skip caching
-     * @return \Assimp\Command\Result
+     * @return \Assimp\Command\ResultInterface
      * @throws \Assimp\Command\CommandException
      */
-    public function execute(VerbInterface $verb, $noCache = false)
+    public function execute(VerbInterface $verb, bool $noCache = false): ResultInterface
     {
         try {
             if ($verb instanceof CacheableInterface && !$noCache) {
@@ -107,7 +107,7 @@ final class Command
      * @return string
      * @throws \RuntimeException
      */
-    public function getBinary()
+    public function getBinary(): string
     {
         if (is_null($this->bin)) {
             $paths = array('/usr/bin/assimp', '/usr/local/bin/assimp', '~/bin/assimp');
@@ -136,7 +136,7 @@ final class Command
      * @throws \InvalidArgumentException
      * @return \Assimp\Command\Command
      */
-    public function setBinary($bin)
+    public function setBinary(string $bin): Command
     {
         if (!is_file($bin)) {
             throw new \InvalidArgumentException('Binary file not exists: '.$bin, ErrorCodes::FILE_NOT_FOUND);
@@ -155,7 +155,7 @@ final class Command
      * @param \Assimp\Command\Verbs\Interfaces\CacheableInterface $verb
      * @return \Assimp\Command\Result\Interfaces\ResultInterface|null
      */
-    private static function getCached(CacheableInterface $verb)
+    private static function getCached(CacheableInterface $verb): ResultInterface
     {
         $key = $verb->getCacheKey();
         if (array_key_exists($key, self::$cache)) {
@@ -172,7 +172,7 @@ final class Command
      * @param \Assimp\Command\Result\Interfaces\ResultInterface $result
      * @return void
      */
-    private static function addCached(CacheableInterface $verb, ResultInterface $result)
+    private static function addCached(CacheableInterface $verb, ResultInterface $result): void
     {
         self::$cache[$verb->getCacheKey()] = $result;
     }

@@ -74,7 +74,7 @@ final class Result implements \ArrayAccess, \Countable, ResultInterface
      *
      * @return boolean
      */
-    public function isExecuted()
+    public function isExecuted(): bool
     {
         return $this->getExitCode() !== null && $this->count();
     }
@@ -86,7 +86,7 @@ final class Result implements \ArrayAccess, \Countable, ResultInterface
      * @param int $exitCode
      * @return \Assimp\Command\Result
      */
-    public function setExitCode($exitCode)
+    public function setExitCode(int $exitCode): Result
     {
         $this->exitCode = (int) $exitCode;
         return $this;
@@ -98,7 +98,7 @@ final class Result implements \ArrayAccess, \Countable, ResultInterface
      *
      * @return int
      */
-    public function getExitCode()
+    public function getExitCode(): int
     {
         return $this->exitCode;
     }
@@ -109,7 +109,7 @@ final class Result implements \ArrayAccess, \Countable, ResultInterface
      *
      * @return boolean
      */
-    public function isSuccess()
+    public function isSuccess(): bool
     {
         return !is_null($this->exitCode) && $this->exitCode === 0;
     }
@@ -120,7 +120,7 @@ final class Result implements \ArrayAccess, \Countable, ResultInterface
      *
      * @return string
      */
-    public function getCommand()
+    public function getCommand(): string
     {
         return $this->command;
     }
@@ -132,7 +132,7 @@ final class Result implements \ArrayAccess, \Countable, ResultInterface
      * @param string $command
      * @return \Assimp\Command\Result
      */
-    public function setCommand($command)
+    public function setCommand(string $command): Result
     {
         $this->command = (string) $command;
         return $this;
@@ -143,7 +143,7 @@ final class Result implements \ArrayAccess, \Countable, ResultInterface
      *
      * @return \Assimp\Command\Verbs\VerbInterface
      */
-    public function getVerb()
+    public function getVerb(): VerbInterface
     {
         return $this->verb;
     }
@@ -155,7 +155,7 @@ final class Result implements \ArrayAccess, \Countable, ResultInterface
      * @param \Assimp\Command\Verbs\VerbInterface $verb
      * @return \Assimp\Command\Result
      */
-    public function setVerb(VerbInterface $verb)
+    public function setVerb(VerbInterface $verb): Result
     {
         $this->verb = $verb;
         return $this;
@@ -168,7 +168,7 @@ final class Result implements \ArrayAccess, \Countable, ResultInterface
      * @param string|null $glue
      * @return string|array
      */
-    public function getOutput($glue = null)
+    public function getOutput(string $glue = null)
     {
         if (!is_null($glue)) {
             return implode($glue, $this->output);
@@ -183,7 +183,7 @@ final class Result implements \ArrayAccess, \Countable, ResultInterface
      * @param int $line
      * @return string|null
      */
-    public function getOutputLine($line)
+    public function getOutputLine(int $line): string
     {
         return array_key_exists($line, $this->output) ? $this->output[$line] : null;
     }
@@ -195,7 +195,7 @@ final class Result implements \ArrayAccess, \Countable, ResultInterface
      * @param array $output
      * @return \Assimp\Command\Result
      */
-    public function setOutput(array $output)
+    public function setOutput(array $output): Result
     {
         $this->output = $output;
         return $this;
@@ -256,7 +256,7 @@ final class Result implements \ArrayAccess, \Countable, ResultInterface
      *
      * @return boolean
      */
-    public function isParsed()
+    public function isParsed(): bool
     {
         return $this->parsed;
     }
@@ -268,7 +268,7 @@ final class Result implements \ArrayAccess, \Countable, ResultInterface
      * @param boolean $parsed
      * @return \Assimp\Command\Result
      */
-    public function setParsed($parsed = true)
+    public function setParsed(bool $parsed = true): Result
     {
         $this->parsed = (boolean) $parsed;
         return $this;
